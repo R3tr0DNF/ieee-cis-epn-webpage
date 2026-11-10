@@ -2,284 +2,371 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Rama Estudiantil IEEE de la Escuela Politécnica Nacional (EPN), Quito, Ecuador. Talleres, proyectos, eventos y comunidad para estudiantes de ingeniería y tecnología." />
-  <title>IEEE Student Branch EPN | Rama Estudiantil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Rama Estudiantil IEEE de la Escuela Politécnica Nacional (EPN), Quito, Ecuador. Capítulos técnicos, talleres, proyectos, eventos y comunidad para estudiantes de ingeniería y tecnología." />
+  <title>Inicio | IEEE Student Branch EPN</title>
 
-  <meta name="theme-color" content="#002855" />
+  <meta name="theme-color" content="#001431" />
   <meta name="author" content="IEEE Student Branch EPN" />
 
-  <!-- Vista previa al compartir en redes (la imagen y la URL se agregan al tener dominio) -->
+  <!-- Íconos -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/web/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/img/web/favicon-180.png" />
+
+  <!-- Vista previa al compartir (PENDIENTE: og:url y og:image absolutos al tener el dominio ieee.org) -->
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_EC" />
   <meta property="og:site_name" content="IEEE Student Branch EPN" />
   <meta property="og:title" content="IEEE Student Branch EPN | Rama Estudiantil" />
-  <meta property="og:description" content="Rama Estudiantil IEEE de la Escuela Politécnica Nacional, Quito, Ecuador. Talleres, proyectos, eventos y comunidad." />
+  <meta property="og:description" content="Rama Estudiantil IEEE de la Escuela Politécnica Nacional, Quito, Ecuador. Capítulos técnicos, talleres, proyectos y comunidad." />
+  <meta property="og:image" content="assets/img/Logos/ieee-sb-vertical-color.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Google Fonts -->
+  <!-- Tipografía -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
+  <link rel="preload" as="image" href="assets/img/web/logo-header-white.webp" type="image/webp" />
   <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Scripts (defer: se ejecutan en orden cuando el HTML terminó de cargar) -->
+  <script src="js/data/capitulos.js" defer></script>
+  <script src="js/capitulos.js" defer></script>
+  <script src="js/script.js" defer></script>
+  <script src="js/hero.js" defer></script>
 </head>
-<body>
+<body class="is-home">
   <a class="skip" href="#contenido">Saltar al contenido</a>
 
-  <div class="top" id="top">
-    <div class="global" role="navigation" aria-label="Sitios IEEE">
-      <div class="wrap">
-        <div class="g-left" lang="en">
-          <a href="https://www.ieee.org" target="_blank" rel="noopener">IEEE.org</a>
-          <a href="https://ieeexplore.ieee.org" target="_blank" rel="noopener">IEEE <i>Xplore</i>®</a>
-          <a href="https://standards.ieee.org" target="_blank" rel="noopener">IEEE Standards</a>
-          <a href="https://spectrum.ieee.org" target="_blank" rel="noopener">IEEE Spectrum</a>
-          <a href="https://www.ieee.org/sitemap.html" target="_blank" rel="noopener">IEEE Sites</a>
-        </div>
-        <div class="g-right" lang="en">
-          <a class="join" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noopener">Join IEEE</a>
-          <a href="https://www.ieee.org/donate" target="_blank" rel="noopener">Donate</a>
-          <a href="https://www.ieee.org/cart" target="_blank" rel="noopener">Cart (0)</a>
-          <a href="https://www.ieee.org/profile/public/createwebaccount/showCreateAccount.html" target="_blank" rel="noopener">Create Account</a>
-          <a href="https://www.ieee.org/sign-in" target="_blank" rel="noopener">Sign In</a>
-        </div>
-      </div>
-    </div>
-
-    <header class="site">
-      <div class="wrap">
-      <a class="brand" href="#inicio" data-tab="inicio">
-        <img class="brand-logo" src="assets/img/logos/ieee-sb-med_horizontal-white.png"
-            alt="" width="220" height="80" />
-        <div class="brand-text">
-          <strong>IEEE Student Branch</strong>
-          <span>Escuela Politécnica Nacional</span>
-        </div>
+  <!-- ============ ENCABEZADO ============ -->
+  <header class="site" id="top">
+    <div class="wrap">
+      <a class="brand" href="#inicio" data-tab="inicio" aria-label="IEEE Student Branch, Escuela Politécnica Nacional — Inicio">
+        <picture>
+          <source srcset="assets/img/web/logo-header-white.webp" type="image/webp" />
+          <img class="brand-logo" src="assets/img/web/logo-header-white.png" alt="" width="593" height="128" />
+        </picture>
       </a>
-        <button class="burger" id="burger" aria-expanded="false" aria-controls="menu">Menú</button>
-        <nav id="menu" aria-label="Navegación principal">
-          <ul>
-            <li><a href="#inicio" data-tab="inicio">Inicio</a></li>
-            <li><a href="#directiva" data-tab="directiva">Directiva y voluntarios</a></li>
-            <li><a href="#iniciativas" data-tab="iniciativas">Iniciativas</a></li>
-            <li><a href="#contacto" data-tab="contacto">Contacto</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-  </div>
+
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span class="burger-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+
+      <nav id="menu" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio" data-tab="inicio">Inicio</a></li>
+          <li><a href="#capitulos" data-tab="capitulos">Capítulos</a></li>
+          <li><a href="#iniciativas" data-tab="iniciativas">Iniciativas</a></li>
+          <li><a href="#directiva" data-tab="directiva">Directiva</a></li>
+          <li><a href="#contacto" data-tab="contacto">Contacto</a></li>
+        </ul>
+        <a class="btn primary nav-cta" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noopener">
+          Únete a IEEE<span class="sr-only"> (se abre en una pestaña nueva)</span>
+        </a>
+      </nav>
+    </div>
+  </header>
 
   <main id="contenido" tabindex="-1">
     <!-- ============ INICIO ============ -->
-    <section class="page active" id="inicio" aria-labelledby="h-inicio">
+    <section class="page active" id="inicio" data-title="Inicio" aria-labelledby="h-inicio">
+
+      <!-- Portada. Para activar el video de fondo, completa los atributos data-video-*
+           (ver README.md → "Video de la portada"). Mientras estén vacíos se usa el fondo animado provisional. -->
       <div class="hero" id="hero">
-        <canvas class="net" id="net" aria-hidden="true"></canvas>
-        <div class="veil" aria-hidden="true"></div>
-        <div class="wrap">
-          <h1 id="h-inicio">Impulsando la tecnología <b>al servicio de la humanidad</b></h1>
-          <p>Somos la Rama Estudiantil IEEE de la Escuela Politécnica Nacional. Aprendemos, innovamos y nos conectamos con la comunidad global de IEEE.</p>
-          <a class="btn primary" href="#iniciativas" data-tab="iniciativas">Ver iniciativas</a>
-          <a class="btn ghost" href="#contacto" data-tab="contacto">Únete a la rama</a>
+        <div class="hero-media" id="hero-media" aria-hidden="true"
+             data-video-mp4=""
+             data-video-webm=""
+             data-video-poster=""
+             data-video-mobile="true">
+          <canvas class="hero-canvas" id="hero-canvas"></canvas>
+          <div class="hero-glow"></div>
+          <div class="hero-shade"></div>
         </div>
-         <button class="motion-btn" id="motion" type="button">Pausar animación</button>
+
+        <div class="hero-content wrap">
+          <p class="hero-kicker"><span class="dot" aria-hidden="true"></span>IEEE Student Branch · EPN Quito</p>
+          <h1 id="h-inicio">Impulsando la tecnología <b>al servicio de la humanidad</b></h1>
+          <p class="hero-lead">Somos la Rama Estudiantil IEEE de la EPN: una comunidad de estudiantes que aprende, innova y se conecta con la red técnica más grande del mundo.</p>
+          <div class="hero-actions">
+            <a class="btn primary btn-lg" href="#sobre-nosotros">Explorar la rama</a>
+            <a class="btn ghost btn-lg" href="#capitulos" data-tab="capitulos">Ver capítulos</a>
+          </div>
+        </div>
+
+        <a class="scroll-cue" href="#sobre-nosotros" aria-label="Ir a la sección Sobre nosotros">
+          <span aria-hidden="true"></span>
+        </a>
+        <button class="motion-btn" id="motion" type="button" aria-pressed="false" aria-label="Pausar animación de fondo" title="Pausar animación">
+          <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
+          <svg class="i-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+        </button>
       </div>
 
-      <div class="section white about">
+      <div class="after-hero">
+        <!-- Sobre nosotros -->
+        <div class="section white about" id="sobre-nosotros">
+          <div class="wrap">
+            <div class="head center reveal">
+              <p class="eyebrow">Sobre nosotros</p>
+              <h2 class="title">Aquí las ideas encuentran oportunidades</h2>
+              <p class="lead">Somos la comunidad de estudiantes de la EPN que convierte el conocimiento en proyectos, conexiones y futuro, con el respaldo de IEEE, la mayor organización técnica profesional del mundo.</p>
+            </div>
+
+            <div class="mv stagger">
+              <article class="mv-card reveal">
+                <span class="icon-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg>
+                </span>
+                <h3>Misión</h3>
+                <p class="mv-key">Convertir ideas en soluciones con impacto positivo.</p>
+                <p>Impulsar el talento, la innovación y el liderazgo de los estudiantes de la Escuela Politécnica Nacional, creando espacios de aprendizaje, investigación y colaboración que conecten el conocimiento académico con los desafíos tecnológicos del mundo. A través de IEEE, promovemos el desarrollo de profesionales capaces de transformar ideas en soluciones que generen un impacto positivo en la sociedad.</p>
+              </article>
+
+              <article class="mv-card reveal">
+                <span class="icon-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
+                <h3>Visión</h3>
+                <p class="mv-key">Una comunidad referente que trasciende fronteras.</p>
+                <p>Consolidarnos como una comunidad estudiantil referente a nivel nacional e internacional, reconocida por su excelencia técnica, capacidad de innovación y liderazgo. Aspiramos a formar una nueva generación de profesionales que trascienda las fronteras del conocimiento, impulse el avance tecnológico y contribuya a construir un futuro más conectado, sostenible y transformador.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- Capítulos (adelanto, generado desde js/data/capitulos.js) -->
+        <div class="section community">
+          <div class="wrap">
+            <div class="community-inner reveal">
+              <div>
+                <p class="eyebrow eyebrow-light">Nuestra comunidad</p>
+                <h2 class="title light"><span id="chap-count">12</span> capítulos y grupos, una sola rama</h2>
+                <p class="lead light">Cada capítulo técnico y grupo de afinidad acerca a los estudiantes a un área de IEEE: desde antenas y telecomunicaciones hasta robótica, energía e ingeniería biomédica.</p>
+                <a class="btn primary" href="#capitulos" data-tab="capitulos">Conoce los capítulos</a>
+              </div>
+              <div class="chip-strip" id="chap-strip" aria-label="Capítulos y grupos de la rama"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historia -->
+        <div class="section white">
+          <div class="wrap">
+            <div class="story reveal">
+              <div class="story-text">
+                <p class="eyebrow">Nuestra historia</p>
+                <h2 class="title">Toda gran transformación comienza con una idea</h2>
+                <ol class="steps">
+                  <li><b>La idea</b><span>En la EPN nació del entusiasmo de estudiantes con una misma convicción: la tecnología no solo debe aprenderse, también debe construirse para transformar el mundo.</span></li>
+                  <li><b>La apertura</b><span>Así comenzó el camino hacia IEEE Student Branch EPN: un espacio para conectar talentos, despertar ideas y convertir el conocimiento en oportunidades, respaldado por IEEE.</span></li>
+                  <li><b>Hoy</b><span>Abrimos las puertas a una nueva etapa: una comunidad donde las ideas encuentran oportunidades, los talentos construyen conexiones y el futuro empieza a tomar forma.</span></li>
+                </ol>
+                <blockquote>
+                  No somos simplemente una rama estudiantil. Somos el comienzo de algo más grande.
+                  <cite>IEEE Student Branch EPN · Innovamos hoy, transformamos el mañana</cite>
+                </blockquote>
+              </div>
+              <figure class="story-photo">
+                <!-- PENDIENTE: reemplazar por <img src="assets/img/..." alt="Descripción concreta de la foto"> -->
+                <div class="ph" role="img" aria-label="Espacio reservado para una fotografía del equipo de la rama">Fotografía del equipo</div>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pilares -->
+        <div class="section">
+          <div class="wrap">
+            <div class="head center reveal">
+              <p class="eyebrow">Qué hacemos</p>
+              <h2 class="title">Tres formas de crecer con IEEE</h2>
+            </div>
+            <div class="pillars stagger">
+              <a class="pillar reveal" href="#iniciativas" data-tab="iniciativas">
+                <span class="icon-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+                </span>
+                <h3>Aprender</h3>
+                <p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p>
+                <span class="more">Ver iniciativas <span aria-hidden="true">→</span></span>
+              </a>
+              <a class="pillar reveal" href="#capitulos" data-tab="capitulos">
+                <span class="icon-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg>
+                </span>
+                <h3>Investigar</h3>
+                <p>Proyectos técnicos en cada capítulo, donde las ideas se prueban y se convierten en soluciones.</p>
+                <span class="more">Ver capítulos <span aria-hidden="true">→</span></span>
+              </a>
+              <a class="pillar reveal" href="#contacto" data-tab="contacto">
+                <span class="icon-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg>
+                </span>
+                <h3>Conectar</h3>
+                <p>Una comunidad local y una red global IEEE para crecer junto a otros.</p>
+                <span class="more">Súmate <span aria-hidden="true">→</span></span>
+              </a>
+            </div>
+
+            <!-- PENDIENTE: cifras reales. El bloque está oculto (hidden) para no mostrar "—".
+                 Al tener los datos, reemplaza los "—" y borra el atributo hidden. -->
+            <div class="stats reveal" aria-label="La rama en números" hidden>
+              <div class="stat"><b>—</b><span>Miembros activos</span></div>
+              <div class="stat"><b>—</b><span>Voluntarios</span></div>
+              <div class="stat"><b>—</b><span>Eventos realizados</span></div>
+              <div class="stat"><b>2026</b><span>Periodo vigente</span></div>
+            </div>
+
+            <div class="cta reveal">
+              <div>
+                <h2>Tu lugar en la comunidad te está esperando</h2>
+                <p>Si te apasiona la tecnología, hay un capítulo y un proyecto en el que puedes aportar.</p>
+              </div>
+              <div class="cta-actions">
+                <a class="btn primary" href="#contacto" data-tab="contacto">Quiero unirme</a>
+                <a class="btn ghost" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noopener">Afiliarme a IEEE<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CAPÍTULOS Y GRUPOS ============ -->
+    <section class="page" id="capitulos" data-title="Capítulos y grupos" aria-labelledby="h-capitulos">
+      <div class="page-hero">
         <div class="wrap">
+          <p class="eyebrow eyebrow-light">IEEE en la EPN</p>
+          <h1 class="title light" id="h-capitulos">Capítulos y grupos</h1>
+          <p class="lead light">Los capítulos técnicos, grupos de afinidad y grupos humanitarios que forman parte de IEEE Student Branch EPN. Encuentra el área que te apasiona y súmate a sus actividades.</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="wrap">
+          <div class="filters" id="chap-filters" role="group" aria-label="Filtrar por tipo de agrupación"></div>
+          <p class="sr-only" id="chap-live" role="status" aria-live="polite"></p>
+          <div class="chap-grid" id="chap-grid"></div>
+          <noscript><p class="lead">Activa JavaScript para ver la lista de capítulos.</p></noscript>
+        </div>
+      </div>
+    </section>
 
-          <div class="head reveal">
-            <p class="eyebrow">Sobre nosotros</p>
-            <h2 class="title">Aquí las ideas encuentran oportunidades</h2>
-            <p class="lead">Somos la comunidad de estudiantes de la EPN que convierte el conocimiento en proyectos, conexiones y futuro, con el respaldo de IEEE, la mayor organización técnica profesional del mundo.</p>
-          </div>
-
-          <div class="mv">
-            <article class="mv-card reveal">
-              <span class="mv-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg>
-              </span>
-              <h3>Misión</h3>
-              <p class="mv-key">Convertir ideas en soluciones con impacto positivo.</p>
-              <p>Impulsar el talento, la innovación y el liderazgo de los estudiantes de la Escuela Politécnica Nacional, creando espacios de aprendizaje, investigación y colaboración que conecten el conocimiento académico con los desafíos tecnológicos del mundo. A través de IEEE, promovemos el desarrollo de profesionales capaces de transformar ideas en soluciones que generen un impacto positivo en la sociedad.</p>
+    <!-- ============ INICIATIVAS ============ -->
+    <section class="page" id="iniciativas" data-title="Iniciativas" aria-labelledby="h-iniciativas">
+      <div class="page-hero">
+        <div class="wrap">
+          <p class="eyebrow eyebrow-light">Lo que hacemos</p>
+          <h1 class="title light" id="h-iniciativas">Iniciativas y proyectos</h1>
+          <p class="lead light"><span class="todo">Pendiente:</span> talleres, concursos, proyectos de investigación y actividades locales.</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="wrap">
+          <div class="inits stagger">
+            <article class="init reveal">
+              <div class="ph" role="img" aria-label="Espacio para afiche o imagen de la iniciativa">Afiche o imagen</div>
+              <div class="body">
+                <span class="tag">Taller</span>
+                <h2>[Título de la iniciativa 1]</h2>
+                <p class="meta">[Fecha] · [Lugar o modalidad] · [Número de participantes]</p>
+                <p>[Descripción: qué se hizo, quién participó y qué impacto tuvo en la comunidad politécnica.]</p>
+                <span class="todo">Pendiente: enlace a la página de detalle</span>
+              </div>
             </article>
-
-            <article class="mv-card reveal">
-              <span class="mv-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
-              </span>
-              <h3>Visión</h3>
-              <p class="mv-key">Una comunidad referente que trasciende fronteras.</p>
-              <p>Consolidarnos como una comunidad estudiantil referente a nivel nacional e internacional, reconocida por su excelencia técnica, capacidad de innovación y liderazgo. Aspiramos a formar una nueva generación de profesionales que trascienda las fronteras del conocimiento, impulse el avance tecnológico y contribuya a construir un futuro más conectado, sostenible y transformador.</p>
+            <article class="init reveal">
+              <div class="ph" role="img" aria-label="Espacio para afiche o imagen de la iniciativa">Afiche o imagen</div>
+              <div class="body">
+                <span class="tag">Proyecto de investigación</span>
+                <h2>[Título de la iniciativa 2]</h2>
+                <p class="meta">[Fecha] · [Capítulo responsable]</p>
+                <p>[Descripción del proyecto, el capítulo que lo impulsa y su impacto.]</p>
+                <span class="todo">Pendiente: enlace a la página de detalle</span>
+              </div>
             </article>
           </div>
-
-          <div class="story reveal">
-            <div class="story-text">
-              <p class="eyebrow eyebrow-light">Nuestra historia</p>
-              <h3>Toda gran transformación comienza con una idea</h3>
-              <ol class="steps">
-                <li><b>La idea</b><span>En la EPN nació del entusiasmo de estudiantes con una misma convicción: la tecnología no solo debe aprenderse, también debe construirse para transformar el mundo.</span></li>
-                <li><b>La apertura</b><span>Así comenzó el camino hacia IEEE Student Branch EPN: un espacio para conectar talentos, despertar ideas y convertir el conocimiento en oportunidades, respaldado por IEEE.</span></li>
-                <li><b>Hoy</b><span>Abrimos las puertas a una nueva etapa: una comunidad donde las ideas encuentran oportunidades, los talentos construyen conexiones y el futuro empieza a tomar forma.</span></li>
-              </ol>
-              <blockquote>
-                No somos simplemente una rama estudiantil. Somos el comienzo de algo más grande.
-                <cite>IEEE Student Branch EPN · Innovamos hoy, transformamos el mañana</cite>
-              </blockquote>
-            </div>
-            <figure class="story-photo">
-              <div class="ph" role="img" aria-label="Espacio reservado para una fotografía del equipo de la rama">Fotografía del equipo</div>
-            </figure>
-          </div>
-
-          <div class="pillars">
-            <a class="pillar reveal" href="#iniciativas" data-tab="iniciativas">
-              <span class="pillar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
-              </span>
-              <h3>Aprender</h3>
-              <p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p>
-              <span class="more">Ver iniciativas →</span>
-            </a>
-            <a class="pillar reveal" href="#iniciativas" data-tab="iniciativas">
-              <span class="pillar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg>
-              </span>
-              <h3>Investigar</h3>
-              <p>Proyectos técnicos donde las ideas se prueban y se convierten en soluciones.</p>
-              <span class="more">Ver proyectos →</span>
-            </a>
-            <a class="pillar reveal" href="#contacto" data-tab="contacto">
-              <span class="pillar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg>
-              </span>
-              <h3>Conectar</h3>
-              <p>Una comunidad y una red global IEEE para crecer junto a otros.</p>
-              <span class="more">Súmate →</span>
-            </a>
-          </div>
-
-          <div class="stats reveal" aria-label="La rama en números">
-            <div class="stat"><b>—</b><span>Miembros activos</span></div>
-            <div class="stat"><b>—</b><span>Voluntarios</span></div>
-            <div class="stat"><b>—</b><span>Eventos realizados</span></div>
-            <div class="stat"><b>2026</b><span>Periodo vigente</span></div>
-          </div>
-
-          <div class="cta reveal">
-            <div>
-              <h3>Tu lugar en la comunidad te está esperando</h3>
-              <p>Si te apasiona la tecnología, hay un proyecto en el que puedes aportar.</p>
-            </div>
-            <div class="cta-actions">
-              <a class="btn primary" href="#contacto" data-tab="contacto">Quiero unirme</a>
-              <a class="btn outline" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noopener">Afiliarme a IEEE</a>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
 
     <!-- ============ DIRECTIVA ============ -->
-    <section class="page" id="directiva" aria-labelledby="h-directiva">
+    <section class="page" id="directiva" data-title="Directiva y voluntarios" aria-labelledby="h-directiva">
+      <div class="page-hero">
+        <div class="wrap">
+          <p class="eyebrow eyebrow-light">Equipo 2026</p>
+          <h1 class="title light" id="h-directiva">Directiva y voluntarios</h1>
+          <p class="lead light"><span class="todo">Pendiente:</span> texto introductorio sobre el equipo de liderazgo 2026.</p>
+        </div>
+      </div>
       <div class="section">
         <div class="wrap">
-          <div class="head">
-            <h2 class="title" id="h-directiva">Nuestra directiva</h2>
-            <p class="lead"><span class="todo">Pendiente:</span> texto introductorio sobre el equipo de liderazgo 2026.</p>
-          </div>
-          <div class="people board">
-            <article class="person">
+          <h2 class="title">Directiva</h2>
+          <div class="people board stagger">
+            <article class="person reveal">
               <div class="ph" role="img" aria-label="Espacio para foto del Chair">Foto</div>
               <div class="info"><h3>[Nombre Apellido]</h3><p class="role">Chair</p><p>[Breve descripción]</p></div>
             </article>
-            <article class="person">
+            <article class="person reveal">
               <div class="ph" role="img" aria-label="Espacio para foto del Vice Chair">Foto</div>
               <div class="info"><h3>[Nombre Apellido]</h3><p class="role">Vice Chair</p><p>[Breve descripción]</p></div>
             </article>
-            <article class="person">
-              <div class="ph" role="img" aria-label="Espacio para foto del Webmaster">Foto</div>
+            <article class="person reveal">
+              <div class="ph" role="img" aria-label="Espacio para foto del Secretario o Webmaster">Foto</div>
               <div class="info"><h3>[Nombre Apellido]</h3><p class="role">Secretario / Webmaster</p><p>[Breve descripción]</p></div>
+            </article>
+            <article class="person reveal">
+              <div class="ph" role="img" aria-label="Espacio para foto del Counselor">Foto</div>
+              <div class="info"><h3>[Nombre Apellido]</h3><p class="role">Branch Counselor</p><p>[Breve descripción]</p></div>
             </article>
           </div>
         </div>
       </div>
       <div class="section white">
         <div class="wrap">
-          <div class="head">
-            <h2 class="title">Voluntarios</h2>
-            <p class="lead"><span class="todo">Pendiente:</span> reconocimiento a quienes hacen posibles las actividades de la rama.</p>
-          </div>
-          <div class="people vol">
-            <article class="person"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
-            <article class="person"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
-            <article class="person"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
-            <article class="person"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ INICIATIVAS ============ -->
-    <section class="page" id="iniciativas" aria-labelledby="h-iniciativas">
-      <div class="section">
-        <div class="wrap">
-          <div class="head">
-            <h2 class="title" id="h-iniciativas">Iniciativas y proyectos</h2>
-            <p class="lead"><span class="todo">Pendiente:</span> talleres, concursos, proyectos de investigación y actividades locales.</p>
-          </div>
-          <div class="inits">
-            <article class="init">
-              <div class="ph" role="img" aria-label="Espacio para afiche o imagen de la iniciativa">Afiche o imagen</div>
-              <div class="body">
-                <span class="tag">Taller</span>
-                <h3>[Título de la iniciativa 1]</h3>
-                <p class="meta">[Fecha] · [Lugar o modalidad] · [Número de participantes]</p>
-                <p>[Descripción: qué se hizo, quién participó y qué impacto tuvo en la comunidad politécnica.]</p>
-                <a href="#">Ver más detalles</a>
-              </div>
-            </article>
-            <article class="init">
-              <div class="ph" role="img" aria-label="Espacio para afiche o imagen de la iniciativa">Afiche o imagen</div>
-              <div class="body">
-                <span class="tag">Proyecto de investigación</span>
-                <h3>[Título de la iniciativa 2]</h3>
-                <p class="meta">[Fecha] · [Responsables]</p>
-                <p>[Descripción del proyecto y su relación con la inteligencia computacional.]</p>
-                <a href="#">Ver más detalles</a>
-              </div>
-            </article>
+          <h2 class="title">Voluntarios</h2>
+          <p class="lead"><span class="todo">Pendiente:</span> reconocimiento a quienes hacen posibles las actividades de la rama.</p>
+          <div class="people vol stagger">
+            <article class="person reveal"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
+            <article class="person reveal"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
+            <article class="person reveal"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
+            <article class="person reveal"><div class="ph" role="img" aria-label="Espacio para foto">Foto</div><div class="info"><h3>[Nombre]</h3><p class="role">Voluntario/a</p></div></article>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============ CONTACTO ============ -->
-    <section class="page" id="contacto" aria-labelledby="h-contacto">
+    <section class="page" id="contacto" data-title="Contacto" aria-labelledby="h-contacto">
+      <div class="page-hero">
+        <div class="wrap">
+          <p class="eyebrow eyebrow-light">Hablemos</p>
+          <h1 class="title light" id="h-contacto">Contacto</h1>
+          <p class="lead light">¿Quieres unirte o proponer una actividad? Escríbenos y te respondemos pronto.</p>
+        </div>
+      </div>
       <div class="section">
         <div class="wrap">
-          <div class="head">
-            <h2 class="title" id="h-contacto">Contacto</h2>
-            <p class="lead">¿Quieres unirte o proponer una actividad? Escríbenos y te respondemos pronto.</p>
-          </div>
           <div class="contact">
             <ul class="info-list">
-              <li><strong>Correo</strong><span class="todo">rama.ieee@epn.edu.ec</span></li>
-              <li><strong>Ubicación</strong>Escuela Politécnica Nacional, Quito, Ecuador</li>
-              <li><strong>Redes sociales</strong>Enlaces al pie de página</li>
+              <li>
+                <strong>Correo</strong>
+                <span><span class="todo">rama.ieee@epn.edu.ec</span>
+                <button class="link-btn" type="button" data-copy="rama.ieee@epn.edu.ec">Copiar</button></span>
+              </li>
+              <li><strong>Ubicación</strong><span>Escuela Politécnica Nacional<br />Quito, Ecuador</span></li>
+              <li><strong>Capítulos</strong><span>Cada capítulo tiene su propio Instagram en <a href="#capitulos" data-tab="capitulos">Capítulos y grupos</a>.</span></li>
             </ul>
             <form id="form" novalidate>
               <div class="row">
-                <div><label for="nombre">Nombre completo</label><input id="nombre" type="text" autocomplete="name" required /></div>
-                <div><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="email" required /></div>
+                <div class="field"><label for="nombre">Nombre completo</label><input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="nombre-err" /><p class="err" id="nombre-err"></p></div>
+                <div class="field"><label for="email">Correo electrónico</label><input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-err" /><p class="err" id="email-err"></p></div>
               </div>
-              <div><label for="asunto">Asunto</label><input id="asunto" type="text" required /></div>
-              <div><label for="mensaje">Mensaje</label><textarea id="mensaje" required></textarea></div>
+              <div class="field"><label for="asunto">Asunto</label><input id="asunto" name="asunto" type="text" required aria-describedby="asunto-err" /><p class="err" id="asunto-err"></p></div>
+              <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" required aria-describedby="mensaje-err"></textarea><p class="err" id="mensaje-err"></p></div>
               <div><button class="btn solid" type="submit">Enviar mensaje</button></div>
-              <p id="form-msg" role="status"></p>
+              <p id="form-msg" class="form-msg" role="status"></p>
             </form>
           </div>
         </div>
@@ -287,34 +374,63 @@
     </section>
   </main>
 
+  <!-- ============ PIE DE PÁGINA ============ -->
   <footer>
     <div class="wrap">
       <div class="cols">
-        <div>
-          <h2>IEEE Student Branch EPN</h2>
-          <p>Rama Estudiantil<br />Escuela Politécnica Nacional<br />Quito, Ecuador</p>
+        <div class="foot-brand">
+          <picture>
+            <source srcset="assets/img/web/logo-footer-white.webp" type="image/webp" />
+            <img src="assets/img/web/logo-footer-white.png" alt="IEEE · Escuela Politécnica Nacional, IEEE Student Branch" width="368" height="240" loading="lazy" />
+          </picture>
+          <p>Rama Estudiantil IEEE<br />Escuela Politécnica Nacional · Quito, Ecuador</p>
         </div>
+
         <div>
-          <h2>Síguenos</h2>
+          <h2>Explora</h2>
           <ul>
-            <li><a href="#" rel="noopener">Instagram</a></li>
-            <li><a href="#" rel="noopener">LinkedIn</a></li>
-            <li><a href="#" rel="noopener">Facebook</a></li>
+            <li><a href="#capitulos" data-tab="capitulos">Capítulos y grupos</a></li>
+            <li><a href="#iniciativas" data-tab="iniciativas">Iniciativas</a></li>
+            <li><a href="#directiva" data-tab="directiva">Directiva</a></li>
+            <li><a href="#contacto" data-tab="contacto">Contacto</a></li>
           </ul>
         </div>
+
         <div>
-          <h2>Enlaces IEEE</h2>
+          <h2>Síguenos</h2>
+          <ul class="socials">
+            <li>
+              <a class="social social-ig" href="https://www.instagram.com/sb.ieee.epn/" target="_blank" rel="noopener" aria-label="Instagram de IEEE Student Branch EPN (se abre en una pestaña nueva)" title="Instagram · @sb.ieee.epn">
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="social social-in" href="https://www.linkedin.com/in/rama-estudiantil-ieee-epn-172506235/" target="_blank" rel="noopener" aria-label="LinkedIn de IEEE Student Branch EPN (se abre en una pestaña nueva)" title="LinkedIn · IEEE Student Branch EPN">
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.7h-4v-5.05c0-1.2-.02-2.75-1.75-2.75-1.75 0-2.02 1.3-2.02 2.66v5.14h-4z"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="social social-fb" href="https://www.facebook.com/sb.ieee.epn/" target="_blank" rel="noopener" aria-label="Facebook de IEEE Student Branch EPN (se abre en una pestaña nueva)" title="Facebook · @sb.ieee.epn">
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M13.5 21.5v-8h2.7l.4-3.2h-3.1V8.3c0-.92.26-1.55 1.58-1.55h1.68V3.9a22 22 0 0 0-2.45-.13c-2.43 0-4.09 1.48-4.09 4.2v2.33H7.5v3.2h2.72v8z"/></svg>
+              </a>
+            </li>
+          </ul>
+          <p class="social-note">@sb.ieee.epn</p>
+        </div>
+
+        <div>
+          <h2>Red IEEE</h2>
           <ul>
             <li><a href="https://www.ieee.org" target="_blank" rel="noopener">IEEE.org</a></li>
             <li><a href="https://r9.ieee.org" target="_blank" rel="noopener">IEEE Región 9</a></li>
-            <li><a href="#" rel="noopener">IEEE Sección Ecuador</a></li>
+            <li><a href="https://r9.ieee.org/ecuador/" target="_blank" rel="noopener">IEEE Sección Ecuador</a></li>
+            <li><a href="https://www.ieee.org/about/corporate/governance/p7-8.html" target="_blank" rel="noopener">Código de Ética IEEE</a></li>
           </ul>
         </div>
       </div>
-      <p class="legal">© 2026 IEEE Student Branch EPN. IEEE es una marca registrada de The Institute of Electrical and Electronics Engineers, Inc.</p>
+
+      <p class="legal">© <span id="year">2026</span> IEEE Student Branch EPN. IEEE es una marca registrada de The Institute of Electrical and Electronics Engineers, Inc.</p>
     </div>
   </footer>
-
-  <script src="js/script.js"></script>
 </body>
 </html>

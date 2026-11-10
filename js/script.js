@@ -1,89 +1,161 @@
-(function(){
-  var tabs=['inicio','directiva','iniciativas','contacto'];
-  var menu=document.getElementById('menu'), burger=document.getElementById('burger');
-  var titles={inicio:'Inicio',directiva:'Directiva y voluntarios',iniciativas:'Iniciativas',contacto:'Contacto'};
+/* ==========================================================
+   IEEE Student Branch EPN — Navegación y comportamiento general
+   · Pestañas por hash (#inicio, #capitulos, …), derivadas del HTML
+   · Encabezado transparente sobre la portada y sólido al bajar
+   · Menú móvil accesible (Esc, clic fuera, foco)
+   · Animaciones de entrada con IntersectionObserver
+   · Formulario de contacto con validación por campo
+   ========================================================== */
+(function () {
+  var root = document.documentElement;
+  var body = document.body;
+  var pages = [].slice.call(document.querySelectorAll('main > .page'));
+  var tabs = pages.map(function (p) { return p.id; });
+  var menu = document.getElementById('menu');
+  var burger = document.getElementById('burger');
+  var header = document.getElementById('top');
+  var current = null;
 
-  function show(id,focus){
-    if(tabs.indexOf(id)<0) id='inicio';
-    tabs.forEach(function(t){document.getElementById(t).classList.toggle('active',t===id)});
-    document.querySelectorAll('nav a').forEach(function(a){
-      if(a.dataset.tab===id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  /* ---------- Menú móvil ---------- */
+  function setMenu(open) {
+    menu.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    body.classList.toggle('menu-open', open);
+  }
+  burger.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menu.classList.contains('open')) { setMenu(false); burger.focus(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) setMenu(false);
+  });
+
+  /* ---------- Pestañas ---------- */
+  function show(id, focus) {
+    if (tabs.indexOf(id) < 0) id = 'inicio';
+    var changed = id !== current;
+    current = id;
+    pages.forEach(function (p) { p.classList.toggle('active', p.id === id); });
+    document.querySelectorAll('[data-tab]').forEach(function (a) {
+      if (!a.closest('nav')) return;
+      if (a.dataset.tab === id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
-    document.title=titles[id]+' | IEEE SB EPN';
-    menu.classList.remove('open'); burger.setAttribute('aria-expanded','false');
-    window.scrollTo(0,0);
-    if(focus) document.getElementById('contenido').focus({preventScroll:true});
+    var page = document.getElementById(id);
+    document.title = (page.dataset.title || 'Inicio') + ' | IEEE Student Branch EPN';
+    body.classList.toggle('is-home', id === 'inicio');
+    setMenu(false);
+    window.scrollTo(0, 0);
+    if (focus) {
+      var h1 = page.querySelector('h1');
+      (h1 || document.getElementById('contenido')).focus({ preventScroll: true });
+    }
+    if (changed) document.dispatchEvent(new CustomEvent('ieee:tab', { detail: id }));
+    onScroll();
   }
-  window.addEventListener('hashchange',function(){
-    var id=location.hash.slice(1);
-    if(tabs.indexOf(id)<0) return; // anclas internas (skip link, "#") no cambian de pestaña
-    show(id,true);
+  window.addEventListener('hashchange', function () {
+    var id = location.hash.slice(1) || 'inicio'; // "atrás" hasta la URL sin hash = Inicio
+    if (tabs.indexOf(id) < 0) return; // anclas internas (skip link, #sobre-nosotros) no cambian de pestaña
+    show(id, true);
   });
-  show(location.hash.slice(1),false);
 
-  // La barra superior IEEE se oculta al bajar y reaparece al volver arriba
-  var top=document.getElementById('top'), ticking=false;
-  function onScroll(){
-    var y=window.scrollY;
-    if(y>80) top.classList.add('scrolled');
-    else if(y<10) top.classList.remove('scrolled');
-    ticking=false;
+  /* Los h1 de cada pestaña reciben el foco al cambiar (lectores de pantalla) */
+  pages.forEach(function (p) { var h = p.querySelector('h1'); if (h) h.setAttribute('tabindex', '-1'); });
+
+  /* ---------- Estado del encabezado ---------- */
+  var ticking = false;
+  function onScroll() {
+    ticking = false;
+    var y = window.scrollY;
+    header.classList.toggle('scrolled', y > 24);
+    var hero = document.getElementById('hero');
+    var overHero = body.classList.contains('is-home') && hero && y < hero.offsetHeight - header.offsetHeight - 8;
+    header.classList.toggle('over-hero', !!overHero);
   }
-  window.addEventListener('scroll',function(){
-    if(!ticking){ticking=true;requestAnimationFrame(onScroll)}
-  },{passive:true});
-  onScroll();
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
 
+  /* Altura real del encabezado → variable CSS (scroll-padding, espaciado) */
+  function measure() { root.style.setProperty('--header-h', header.offsetHeight + 'px'); }
+  window.addEventListener('resize', measure);
+  measure();
 
-  // Red neuronal animada en canvas (siempre activa)
-  (function(){
-    var cv=document.getElementById('net'), cx=cv.getContext('2d'), hero=document.getElementById('hero');
-    var COLORS=['#00B5E2','#E87722','#FFFFFF'], LINK=140, P=[], W=0, H=0, dirty=true;
-    function resize(){
-      var r=hero.getBoundingClientRect();
-      if(!r.width) return false;                       // la pestaña Inicio no está visible
-      if(r.width===W && r.height===H) return true;
-      var dpr=Math.min(window.devicePixelRatio||1,2);
-      W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
-      var n=Math.min(110,Math.round(W*H/9000)); P=[];
-      for(var i=0;i<n;i++) P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.7,vy:(Math.random()-.5)*.7,r:Math.random()*2+1.2,c:COLORS[Math.floor(Math.random()*3)]});
-      dirty=true; return true;
-    }
-    function draw(step){
-      cx.clearRect(0,0,W,H);
-      var i,j,a,b,dx,dy,d;
-      if(step) for(i=0;i<P.length;i++){a=P[i];a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1}
-      cx.lineWidth=.9;
-      for(i=0;i<P.length;i++) for(j=i+1;j<P.length;j++){
-        a=P[i];b=P[j];dx=a.x-b.x;dy=a.y-b.y;d=Math.sqrt(dx*dx+dy*dy);
-        if(d<LINK){cx.strokeStyle='rgba(0,181,226,'+((1-d/LINK)*.55).toFixed(3)+')';cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}
+  /* ---------- Animaciones de entrada ---------- */
+  var io = 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: .08 })
+    : null;
+  function observeReveals() {
+    document.querySelectorAll('.reveal:not(.is-visible)').forEach(function (n) {
+      if (io) io.observe(n); else n.classList.add('is-visible');
+    });
+  }
+  document.addEventListener('ieee:content-ready', observeReveals);
+  observeReveals();
+
+  /* ---------- Formulario de contacto ---------- */
+  var RAMA_EMAIL = 'rama.ieee@epn.edu.ec'; // PENDIENTE: confirmar el correo oficial de la rama
+  var form = document.getElementById('form');
+  var msg = document.getElementById('form-msg');
+  var MESSAGES = {
+    nombre: 'Escribe tu nombre completo.',
+    email: 'Escribe un correo válido, por ejemplo nombre@epn.edu.ec.',
+    asunto: 'Indica el asunto del mensaje.',
+    mensaje: 'Escribe tu mensaje.'
+  };
+  function fieldError(input) {
+    var err = document.getElementById(input.id + '-err');
+    var bad = !input.checkValidity();
+    input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    if (err) err.textContent = bad ? MESSAGES[input.id] : '';
+    return bad;
+  }
+  if (form) {
+    form.querySelectorAll('input,textarea').forEach(function (i) {
+      /* Se valida al enviar y luego en vivo mientras se corrige. No se valida en "blur":
+         el mensaje desplazaría el botón justo cuando la persona intenta pulsarlo. */
+      i.addEventListener('input', function () { if (i.getAttribute('aria-invalid') === 'true') fieldError(i); });
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var first = null;
+      form.querySelectorAll('input,textarea').forEach(function (i) { if (fieldError(i) && !first) first = i; });
+      if (first) {
+        msg.className = 'form-msg is-error';
+        msg.textContent = 'Revisa los campos marcados.';
+        first.focus();
+        return;
       }
-      for(i=0;i<P.length;i++){a=P[i];cx.fillStyle=a.c;cx.beginPath();cx.arc(a.x,a.y,a.r,0,6.2832);cx.fill()}
-    }
-    function loop(){
-      if(resize()){
-        var paused=false;
-        if(!paused||dirty){draw(!paused);dirty=false}
-      }
-      requestAnimationFrame(loop);
-    }
-    loop();
-  })();
+      var f = form;
+      var text = 'Nombre: ' + f.nombre.value + '\nCorreo: ' + f.email.value + '\n\n' + f.mensaje.value;
+      location.href = 'mailto:' + RAMA_EMAIL + '?subject=' + encodeURIComponent(f.asunto.value) + '&body=' + encodeURIComponent(text);
+      msg.className = 'form-msg';
+      msg.innerHTML = '';
+      msg.appendChild(document.createTextNode('Intentamos abrir tu aplicación de correo. Si no se abrió, escríbenos directamente a '));
+      var b = document.createElement('b'); b.textContent = RAMA_EMAIL; msg.appendChild(b);
+      msg.appendChild(document.createTextNode('.'));
+    });
+  }
 
-  burger.addEventListener('click',function(){
-    var open=menu.classList.toggle('open');
-    burger.setAttribute('aria-expanded',open);
+  /* Botón "copiar correo" */
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = b.dataset.copy, label = b.textContent;
+      function done() { b.textContent = 'Copiado ✓'; setTimeout(function () { b.textContent = label; }, 1800); }
+      if (navigator.clipboard) navigator.clipboard.writeText(v).then(done, function () {});
+      else { var t = document.createElement('textarea'); t.value = v; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); done(); } catch (x) {} t.remove(); }
+    });
   });
 
+  /* Año del pie de página */
+  var yr = document.getElementById('year');
+  if (yr) yr.textContent = new Date().getFullYear();
 
-  // Formulario: abre el correo del usuario hasta conectar un servicio de envío real.
-  var RAMA_EMAIL='rama.ieee@epn.edu.ec'; 
-  document.getElementById('form').addEventListener('submit',function(e){
-    e.preventDefault();
-    var f=e.target, msg=document.getElementById('form-msg');
-    if(!f.checkValidity()){msg.textContent='Completa todos los campos con un correo válido.';f.reportValidity();return}
-    var body='Nombre: '+f.nombre.value+'\nCorreo: '+f.email.value+'\n\n'+f.mensaje.value;
-    location.href='mailto:'+RAMA_EMAIL+'?subject='+encodeURIComponent(f.asunto.value)+'&body='+encodeURIComponent(body);
-    msg.textContent='Se abrió tu aplicación de correo para enviar el mensaje.';
-  });
+  show(location.hash.slice(1), false);
 })();
