@@ -9,7 +9,7 @@
     document.querySelectorAll('nav a').forEach(function(a){
       if(a.dataset.tab===id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
     });
-    document.title=titles[id]+' | IEEE CIS EPN';
+    document.title=titles[id]+' | IEEE SB EPN';
     menu.classList.remove('open'); burger.setAttribute('aria-expanded','false');
     window.scrollTo(0,0);
     if(focus) document.getElementById('contenido').focus({preventScroll:true});
