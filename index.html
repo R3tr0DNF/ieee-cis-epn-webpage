@@ -22,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -85,29 +86,99 @@
          <button class="motion-btn" id="motion" type="button">Pausar animación</button>
       </div>
 
-      <div class="section white">
+      <div class="section white about">
         <div class="wrap">
-          <div class="two">
-            <div>
-              <h2 class="title">Sobre nosotros</h2>
-              <p class="lead" style="margin-bottom:1rem"><span class="todo">Pendiente:</span> misión, visión y objetivos de la rama.</p>
-              <p style="color:var(--muted);max-width:62ch"><span class="todo">Pendiente:</span> breve historia y contexto de la reapertura de la rama.</p>
+
+          <div class="head reveal">
+            <p class="eyebrow">Sobre nosotros</p>
+            <h2 class="title">Aquí las ideas encuentran oportunidades</h2>
+            <p class="lead">Somos la comunidad de estudiantes de la EPN que convierte el conocimiento en proyectos, conexiones y futuro, con el respaldo de IEEE, la mayor organización técnica profesional del mundo.</p>
+          </div>
+
+          <div class="mv">
+            <article class="mv-card reveal">
+              <span class="mv-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg>
+              </span>
+              <h3>Misión</h3>
+              <p class="mv-key">Convertir ideas en soluciones con impacto positivo.</p>
+              <p>Impulsar el talento, la innovación y el liderazgo de los estudiantes de la Escuela Politécnica Nacional, creando espacios de aprendizaje, investigación y colaboración que conecten el conocimiento académico con los desafíos tecnológicos del mundo. A través de IEEE, promovemos el desarrollo de profesionales capaces de transformar ideas en soluciones que generen un impacto positivo en la sociedad.</p>
+            </article>
+
+            <article class="mv-card reveal">
+              <span class="mv-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              </span>
+              <h3>Visión</h3>
+              <p class="mv-key">Una comunidad referente que trasciende fronteras.</p>
+              <p>Consolidarnos como una comunidad estudiantil referente a nivel nacional e internacional, reconocida por su excelencia técnica, capacidad de innovación y liderazgo. Aspiramos a formar una nueva generación de profesionales que trascienda las fronteras del conocimiento, impulse el avance tecnológico y contribuya a construir un futuro más conectado, sostenible y transformador.</p>
+            </article>
+          </div>
+
+          <div class="story reveal">
+            <div class="story-text">
+              <p class="eyebrow eyebrow-light">Nuestra historia</p>
+              <h3>Toda gran transformación comienza con una idea</h3>
+              <ol class="steps">
+                <li><b>La idea</b><span>En la EPN nació del entusiasmo de estudiantes con una misma convicción: la tecnología no solo debe aprenderse, también debe construirse para transformar el mundo.</span></li>
+                <li><b>La apertura</b><span>Así comenzó el camino hacia IEEE Student Branch EPN: un espacio para conectar talentos, despertar ideas y convertir el conocimiento en oportunidades, respaldado por IEEE.</span></li>
+                <li><b>Hoy</b><span>Abrimos las puertas a una nueva etapa: una comunidad donde las ideas encuentran oportunidades, los talentos construyen conexiones y el futuro empieza a tomar forma.</span></li>
+              </ol>
+              <blockquote>
+                No somos simplemente una rama estudiantil. Somos el comienzo de algo más grande.
+                <cite>IEEE Student Branch EPN · Innovamos hoy, transformamos el mañana</cite>
+              </blockquote>
             </div>
-            <div class="ph photo" role="img" aria-label="Espacio reservado para una fotografía representativa de la rama">Fotografía representativa de la rama</div>
+            <figure class="story-photo">
+              <div class="ph" role="img" aria-label="Espacio reservado para una fotografía del equipo de la rama">Fotografía del equipo</div>
+            </figure>
           </div>
 
           <div class="pillars">
-            <div class="pillar"><h3>Aprender</h3><p><span class="todo">Pendiente:</span> talleres y capacitaciones.</p></div>
-            <div class="pillar"><h3>Investigar</h3><p><span class="todo">Pendiente:</span> proyectos técnicos y publicaciones.</p></div>
-            <div class="pillar"><h3>Conectar</h3><p><span class="todo">Pendiente:</span> comunidad, red IEEE y eventos.</p></div>
+            <a class="pillar reveal" href="#iniciativas" data-tab="iniciativas">
+              <span class="pillar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+              </span>
+              <h3>Aprender</h3>
+              <p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p>
+              <span class="more">Ver iniciativas →</span>
+            </a>
+            <a class="pillar reveal" href="#iniciativas" data-tab="iniciativas">
+              <span class="pillar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg>
+              </span>
+              <h3>Investigar</h3>
+              <p>Proyectos técnicos donde las ideas se prueban y se convierten en soluciones.</p>
+              <span class="more">Ver proyectos →</span>
+            </a>
+            <a class="pillar reveal" href="#contacto" data-tab="contacto">
+              <span class="pillar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg>
+              </span>
+              <h3>Conectar</h3>
+              <p>Una comunidad y una red global IEEE para crecer junto a otros.</p>
+              <span class="more">Súmate →</span>
+            </a>
           </div>
 
-          <div class="stats" aria-label="Datos de la rama">
+          <div class="stats reveal" aria-label="La rama en números">
             <div class="stat"><b>—</b><span>Miembros activos</span></div>
             <div class="stat"><b>—</b><span>Voluntarios</span></div>
             <div class="stat"><b>—</b><span>Eventos realizados</span></div>
             <div class="stat"><b>2026</b><span>Periodo vigente</span></div>
           </div>
+
+          <div class="cta reveal">
+            <div>
+              <h3>Tu lugar en la comunidad te está esperando</h3>
+              <p>Si te apasiona la tecnología, hay un proyecto en el que puedes aportar.</p>
+            </div>
+            <div class="cta-actions">
+              <a class="btn primary" href="#contacto" data-tab="contacto">Quiero unirme</a>
+              <a class="btn outline" href="https://www.ieee.org/membership/join/index.html" target="_blank" rel="noopener">Afiliarme a IEEE</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -196,7 +267,7 @@
           </div>
           <div class="contact">
             <ul class="info-list">
-              <li><strong>Correo</strong><span class="todo">[correo-rama]@ieee.org</span></li>
+              <li><strong>Correo</strong><span class="todo">rama.ieee@epn.edu.ec</span></li>
               <li><strong>Ubicación</strong>Escuela Politécnica Nacional, Quito, Ecuador</li>
               <li><strong>Redes sociales</strong>Enlaces al pie de página</li>
             </ul>
