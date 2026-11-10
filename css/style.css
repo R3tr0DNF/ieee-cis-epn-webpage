@@ -68,6 +68,8 @@ h2.title{font-size:clamp(1.75rem,3vw,2.4rem);font-weight:600;color:var(--navy);l
 .btn.ghost:hover{background:rgba(255,255,255,.12)}
 .btn.solid{background:var(--blue);color:#fff}
 .btn.solid:hover{background:var(--navy)}
+.motion-btn{position:absolute;right:1.25rem;bottom:1rem;z-index:2;background:rgba(0,0,0,.5);color:#fff;border:1px solid rgba(255,255,255,.5);font:inherit;font-size:.82rem;padding:.45rem .9rem;border-radius:4px;cursor:pointer}
+.motion-btn:hover{background:rgba(0,0,0,.7)}
 
 /* Contenido */
 .two{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}

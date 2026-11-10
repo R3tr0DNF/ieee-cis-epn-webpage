@@ -3,12 +3,12 @@
    ========================================================== */
 
 :root{
-  --blue:#00629B; --navy:#002855; --sky:#00B5E2; --orange:#C25E0A; --orange-bright:#E87722;
+  --blue:#00629B; --navy:#002855; --sky:#00B5E2; --orange:#A84E00; --orange-bright:#E87722;
   --ink:#1B2430; --muted:#4A5565; --line:#D8DEE6; --bg:#F4F6F9; --white:#fff;
   --max:1160px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:140px}
 body{font-family:'IBM Plex Sans',system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:1.0625rem;display:flex;flex-direction:column;min-height:100vh}
 img{max-width:100%;display:block}
 a{color:var(--blue)}
