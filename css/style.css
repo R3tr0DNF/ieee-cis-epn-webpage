@@ -22,20 +22,22 @@ a{color:var(--blue)}
 .g-left,.g-right{display:flex;align-items:center}
 .global a{color:#fff;text-decoration:none;font-weight:600}
 .global a:hover{text-decoration:underline;text-underline-offset:4px}
-.g-left a{font-size:.72rem;margin-right:1.4rem;letter-spacing:.01em}
-.g-right a{font-size:.95rem;margin-left:1.6rem}
+.g-left a{font-size:.78rem;margin-right:1.4rem}
+.g-right a{font-size:.78rem;margin-left:1.4rem}
 .global .join{color:#00B5E2}
 .global i{font-weight:600}
 
 /* Encabezado */
 header.site{background:var(--navy);color:#fff;position:relative;border-bottom:3px solid var(--blue)}
 header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:72px}
-.brand{display:flex;align-items:center;gap:.9rem;color:#fff;text-decoration:none}
-.logo-slot{width:52px;height:52px;border-radius:6px;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:.6rem;font-weight:700;text-align:center;line-height:1.1;flex:none}
-.brand strong{display:block;font-size:1.15rem;font-weight:600;line-height:1.2}
-.brand span{font-size:.85rem;font-weight:300;color:#cfe0f0}
+.brand{display:flex;align-items:center;gap:.9rem;flex:none;padding:.5rem 0;color:#fff;text-decoration:none}
+.brand-logo{height:56px;width:auto;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1.25}
+.brand-text strong{font-size:1.15rem;font-weight:600;color:#fff}
+.brand-text span{font-size:.88rem;font-weight:300;color:#cfe0f0}
+
 nav ul{list-style:none;display:flex;gap:.25rem}
-nav a{display:block;color:#fff;text-decoration:none;font-weight:500;padding:.65rem 1rem;border-bottom:3px solid transparent}
+nav a{display:block;color:#fff;text-decoration:none;font-weight:500;font-size:.95rem;white-space:nowrap;padding:.65rem 1rem;border-bottom:3px solid transparent}
 nav a:hover{background:rgba(255,255,255,.1)}
 nav a[aria-current="page"]{border-bottom-color:var(--sky);background:rgba(255,255,255,.08)}
 .burger{display:none;background:none;border:1px solid rgba(255,255,255,.5);color:#fff;font:inherit;padding:.5rem .8rem;border-radius:4px;cursor:pointer}
@@ -135,6 +137,7 @@ footer a{color:#fff}
 .legal{margin-top:2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.2);font-size:.82rem;color:#aebfd1;text-align:center}
 
 @media (max-width:900px){
+  .brand-logo{height:44px}
   .global{display:none}
   .burger{display:block}
   nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--navy);border-bottom:3px solid var(--blue)}
