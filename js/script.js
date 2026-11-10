@@ -77,7 +77,7 @@
 
 
   // Formulario: abre el correo del usuario hasta conectar un servicio de envío real.
-  var RAMA_EMAIL='correo-rama@ieee.org'; // TODO: reemplazar por el correo oficial @ieee.org
+  var RAMA_EMAIL='rama.ieee@epn.edu.ec'; 
   document.getElementById('form').addEventListener('submit',function(e){
     e.preventDefault();
     var f=e.target, msg=document.getElementById('form-msg');
