@@ -14,7 +14,11 @@
     window.scrollTo(0,0);
     if(focus) document.getElementById('contenido').focus({preventScroll:true});
   }
-  window.addEventListener('hashchange',function(){show(location.hash.slice(1),true)});
+  window.addEventListener('hashchange',function(){
+    var id=location.hash.slice(1);
+    if(tabs.indexOf(id)<0) return; // anclas internas (skip link, "#") no cambian de pestaña
+    show(id,true);
+  });
   show(location.hash.slice(1),false);
 
   // La barra superior IEEE se oculta al bajar y reaparece al volver arriba
