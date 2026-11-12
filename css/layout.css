@@ -1,0 +1,194 @@
+/* ==========================================================
+   Layout: meta-navegación IEEE, encabezado, navegación, páginas,
+   bandas y pie de página
+   ========================================================== */
+
+/* Meta-navegación (obligatoria, IEEE Brand Experience) ------------------- */
+.meta-nav { background: var(--c-meta); color: #fff; font-size: 12.5px; position: relative; z-index: 60; }
+.meta-nav .wrap { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-4); min-height: var(--meta-h); }
+.meta-links { display: flex; flex-wrap: wrap; align-items: center; list-style: none; }
+.meta-links li + li::before { content: "|"; color: #6F7F92; margin: 0 .6rem; }
+.meta-links a { color: #fff; font-weight: 600; text-decoration: none; }
+.meta-links a:hover { text-decoration: underline; }
+.meta-links a:visited { color: #fff; }
+
+/* Encabezado: transparente sobre el visor, sólido al bajar o fuera de Inicio */
+.site-header {
+  position: sticky; top: 0; z-index: 50; height: var(--header-h); color: #fff;
+  transition: transform var(--dur-2) var(--ease);
+}
+/* Oculto al bajar (js/router.js). Nunca con foco de teclado dentro. Con movimiento reducido el cambio es instantáneo. */
+.site-header.is-hidden { transform: translateY(-100%); }
+.site-header.is-hidden:has(:focus-visible) { transform: none; }
+.site-header::before {                         /* capa blanca: solo cambia su opacidad */
+  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--c-header-bg);
+  border-bottom: 1px solid var(--c-line); opacity: 0;
+  transition: opacity var(--dur-2) var(--ease);
+}
+.site-header.is-solid { color: var(--c-ink); }
+.site-header.is-solid::before { opacity: 1; }
+.header-bar { display: flex; align-items: center; gap: var(--sp-5); height: 100%; }
+
+.site-id { position: relative; display: block; flex: none; }
+.site-id img { height: 48px; width: auto; }
+.logo-light, .mb-light { position: absolute; inset: 0; opacity: 0; transition: opacity var(--dur-2) var(--ease); }
+.logo-dark, .mb-dark { transition: opacity var(--dur-2) var(--ease); }
+.is-solid .logo-light, .is-solid .mb-light { opacity: 1; }
+.is-solid .logo-dark, .is-solid .mb-dark { opacity: 0; }
+/* Tema oscuro: el encabezado sólido es oscuro, así que siguen las versiones blancas de los logos (sin filtros) */
+[data-theme="dark"] .is-solid .logo-dark, [data-theme="dark"] .is-solid .mb-dark { opacity: 1; }
+[data-theme="dark"] .is-solid .logo-light, [data-theme="dark"] .is-solid .mb-light { opacity: 0; }
+
+.ieee-mb { position: relative; display: block; flex: none; padding: var(--sp-2) 0; }   /* IEEE Master Brand: ≥ 100 × 33 px */
+.ieee-mb img { height: 33px; width: auto; }
+
+.main-nav { margin-left: auto; display: flex; align-items: center; gap: var(--sp-2); }
+.main-nav ul { display: flex; list-style: none; }
+.main-nav a {
+  position: relative; display: flex; align-items: center; min-height: 44px; padding: 0 var(--sp-3);
+  color: inherit; font-weight: 600; font-size: .95rem; text-decoration: none; white-space: nowrap;
+}
+.main-nav a::after {                          /* subrayado: escala, no color */
+  content: ""; position: absolute; left: var(--sp-3); right: var(--sp-3); bottom: 6px; height: 2px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform var(--dur-2) var(--ease);
+}
+.main-nav a:hover::after { transform: scaleX(.5); }
+.main-nav a[aria-current="page"]::after { transform: scaleX(1); background: var(--c-orange); }
+.is-solid .main-nav a[aria-current="page"] { color: var(--c-link); }
+.header-cta { flex: none; }
+
+/* Botón de tema: ícono de 44 × 44 px junto al botón principal; dentro del menú móvil, fila con texto */
+.theme-toggle {
+  position: relative; display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0;
+  background: transparent; color: inherit; border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+  border-radius: var(--r-ctl); cursor: pointer;
+}
+.theme-toggle:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle .icon-sun, [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+.theme-toggle .theme-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+html:not(.js) .theme-toggle { display: none; }   /* sin JS no puede funcionar */
+.main-nav .menu-cta { display: none; }
+
+.menu-toggle {
+  display: none; align-items: center; gap: var(--sp-2); min-height: 44px; min-width: 44px; padding: 0 var(--sp-3);
+  background: transparent; color: inherit; border: 1px solid currentColor; border-radius: var(--r-ctl); cursor: pointer;
+  font-weight: 600; font-size: var(--fs-sm);
+}
+.menu-toggle .bars { position: relative; width: 18px; height: 12px; }
+.menu-toggle .bars i { position: absolute; left: 0; right: 0; height: 2px; background: currentColor; transition: transform var(--dur-2) var(--ease), opacity var(--dur-1) var(--ease); }
+.menu-toggle .bars i:nth-child(1) { top: 0; } .menu-toggle .bars i:nth-child(2) { top: 5px; } .menu-toggle .bars i:nth-child(3) { top: 10px; }
+.menu-toggle[aria-expanded="true"] .bars i:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .bars i:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] .bars i:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+/* Páginas (pestañas por hash) --------------------------------------------- */
+main { flex: 1; }
+.page { display: none; }
+.page.active { display: block; }
+.band { padding-block: var(--section-y); }
+.band-surface { background: var(--c-surface); }
+.band-deep { background: var(--c-deep); color: var(--c-on-dark); }
+
+.page-head { position: relative; background: var(--c-deep); color: var(--c-on-dark); padding: var(--sp-8) 0 var(--sp-7); margin-top: calc(-1 * var(--header-h)); padding-top: calc(var(--header-h) + var(--sp-7)); overflow: hidden; }
+.page-head h1 { color: #fff; font-size: var(--fs-2xl); line-height: var(--lh-tight); letter-spacing: -.02em; margin: var(--sp-3) 0 var(--sp-4); }
+.page-head .lead { max-width: 62ch; color: var(--c-on-dark); font-size: 1.0625rem; }
+.breadcrumb { display: flex; flex-wrap: wrap; gap: var(--sp-2); list-style: none; color: var(--c-on-dark-muted); }
+.breadcrumb li + li::before { content: "/"; margin-right: var(--sp-2); }
+.breadcrumb a { color: #fff; }
+.readout { color: var(--c-on-dark-muted); }
+
+.section-label { color: var(--c-orange-text); margin-bottom: var(--sp-3); display: block; }
+.band-deep .section-label, .page-head .section-label { color: var(--c-orange); }
+.section-title { font-size: var(--fs-xl); letter-spacing: -.015em; color: var(--c-heading); margin-bottom: var(--sp-4); }
+.lead { font-size: 1.0625rem; color: var(--c-muted); max-width: 64ch; }
+
+/* Pie de página compacto (≈ 400–440 px en escritorio): presentación a la izquierda, medio
+   planeta a la derecha y los enlaces en arco siguiendo su borde (≥ 960 px). Menos de 960 px:
+   apilado (ver css/pages.css). El orden del HTML es el orden de lectura y de tabulación.
+   Todo el pie se escala con tres variables: --gr (radio del planeta en pantalla), --gx (distancia
+   del centro del planeta al borde derecho) y --gap (separación entre el planeta y los enlaces). */
+.site-footer {
+  --gr: 290px; --gx: 56px; --gap: 28px;
+  --pt: 48px; --pb: 28px;                     /* relleno superior e inferior */
+  position: relative; background: var(--c-footer); color: #C9D3DE; overflow-x: clip;
+}
+/* Degradado de continuidad: estático, sobre el final de la sección anterior (que tiene
+   al menos --fade de relleno inferior). Parte transparente, es decir, del fondo que haya
+   arriba en cada tema y vista, y termina en el color del pie. No captura clics. */
+.site-footer::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: var(--foot-fade); pointer-events: none;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--c-footer) 0%, transparent), var(--c-footer));
+}
+.site-footer a { color: #fff; }
+.foot-hero { position: relative; overflow: hidden; isolation: isolate; }
+.foot-main { padding-block: var(--pt) var(--pb); }
+.foot-intro, .foot-legal { position: relative; z-index: 1; max-width: min(480px, 100vw - 620px); }
+.foot-intro .site-id img { height: 56px; }
+.foot-intro p { margin: var(--sp-3) 0 var(--sp-4); font-size: .9375rem; line-height: 1.6; color: #D5DDE6; }
+.foot-social { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-3) var(--sp-4); }
+.foot-social .social { width: 44px; height: 44px; }
+.foot-social .social-handle { margin: 0; }
+
+/* Planeta: imagen de 900 × 900 con un círculo de radio 440 → caja de --gr × 900/440 */
+.foot-globe {
+  position: absolute; z-index: 0; top: 50%; right: calc(var(--gx) - var(--gr) * 450 / 440);
+  width: calc(var(--gr) * 900 / 440); aspect-ratio: 1; transform: translateY(-50%); pointer-events: none;
+}
+.foot-globe img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.globe-pin {
+  position: absolute; left: calc(281.7 / 900 * 100%); top: calc(479.9 / 900 * 100%);   /* Quito en la imagen de 900 px */
+  width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: var(--r-round); background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 181, 226, .55);
+}
+.globe-pin-label {
+  position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%); white-space: nowrap;
+  padding: .3rem .7rem; border-radius: var(--r-round); background: var(--c-footer); border: 1px solid #23344F;
+  font-family: var(--f-mono); font-size: .75rem; font-weight: 500; color: #fff;
+}
+.globe-pin-label::after { content: ""; position: absolute; top: 100%; left: 50%; width: 1px; height: 10px; background: #5B9CC3; }
+
+/* Enlaces en arco: "Red IEEE" arriba y "Contacto" abajo, pegados al borde del planeta.
+   Cada grupo cubre todo el pie y lleva un float con forma de círculo (radio + --gap)
+   que acorta cada línea justo donde empieza el planeta; un espaciador lo ubica arriba o abajo. */
+.foot-arc {
+  position: absolute; z-index: 1; top: 0; bottom: 0; right: var(--gx);    /* borde derecho = centro del planeta */
+  width: calc(var(--gr) + var(--gap) + 220px);
+}
+.arc-group { position: absolute; inset: 0; text-align: right; pointer-events: none; }
+.arc-group h2, .arc-group a { pointer-events: auto; }
+.arc-shape {
+  float: right; width: calc(var(--gr) + var(--gap)); height: 100%;
+  shape-outside: circle(calc(var(--gr) + var(--gap)) at 100% 50%);
+}
+.arc-pad { display: block; }
+.arc-top .arc-pad { height: var(--pt); }                                     /* a la altura del logo */
+.arc-bottom { --h: 86px; }                                                     /* alto del grupo Contacto */
+.arc-bottom .arc-pad { height: calc(100% - var(--pb) - var(--h)); }           /* termina con el aviso legal */
+.foot-arc h2 { font-family: var(--f-mono); font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #8EA3BA; margin-bottom: var(--sp-1); }
+.foot-arc ul { list-style: none; }
+.foot-arc a { display: inline-block; padding-block: 3px; font-size: .9375rem; text-decoration: none; }
+.foot-arc a:hover { text-decoration: underline; }
+
+/* Rebote al pasar el puntero o al enfocar con teclado: uno solo, 380 ms, solo transform.
+   Sin hover en pantallas táctiles; desactivado con movimiento reducido. */
+@keyframes foot-bounce {
+  0%   { transform: translateY(0);    animation-timing-function: cubic-bezier(.2, .7, .2, 1); }    /* --ease */
+  40%  { transform: translateY(-4px); animation-timing-function: cubic-bezier(.34, 1.56, .64, 1); } /* --ease-spring */
+  100% { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .foot-arc a:focus-visible, .foot-intro .social:focus-visible, .foot-brand:focus-visible { animation: foot-bounce 380ms both; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .foot-arc a:hover, .foot-intro a.social:hover, .foot-brand:hover { animation: foot-bounce 380ms both; }
+}
+
+/* Aviso legal mínimo: dentro de la columna izquierda, sin franja propia */
+.foot-legal { margin-top: var(--sp-4); font-size: .75rem; line-height: 1.55; }
+.foot-legal p { color: #8EA3BA; }
+.admin-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--sp-3); margin-top: var(--sp-1); list-style: none; }
+.admin-links a { display: inline-flex; align-items: center; min-height: 24px; }   /* WCAG 2.5.8: objetivo ≥ 24 px */
+.foot-legal a { color: #DCE4EC; }
