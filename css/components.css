@@ -1,0 +1,199 @@
+/* ==========================================================
+   Componentes: botones, visor (firma), marco de foto, módulos de
+   capítulo, formulario, redes, personas
+   Movimiento: solo transform y opacity, una curva (--ease).
+   ========================================================== */
+
+/* Botones ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 48px; padding: 0 var(--sp-5); border: 2px solid transparent; border-radius: var(--r-ctl);
+  font-weight: 700; font-size: .95rem; text-decoration: none; cursor: pointer; white-space: nowrap;
+}
+.btn .arrow { transition: transform var(--dur-1) var(--ease); }
+.btn:hover .arrow { transform: translateX(3px); }
+.btn-accent { background: var(--c-orange); color: var(--c-deep); }
+.btn-accent:hover { background: #F08A3E; }
+.btn-primary { background: var(--c-blue); color: #fff; }
+.btn-primary:hover { background: var(--c-primary-hover); }
+.btn-ghost-light { border-color: rgba(255, 255, 255, .7); color: #fff; }
+.btn-ghost-light:hover { border-color: #fff; background: rgba(255, 255, 255, .1); }
+.btn-ghost { border-color: var(--c-link); color: var(--c-link); }
+.btn-ghost:hover { background: var(--c-tint); }
+.btn-sm { min-height: 40px; padding: 0 var(--sp-4); font-size: var(--fs-sm); }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+.link-arrow { display: inline-flex; align-items: center; gap: var(--sp-2); font-weight: 700; color: var(--c-link); text-decoration: none; }
+.link-arrow:hover { text-decoration: underline; }
+.link-arrow .arrow { transition: transform var(--dur-1) var(--ease); }
+.link-arrow:hover .arrow { transform: translateX(3px); }
+
+/* VISOR: la firma del sitio ------------------------------------------------
+   El video ocupa todo el ancho y sube detrás del encabezado transparente.
+   Un marco fino (1 px, esquinas pequeñas) delimita el contenido. Al bajar,
+   el visor se reduce y el video se desvanece (scroll-driven en CSS;
+   respaldo con rAF en js/hero.js). */
+.hero {
+  position: relative; isolation: isolate; color: #fff; background: var(--c-deep);
+  margin-top: calc(-1 * var(--header-h));
+  min-height: max(600px, calc(100svh - var(--meta-h)));
+  display: flex; align-items: flex-end;
+  padding: calc(var(--header-h) + var(--sp-3)) 0 0;
+}
+.visor { position: absolute; z-index: -1; inset: 0; transform-origin: 20% 100%; }
+.visor-media { position: absolute; inset: 0; overflow: hidden; background: var(--c-deep-2); }
+.visor-poster, .visor-video {                 /* póster (primer cuadro) y video ocupan el mismo lugar */
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: var(--r-media);
+}
+.visor-video { opacity: 0; transition: opacity var(--dur-3) var(--ease); }
+.has-video .visor-video { opacity: 1; }
+.visor-media::after {                         /* velo para el contraste del texto y del encabezado, con cualquier video */
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 20, 46, .78) 0, rgba(0, 20, 46, 0) calc(var(--header-h) + var(--sp-8))),
+    linear-gradient(90deg, rgba(0, 20, 46, .86) 0%, rgba(0, 20, 46, .66) 42%, rgba(0, 20, 46, .3) 75%, rgba(0, 20, 46, .22) 100%),
+    linear-gradient(0deg, rgba(0, 20, 46, .72) 0%, rgba(0, 20, 46, 0) 50%);
+}
+/* El marco: una línea de 1 px a baja opacidad, con esquinas pequeñas. Estático, sin brillo. */
+.visor-frame {
+  position: absolute; inset: calc(var(--header-h) + var(--sp-2)) var(--sp-5) var(--sp-5);
+  pointer-events: none; border: 1px solid var(--c-line-dark);
+}
+.corner { position: absolute; width: 12px; height: 12px; border: 0 solid var(--c-on-dark-muted); }
+.corner.tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+.corner.tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+.corner.bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+.corner.br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+.hero-content { position: relative; padding: var(--sp-8) 0 calc(var(--sp-5) + var(--sp-8)); }
+.hero-content .readout { display: block; color: var(--c-blue-20); margin-bottom: var(--sp-4); }
+.hero h1 { color: #fff; font-size: var(--fs-2xl); line-height: var(--lh-tight); letter-spacing: -.025em; max-width: 14ch; margin-bottom: var(--sp-4); }
+.hero-sub { font-size: var(--fs-md); color: var(--c-on-dark); max-width: 46ch; margin-bottom: var(--sp-6); line-height: 1.5; }
+
+.visor-bar {                                  /* lectura inferior del visor: datos reales de la rama */
+  position: absolute; left: calc(var(--sp-5) + var(--sp-4)); right: calc(var(--sp-5) + var(--sp-4)); bottom: calc(var(--sp-5) + var(--sp-3));
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap;
+  color: var(--c-on-dark-muted);
+}
+
+/* Scroll-driven: el visor se reduce y el video se desvanece al bajar.
+   El texto del hero no tiene efecto propio: se desplaza con el scroll normal. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .visor { animation: visor-close linear both; animation-timeline: scroll(root block); animation-range: 0 85vh; }
+    .visor-media, .visor-bar { animation: media-fade linear both; animation-timeline: scroll(root block); animation-range: 0 70vh; }
+  }
+}
+@keyframes visor-close { to { transform: scale(.86); } }
+@keyframes media-fade { to { opacity: 0; } }
+/* respaldo JS (navegadores sin animation-timeline): js/hero.js fija --p entre 0 y 1 */
+.no-sda .visor { transform: scale(calc(1 - var(--p, 0) * .14)); }
+.no-sda .visor-media, .no-sda .visor-bar { opacity: calc(1 - var(--p, 0) * 1.25); }
+
+/* Marco de foto con el lenguaje del visor (donde "aterriza" el hero) ------- */
+.frame-visor { position: relative; border: 1px solid var(--c-line); padding: var(--sp-3); background: var(--c-card); }
+.frame-visor .corner { border-color: var(--c-heading); }
+.frame-visor .ph, .frame-visor img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.frame-visor figcaption { margin-top: var(--sp-3); color: var(--c-muted); }
+
+/* Módulos de capítulo (tablero) -------------------------------------------- */
+.area { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: var(--sp-6); padding-block: var(--sp-7); border-top: 1px solid var(--c-line); }
+.area:first-of-type { border-top: 0; padding-top: 0; }
+.area-head .mono { color: var(--c-orange-text); }
+.area-head h2 { font-size: var(--fs-lg); color: var(--c-heading); margin: var(--sp-2) 0; }
+.area-head p { color: var(--c-muted); font-size: var(--fs-sm); }
+.modules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); align-content: start; }
+
+.module {
+  position: relative; display: flex; flex-direction: column; min-height: 100%;
+  background: var(--c-card); border: 1px solid var(--c-line); border-radius: var(--r-panel); padding: var(--sp-5);
+  transition: transform var(--dur-2) var(--ease);
+}
+.module::after {                              /* borde de acento: aparece con opacidad */
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; border: 2px solid var(--c-link);
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-2) var(--ease);
+}
+.module:hover, .module:focus-within { transform: translateY(-2px); }
+.module:hover::after, .module:focus-within::after { opacity: 1; }
+.module.is-wide { grid-column: span 2; }
+.module-top { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); color: var(--c-muted); }
+.module-logo { display: grid; place-items: center; height: 104px; margin-bottom: var(--sp-4); background: var(--c-logo-plate); border-radius: calc(var(--r-panel) - 4px); }
+.module-logo img { max-height: 88px; width: auto; max-width: 92%; object-fit: contain; }
+.module-logo.is-missing { flex-direction: column; gap: var(--sp-2); place-content: center; background: var(--c-surface); color: var(--c-heading); font-family: var(--f-mono); font-weight: 500; }
+.module h3 { font-size: var(--fs-lg); letter-spacing: -.01em; color: var(--c-heading); margin-bottom: var(--sp-2); }
+.module h3 .sep { color: var(--c-link); font-weight: 400; margin: 0 .2em; }
+.module .societies { list-style: none; font-size: var(--fs-sm); font-weight: 600; color: var(--c-ink); margin-bottom: var(--sp-3); }
+.module .scope { font-size: var(--fs-sm); color: var(--c-muted); margin-bottom: var(--sp-4); flex: 1; }
+.module .scope b { color: var(--c-text); font-weight: 600; }
+.module-port { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding-top: var(--sp-4); border-top: 1px dashed var(--c-line); }
+.ig-link { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: 700; font-size: var(--fs-sm); color: var(--c-link); text-decoration: none; }
+.ig-link svg { width: 20px; height: 20px; flex: none; }
+.ig-link:hover span { text-decoration: underline; }
+
+/* Entrada escalonada de los módulos: patrón 1 de 2 */
+.js .module.will-enter { opacity: 0; transform: translateY(12px); }
+.js .module.will-enter.is-in { opacity: 1; transform: none; transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease); transition-delay: calc(var(--i, 0) * 60ms); }
+
+/* Formulario --------------------------------------------------------------- */
+.form { display: grid; gap: var(--sp-5); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-panel); padding: var(--sp-6); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+.field label { display: block; font-weight: 600; font-size: var(--fs-sm); color: var(--c-ink); margin-bottom: var(--sp-1); }
+.field .hint { display: block; font-size: var(--fs-xs); color: var(--c-muted); margin-bottom: var(--sp-2); }
+.field input, .field textarea, .field select {
+  width: 100%; min-height: 48px; padding: var(--sp-3); background: var(--c-card); color: var(--c-ink);
+  border: 1px solid var(--c-field-border); border-radius: var(--r-ctl);
+}
+.field textarea { min-height: 150px; resize: vertical; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: 3px solid var(--c-field-ring); outline-offset: 0; border-color: var(--c-link); }
+.field [aria-invalid="true"] { border-color: var(--c-error); border-width: 2px; }
+.field-error { display: flex; gap: var(--sp-1); margin-top: var(--sp-1); color: var(--c-error); font-size: var(--fs-sm); font-weight: 600; }
+.field-error::before { content: "✕" / ""; font-weight: 700; }
+.field-error:empty { display: none; }
+.form-summary { border-left: 4px solid var(--c-error); background: var(--c-error-bg); padding: var(--sp-3) var(--sp-4); color: var(--c-ink); }
+.form-summary ul { margin: var(--sp-2) 0 0 var(--sp-5); }
+.form-status { min-height: 1.5em; font-weight: 600; color: var(--c-heading); }
+.form-status.is-ok { color: var(--c-ok); }
+.form-status.is-error { color: var(--c-error); }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Redes: botón cuadrado con esquinas del visor ----------------------------- */
+.socials { display: flex; flex-wrap: wrap; gap: var(--sp-3); list-style: none; }
+.social {
+  position: relative; display: grid; place-items: center; width: 48px; height: 48px;
+  border: 1px solid #2A3C58; color: #fff; text-decoration: none;
+}
+.social::before, .social::after { content: ""; position: absolute; width: 8px; height: 8px; border: 0 solid #5B9CC3; transition: transform var(--dur-2) var(--ease); }
+.social::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+.social::after { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+a.social:hover::before { transform: translate(-3px, -3px); }
+a.social:hover::after { transform: translate(3px, 3px); }
+.social svg { width: 20px; height: 20px; }
+.social.is-pending { color: #5D6D82; border-style: dashed; }
+.social-handle { margin-top: var(--sp-3); color: #8EA3BA; }
+
+/* Personas y registro de iniciativas --------------------------------------- */
+.people { margin-top: var(--sp-6); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); list-style: none; }
+.person .ph { aspect-ratio: 4 / 5; margin-bottom: var(--sp-3); }
+.person .role { color: var(--c-orange-text); display: block; margin-bottom: var(--sp-1); }
+.person h3 { font-size: var(--fs-md); color: var(--c-heading); }
+/* Becados: misma tarjeta de persona; iniciales si no hay foto autorizada */
+.becado-photo, .becado-initials { width: 100%; aspect-ratio: 4 / 5; margin-bottom: var(--sp-3); border-radius: var(--r-media); object-fit: cover; }
+.becado-initials { display: grid; place-items: center; background: var(--c-tint); color: var(--c-heading); font-size: var(--fs-xl); font-weight: 700; letter-spacing: .02em; }
+.becado-meta { color: var(--c-muted); font-size: var(--fs-sm); margin-top: var(--sp-1); }
+.becado-meta .pending + .pending { margin-left: var(--sp-1); }
+.becado .link-arrow { margin-top: var(--sp-2); font-size: var(--fs-sm); min-height: 44px; }
+.becado.is-sample { opacity: .85; }
+.empty-state { margin-top: var(--sp-6); padding: var(--sp-5) var(--sp-6); background: var(--c-card); border: 1px dashed var(--c-line); border-radius: var(--r-panel); max-width: 64ch; }
+.empty-state .empty-title { font-weight: 700; color: var(--c-heading); }
+.empty-state p + p { margin-top: var(--sp-2); color: var(--c-muted); }
+.becados-note { margin-top: var(--sp-4); }
+.log { list-style: none; border-top: 1px solid var(--c-line); }
+.log-entry { display: grid; grid-template-columns: 160px minmax(0, 1fr) 280px; gap: var(--sp-6); padding-block: var(--sp-6); border-bottom: 1px solid var(--c-line); }
+.log-entry .when { color: var(--c-muted); }
+.log-entry h3 { font-size: var(--fs-lg); color: var(--c-heading); margin-bottom: var(--sp-2); }
+.log-entry .ph { aspect-ratio: 4 / 3; }
+.module.is-wide .module-logo { height: 140px; }
+.module.is-wide .module-logo img { max-height: 120px; }
+@media (min-width: 1101px) { .area-head { position: sticky; top: calc(var(--header-h) + var(--sp-5)); align-self: start; } }
+/* el texto del hero queda siempre dentro del marco del visor */
+.hero-content { width: min(100% - 2 * (var(--sp-5) + var(--sp-5)), var(--wrap)); }
+@media (max-width: 600px) { .hero-content { width: calc(100% - 2 * (var(--sp-2) + var(--sp-4))); } }

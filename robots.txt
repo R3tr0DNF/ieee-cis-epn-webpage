@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# PENDIENTE: reemplazar por la URL definitiva cuando exista el dominio ieee.org de la rama
+Sitemap: https://PENDIENTE-dominio-de-la-rama/sitemap.xml
