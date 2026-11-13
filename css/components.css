@@ -41,11 +41,19 @@
 }
 .visor { position: absolute; z-index: -1; inset: 0; transform-origin: 20% 100%; }
 .visor-media { position: absolute; inset: 0; overflow: hidden; background: var(--c-deep-2); }
-.visor-poster, .visor-video {                 /* póster (primer cuadro) y video ocupan el mismo lugar */
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: var(--r-media);
+/* Fotos en bucle (js/hero.js): todas ocupan el mismo lugar; la visible lleva .is-on.
+   Fundido cruzado de 1,4 s y un acercamiento lento mientras se ve, como un video. */
+.visor-slide {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: var(--r-media);
+  opacity: 0; transition: opacity 1.4s var(--ease);
 }
-.visor-video { opacity: 0; transition: opacity var(--dur-3) var(--ease); }
-.has-video .visor-video { opacity: 1; }
+.visor-slide.is-on { opacity: 1; animation: visor-kenburns 7.5s linear both; }
+.is-paused .visor-slide.is-on { animation-play-state: paused; }
+@keyframes visor-kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) {
+  .visor-slide { transition: none; }
+  .visor-slide.is-on { animation: none; }
+}
 .visor-media::after {                         /* velo para el contraste del texto y del encabezado, con cualquier video */
   content: ""; position: absolute; inset: 0;
   background:

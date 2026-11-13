@@ -159,3 +159,22 @@
   .site-id img { height: 34px; }
   .menu-toggle { padding: 0 var(--sp-2); }
 }
+
+/* Portada en celular o tablet en vertical: la foto 16:9 se ve COMPLETA en una franja bajo
+   el encabezado (sin recortar a los lados) y el texto va debajo, sobre el azul del visor.
+   La franja se funde con el fondo por abajo; el encabezado sigue legible por arriba. */
+@media (orientation: portrait) and (max-width: 1024px) {
+  .hero { --band: calc(100vw * 9 / 16); min-height: 0; align-items: flex-start; padding-top: calc(var(--header-h) + var(--band) - var(--sp-5)); }
+  .visor-media { inset: var(--header-h) 0 auto; height: auto; aspect-ratio: 16 / 9; background: transparent; }   /* 16:9 exacto, también con barra de desplazamiento */
+  .visor-slide { border-radius: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .visor-slide.is-on { animation-name: visor-kenburns-soft; }   /* acercamiento mínimo: la foto se ve casi completa */
+  }
+  .visor-media::after {
+    background:
+      linear-gradient(180deg, rgba(0, 20, 46, .35) 0, rgba(0, 20, 46, 0) 30%),
+      linear-gradient(0deg, var(--c-deep) 0, rgba(0, 20, 46, 0) 38%);
+  }
+  .hero-content { padding-top: 0; }
+}
+@keyframes visor-kenburns-soft { from { transform: scale(1); } to { transform: scale(1.03); } }
