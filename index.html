@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Rutas limpias (/capitulos, /directiva…): en un servidor, las rutas relativas se resuelven
+       desde la raíz. Abierto como archivo (file://) no se usa <base> y la navegación usa #. -->
+  <script>
+    if (location.protocol !== 'file:') { var b = document.createElement('base'); b.href = '/'; document.head.appendChild(b); }
+  </script>
   <title>IEEE Student Branch EPN | Rama Estudiantil IEEE en Quito</title>
   <meta name="description" content="Rama Estudiantil IEEE de la Escuela Politécnica Nacional, Quito: 11 capítulos y grupos técnicos para estudiantes de ingeniería. Conoce los capítulos y únete.">
   <meta name="theme-color" content="#00142E">
@@ -89,17 +94,17 @@
   <!-- Encabezado: identificador del sitio a la izquierda, IEEE Master Brand a la derecha -->
   <header class="site-header" id="site-header">
     <div class="wrap header-bar">
-      <a class="site-id" href="#inicio" aria-label="IEEE Student Branch, Escuela Politécnica Nacional: inicio">
+      <a class="site-id" href="/" aria-label="IEEE Student Branch, Escuela Politécnica Nacional: inicio">
         <picture class="logo-dark"><source type="image/webp" srcset="assets/img/brand/sb-white.webp 1x, assets/img/brand/sb-white@2x.webp 2x"><img src="assets/img/brand/sb-white.png" alt="" width="222" height="48" decoding="async" fetchpriority="low"></picture>
         <picture class="logo-light"><source type="image/webp" srcset="assets/img/brand/sb-color.webp 1x, assets/img/brand/sb-color@2x.webp 2x"><img src="assets/img/brand/sb-color.png" alt="" width="222" height="48" decoding="async" fetchpriority="low"></picture>
       </a>
       <nav class="main-nav" id="menu" aria-label="Principal">
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#capitulos">Capítulos y grupos</a></li>
-          <li><a href="#iniciativas">Iniciativas</a></li>
-          <li><a href="#directiva">Directiva y becados</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/capitulos">Capítulos y grupos</a></li>
+          <li><a href="/iniciativas">Iniciativas</a></li>
+          <li><a href="/directiva">Directiva y becados</a></li>
+          <li><a href="/contacto">Contacto</a></li>
         </ul>
         <!-- Cambio de tema: js/router.js (sección "Tema") actualiza aria-label, el texto y el ícono -->
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro">
@@ -107,9 +112,9 @@
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
           <span class="theme-label">Modo oscuro</span>
         </button>
-        <a class="btn btn-accent menu-cta" href="#contacto">Únete a la rama</a>
+        <a class="btn btn-accent menu-cta" href="/contacto">Únete a la rama</a>
       </nav>
-      <a class="btn btn-accent btn-sm header-cta" href="#contacto">Únete a la rama</a>
+      <a class="btn btn-accent btn-sm header-cta" href="/contacto">Únete a la rama</a>
       <a class="ieee-mb" href="https://www.ieee.org/">
         <picture class="mb-dark"><source type="image/webp" srcset="assets/img/brand/ieee-mb-white.webp 1x, assets/img/brand/ieee-mb-white@2x.webp 2x"><img src="assets/img/brand/ieee-mb-white.png" alt="IEEE" width="113" height="33" decoding="async"></picture>
         <picture class="mb-light"><source type="image/webp" srcset="assets/img/brand/ieee-mb-black.webp 1x, assets/img/brand/ieee-mb-black@2x.webp 2x"><img src="assets/img/brand/ieee-mb-black.png" alt="" width="113" height="33" decoding="async"></picture>
@@ -146,8 +151,8 @@
           <h1 id="h-inicio">Impulsando la tecnología al servicio de la humanidad</h1>
           <p class="hero-sub">La Rama Estudiantil IEEE de la EPN: 11 capítulos y grupos técnicos donde los estudiantes aprenden, investigan y se conectan con IEEE.</p>
           <div class="btn-row">
-            <a class="btn btn-accent" href="#contacto">Únete a la rama <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn-ghost-light" href="#capitulos">Ver capítulos y grupos</a>
+            <a class="btn btn-accent" href="/contacto">Únete a la rama <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost-light" href="/capitulos">Ver capítulos y grupos</a>
           </div>
         </div>
         <div class="visor-bar">
@@ -157,10 +162,13 @@
 
       <!-- La rama: el visor "aterriza" en el marco de esta foto -->
       <section class="band" aria-labelledby="h-rama">
-        <div class="wrap rama">
-          <figure class="frame-visor">
+        <div class="wrap rama has-wide-photo">
+          <figure class="frame-visor is-wide">
             <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-            <div class="ph" role="img" aria-label="Espacio para una fotografía del equipo de la rama"><span><span class="pending">Pendiente</span><br>Foto del equipo de la rama</span></div>
+            <picture>
+              <source type="image/webp" srcset="assets/img/rama/equipo-800.webp 800w, assets/img/rama/equipo-1120.webp 1120w" sizes="(max-width: 1200px) 100vw, 1120px">
+              <img src="assets/img/rama/equipo-1120.jpg" width="1120" height="560" alt="Integrantes de la Rama Estudiantil IEEE de la EPN con las banderas de sus capítulos en el auditorio" decoding="async">
+            </picture>
           </figure>
           <div>
             <span class="section-label mono">01 · La rama</span>
@@ -190,7 +198,7 @@
               <span class="section-label mono">02 · Capítulos y grupos</span>
               <h2 class="section-title" id="h-indice"><span data-count="chapters">11</span> capítulos y grupos en <span data-count="areas">4</span> áreas</h2>
             </div>
-            <a class="link-arrow" href="#capitulos">Ver el tablero completo <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="link-arrow" href="/capitulos">Ver el tablero completo <span class="arrow" aria-hidden="true">→</span></a>
           </div>
           <ul class="index" id="chapter-index"></ul>
         </div>
@@ -218,9 +226,9 @@
           <span class="section-label mono">04 · Participa</span>
           <h2 class="section-title" id="h-participar">Tres formas de participar</h2>
           <ol class="ways">
-            <li><span class="num" aria-hidden="true">01</span><h3>Aprender</h3><p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p><a class="link-arrow" href="#iniciativas">Ver iniciativas <span class="arrow" aria-hidden="true">→</span></a></li>
-            <li><span class="num" aria-hidden="true">02</span><h3>Investigar</h3><p>Proyectos técnicos donde las ideas se prueban y se convierten en soluciones.</p><a class="link-arrow" href="#capitulos">Ver capítulos <span class="arrow" aria-hidden="true">→</span></a></li>
-            <li><span class="num" aria-hidden="true">03</span><h3>Conectar</h3><p>Una comunidad y una red global IEEE para crecer junto a otros.</p><a class="link-arrow" href="#contacto">Escríbenos <span class="arrow" aria-hidden="true">→</span></a></li>
+            <li><span class="num" aria-hidden="true">01</span><h3>Aprender</h3><p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p><a class="link-arrow" href="/iniciativas">Ver iniciativas <span class="arrow" aria-hidden="true">→</span></a></li>
+            <li><span class="num" aria-hidden="true">02</span><h3>Investigar</h3><p>Proyectos técnicos donde las ideas se prueban y se convierten en soluciones.</p><a class="link-arrow" href="/capitulos">Ver capítulos <span class="arrow" aria-hidden="true">→</span></a></li>
+            <li><span class="num" aria-hidden="true">03</span><h3>Conectar</h3><p>Una comunidad y una red global IEEE para crecer junto a otros.</p><a class="link-arrow" href="/contacto">Escríbenos <span class="arrow" aria-hidden="true">→</span></a></li>
           </ol>
         </div>
       </section>
@@ -233,7 +241,7 @@
           </div>
           <div class="btn-row">
             <a class="btn btn-accent" href="https://www.ieee.org/join">Afíliate en ieee.org <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn-ghost-light" href="#contacto">Escríbenos</a>
+            <a class="btn btn-ghost-light" href="/contacto">Escríbenos</a>
           </div>
         </div>
       </section>
@@ -242,13 +250,13 @@
     <!-- ============ CAPÍTULOS Y GRUPOS ============ -->
     <section class="page" id="capitulos" aria-labelledby="h-capitulos"
       data-title="Capítulos y grupos | IEEE Student Branch EPN"
-      data-description="Los 11 capítulos técnicos y grupos de IEEE Student Branch EPN: AP-S/MTT-S/RFID, ComSoc, Photonics, VTS, CIS, CS, RAS/CSS, PES, EMBS, SIGHT y WIE, con sus cuentas de Instagram.">
+      data-description="Los 11 capítulos técnicos y grupos de IEEE Student Branch EPN: AP-S/MTT-S/RFID, ComSoc, Photonics, VTS/ITSS/TEC, CIS, CS, RAS/CSS, PES, EMBS, SIGHT y WIE, con sus cuentas de Instagram.">
       <div class="page-head">
         <div class="wrap">
-          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="#inicio">Inicio</a></li><li aria-current="page">Capítulos y grupos</li></ol>
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Capítulos y grupos</li></ol>
           <h1 id="h-capitulos" tabindex="-1">Capítulos y grupos</h1>
           <p class="lead">Cada capítulo reúne a estudiantes de la EPN alrededor de una sociedad técnica de IEEE. Encuentra tu área y síguelo en Instagram.</p>
-          <p class="head-readout mono"><span><b data-count="chapters">11</b> capítulos y grupos</span><span><b data-count="areas">4</b> áreas</span><span><b data-count="joint">2</b> capítulos conjuntos</span></p>
+          <p class="head-readout mono"><span><b data-count="chapters">11</b> capítulos y grupos</span><span><b data-count="areas">4</b> áreas</span><span><b data-count="joint">3</b> capítulos conjuntos</span></p>
         </div>
       </div>
       <div class="band">
@@ -263,7 +271,7 @@
       data-description="Talleres, capacitaciones y proyectos técnicos de la Rama Estudiantil IEEE de la EPN.">
       <div class="page-head">
         <div class="wrap">
-          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="#inicio">Inicio</a></li><li aria-current="page">Iniciativas</li></ol>
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Iniciativas</li></ol>
           <h1 id="h-iniciativas" tabindex="-1">Iniciativas</h1>
           <p class="lead">Talleres y capacitaciones técnicas para crecer más allá del aula, y proyectos donde las ideas se prueban.</p>
         </div>
@@ -294,7 +302,7 @@
       data-description="Directiva de la Rama Estudiantil IEEE de la Escuela Politécnica Nacional y miembros de la rama que han recibido becas IEEE.">
       <div class="page-head">
         <div class="wrap">
-          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="#inicio">Inicio</a></li><li aria-current="page">Directiva y becados</li></ol>
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Directiva y becados</li></ol>
           <h1 id="h-directiva" tabindex="-1">Directiva y becados</h1>
           <p class="lead">Las personas que organizan la rama y sus capítulos, y los miembros que han recibido becas IEEE.</p>
         </div>
@@ -303,12 +311,16 @@
         <div class="wrap">
           <span class="section-label mono">Directiva</span>
           <h2 class="section-title" id="h-board">Equipo directivo</h2>
-          <p class="lead"><span class="pending">Pendiente</span> nombres, carreras y fotos del periodo vigente. IEEE pide registrar Chair, Counselor y Webmaster en vTools.</p>
-          <ul class="people">
-            <li class="person"><div class="ph" role="img" aria-label="Espacio para la foto del Chair"><span class="pending">Pendiente</span></div><span class="role mono">Chair</span><h3>Nombre pendiente</h3></li>
-            <li class="person"><div class="ph" role="img" aria-label="Espacio para la foto del Vice Chair"><span class="pending">Pendiente</span></div><span class="role mono">Vice Chair</span><h3>Nombre pendiente</h3></li>
-            <li class="person"><div class="ph" role="img" aria-label="Espacio para la foto del Secretario o Webmaster"><span class="pending">Pendiente</span></div><span class="role mono">Secretaría / Webmaster</span><h3>Nombre pendiente</h3></li>
-            <li class="person"><div class="ph" role="img" aria-label="Espacio para la foto del Branch Counselor"><span class="pending">Pendiente</span></div><span class="role mono">Branch Counselor</span><h3>Nombre pendiente</h3></li>
+          <p class="lead">Directiva del periodo vigente. <span class="pending">Pendiente: nombre del Secretario</span> IEEE pide registrar Chair, Counselor y Webmaster en vTools.</p>
+          <!-- Directiva en pirámide: Counselor arriba, Chair y Vice Chair al medio, el resto abajo.
+               Fotos: assets/img/directiva/*.webp (480 × 600, 4:5). PENDIENTE: nombre del Secretario. -->
+          <ul class="people board">
+            <li class="person tier-1"><img class="person-photo" src="assets/img/directiva/counselor.webp" width="480" height="600" alt="Dr. Fabián Perez, Branch Counselor" decoding="async"><span class="role mono">Branch Counselor</span><h3>Dr. Fabián Perez</h3></li>
+            <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/chair.webp" width="480" height="600" alt="Elias Viteri, Chair" decoding="async"><span class="role mono">Chair</span><h3>Elias Viteri</h3></li>
+            <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/vice-chair.webp" width="480" height="600" alt="Andrey Carrillo, Vice Chair" decoding="async"><span class="role mono">Vice Chair</span><h3>Andrey Carrillo</h3></li>
+            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/secretario.webp" width="480" height="600" alt="Foto del Secretario de la rama" decoding="async"><span class="role mono">Secretario</span><h3>Nombre pendiente</h3></li>
+            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/tesorero.webp" width="480" height="600" alt="Martín Muñoz, Tesorero" decoding="async"><span class="role mono">Tesorero</span><h3>Martín Muñoz</h3></li>
+            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/webmaster.webp" width="480" height="600" alt="Jazmín Zambrano, Webmaster" decoding="async"><span class="role mono">Webmaster</span><h3>Jazmín Zambrano</h3></li>
           </ul>
         </div>
       </section>
@@ -337,7 +349,7 @@
       data-description="Escribe a la Rama Estudiantil IEEE de la EPN para unirte a un capítulo o proponer una actividad.">
       <div class="page-head">
         <div class="wrap">
-          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="#inicio">Inicio</a></li><li aria-current="page">Contacto</li></ol>
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Contacto</li></ol>
           <h1 id="h-contacto" tabindex="-1">Contacto</h1>
           <p class="lead">¿Quieres unirte a un capítulo o proponer una actividad? Escríbenos.</p>
         </div>
@@ -398,14 +410,14 @@
        El degradado de transición con la sección anterior es el ::before de .site-footer (CSS). -->
   <footer class="site-footer">
     <div class="foot-hero">
-      <!-- Globo de puntos (imagen estática, datos Natural Earth de dominio público): Ecuador en celeste, marcador en Quito -->
+      <!-- Globo de puntos (imagen estática, datos Natural Earth de dominio público): Ecuador en celeste, marcador en el centro de Ecuador (--px/--py en css/layout.css) -->
       <div class="foot-globe" aria-hidden="true">
         <img src="assets/img/globe-ecuador.svg" alt="" width="900" height="900" loading="lazy" decoding="async">
         <span class="globe-pin"><span class="globe-pin-label">Escuela Politécnica Nacional · Quito</span></span>
       </div>
       <div class="wrap foot-main">
         <div class="foot-intro">
-          <a class="site-id foot-brand" href="#inicio" aria-label="IEEE Student Branch, Escuela Politécnica Nacional: inicio">
+          <a class="site-id foot-brand" href="/" aria-label="IEEE Student Branch, Escuela Politécnica Nacional: inicio">
             <picture><source type="image/webp" srcset="assets/img/brand/sb-white-lg.webp 1x, assets/img/brand/sb-white-lg@2x.webp 2x"><img src="assets/img/brand/sb-white.png" alt="" width="334" height="72" loading="lazy" decoding="async"></picture>
           </a>
           <p>La Rama Estudiantil IEEE de la Escuela Politécnica Nacional reúne 11 capítulos y grupos técnicos en Quito, Ecuador, y conecta a sus estudiantes con IEEE a través de la Sección Ecuador y la Región 9.</p>
@@ -437,7 +449,7 @@
             <h2 id="f-contacto">Contacto</h2>
             <ul aria-labelledby="f-contacto">
               <li><a href="mailto:rama.ieee@epn.edu.ec">rama.ieee@epn.edu.ec</a></li>
-              <li><a href="#contacto">Envíanos un mensaje</a></li>
+              <li><a href="/contacto">Envíanos un mensaje</a></li>
             </ul>
           </div>
         </nav>
@@ -447,8 +459,8 @@
         <div class="foot-legal">
           <p lang="en">© Copyright <span id="year">2026</span> IEEE – All rights reserved. A public charity, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.</p>
           <ul class="admin-links" aria-label="Avisos legales de IEEE">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/contacto">Contacto</a></li>
             <li><a href="https://www.ieee.org/accessibility-statement.html" lang="en">Accessibility</a></li>
             <li><a href="https://www.ieee.org/about/corporate/governance/p9-26.html" lang="en">Nondiscrimination Policy</a></li>
             <li><a href="https://www.ieee-ethics-reporting.org/" lang="en">IEEE Ethics Reporting</a></li>

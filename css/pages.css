@@ -4,6 +4,8 @@
 
 /* Inicio · La rama: foto en el marco del visor + misión y visión ----------- */
 .rama { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(var(--sp-6), 6vw, var(--sp-9)); align-items: start; }
+/* Foto grupal horizontal: a todo el ancho, encima del texto */
+.rama.has-wide-photo { grid-template-columns: minmax(0, 1fr); gap: clamp(var(--sp-5), 4vw, var(--sp-7)); }
 .mv { display: grid; gap: var(--sp-6); margin-top: var(--sp-6); }
 .mv article { padding-left: var(--sp-5); border-left: 2px solid var(--c-link); }
 .mv h3 { font-size: var(--fs-md); color: var(--c-heading); }
@@ -88,7 +90,7 @@
 @media (max-width: 1100px) {
   .area { grid-template-columns: 1fr; gap: var(--sp-4); }
   .rama, .story, .contact { grid-template-columns: 1fr; }
-  .rama .frame-visor { max-width: 520px; }
+  .rama .frame-visor:not(.is-wide) { max-width: 520px; }
   .log-entry { grid-template-columns: 120px minmax(0, 1fr); }
   .log-entry .ph { grid-column: 2; }
   .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -139,7 +141,7 @@
     width: 100%; aspect-ratio: auto; height: 180px; overflow: hidden;
     -webkit-mask-image: linear-gradient(transparent, #000 45%); mask-image: linear-gradient(transparent, #000 45%);
   }
-  .foot-globe img { inset: auto; left: calc(50% - 560px * 281.7 / 900); top: calc(130px - 560px * 479.9 / 900); width: 560px; height: 560px; }
+  .foot-globe img { inset: auto; left: calc(50% - 560px * var(--px) / 900); top: calc(130px - 560px * var(--py) / 900); width: 560px; height: 560px; }
   .globe-pin { left: 50%; top: 130px; }
 }
 @media (max-width: 600px) {

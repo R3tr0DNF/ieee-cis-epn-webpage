@@ -163,7 +163,7 @@
       list.forEach(function (c) {
         var item = el('li');
         var link = el('a', null, c.siglas.join(' / '));
-        link.href = '#capitulos/' + c.id;
+        link.href = '/capitulos/' + c.id;
         link.setAttribute('aria-label', c.siglas.join(', ') + ': ' + c.sociedades.join(', '));
         item.appendChild(link);
         ul.appendChild(item);
