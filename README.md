@@ -24,13 +24,13 @@ css/base.css                reset, tipografía, foco, utilidades, etiqueta PENDI
 css/layout.css              meta-navegación IEEE, encabezado, navegación, páginas, pie
 css/components.css          botones, visor (firma), módulos de capítulo, formulario, redes
 css/pages.css               secciones de cada vista y responsive
-js/config.js                configuración: pendientes visibles, video de la portada, formulario
+js/config.js                configuración: pendientes visibles, fotos de la portada, formulario
 js/data/chapters.js         DATOS de capítulos y grupos (único archivo a editar para esa sección)
 js/chapters.js              plantilla única: tablero, índice de Inicio y opciones del formulario
 js/data/becados.js          DATOS de becados (agregar un becado = agregar un objeto)
 js/becados.js               plantilla única de becados: aplica las autorizaciones y el estado vacío
 js/router.js                vistas por ruta (History API, sin #; acepta enlaces antiguos con #), título, descripción y canonical, encabezado (sólido / se oculta al bajar), menú móvil, botón de tema
-js/hero.js                  video de fondo (carga diferida, pausa fuera de pantalla) y respaldo del efecto de scroll
+js/hero.js                  fotos de la portada en bucle (carga de a una, pausa fuera de pantalla) y respaldo del efecto de scroll
 js/form.js                  validación accesible y envío del formulario
 assets/fonts/               Open Sans + IBM Plex Mono (OFL), alojadas en el sitio
 assets/img/brand/           logos optimizados (WebP 1x/2x + PNG), IEEE Master Brand, favicon
@@ -40,7 +40,7 @@ assets/img/directiva/       fotos de la directiva (WebP 480 × 600, 4:5)
 assets/img/rama/            foto grupal de la rama en Inicio (2:1, WebP 800/1120 + JPG)
 assets/img/globe-ecuador.svg  globo estático del pie (Natural Earth, dominio público)
 assets/img/og-image.jpg     imagen al compartir el enlace
-assets/video/               video de la portada (vid1.mp4) y sus pósters WebP de 960 y 1920 px
+assets/img/portada/         fotos de la portada en bucle (16:9, WebP 960 y 1600 px)
 ```
 
 ## Tareas frecuentes
@@ -51,22 +51,13 @@ assets/video/               video de la portada (vid1.mp4) y sus pósters WebP d
 
 **Logo de un capítulo.** Exporta el logo en WebP a 480 px y 960 px de ancho (y un PNG de 480 px), guárdalo en `assets/img/chapters/` y completa el campo `logo` (mira el de CIS como ejemplo). Usa `formato: 'ancho'` para logos apaisados y `'cuadrado'` para íconos.
 
-**Video de la portada.** Fondo en bucle, sin sonido y sin botón de pausa. Se carga después de la página (el LCP es el póster, que ya está en el HTML), se pausa cuando la portada casi no se ve, en otra vista o con la pestaña oculta, y no se carga con movimiento reducido (solo póster) ni con ahorro de datos. Hoy `assets/video/vid1.mp4` pesa 27,9 MB (4K, 17 Mbps) y trae una pista de audio vacía: **conviene optimizarlo** (objetivo < 3 MB). Comandos sugeridos (no se ejecutaron):
+**Fotos de la portada.** La portada muestra fotos que rotan en bucle (fundido y acercamiento lento), en lugar de video. La lista y el tiempo de cada foto están en `js/config.js → portada`. Cada foto va en `assets/img/portada/` en 16:9 y en dos tamaños: `<nombre>-1600.webp` (1600 × 900) y `<nombre>-960.webp` (960 × 540). La primera también está en `index.html` (`<img id="visor-poster">`) porque es el LCP; si cambias la primera, actualiza ahí la ruta. En escritorio la foto llena la portada; en celular o tablet en vertical se ve completa en una franja 16:9 bajo el encabezado, con el texto debajo. Con "reducir movimiento" o ahorro de datos queda fija la primera foto, y el carrusel se pausa fuera de pantalla o con la pestaña oculta.
+
+Para preparar una foto nueva en 16:9 (ajusta el recorte `crop=ancho:alto:x:y` a la composición):
 
 ```bash
-# MP4 H.264 1080p sin audio (compatible con todo)
-ffmpeg -i assets/video/vid1.mp4 -an -vf "scale=1920:-2,fps=25" -c:v libx264 -preset slow -crf 30 -pix_fmt yuv420p -movflags +faststart assets/video/vid1-1080.mp4
-# Si aún pesa más de 3 MB: 720p
-ffmpeg -i assets/video/vid1.mp4 -an -vf "scale=1280:-2,fps=25" -c:v libx264 -preset slow -crf 30 -pix_fmt yuv420p -movflags +faststart assets/video/vid1-720.mp4
-# Opcional, WebM VP9 (más liviano en Chrome/Firefox/Edge)
-ffmpeg -i assets/video/vid1.mp4 -an -vf "scale=1920:-2" -c:v libvpx-vp9 -crf 40 -b:v 0 -row-mt 1 assets/video/vid1.webm
-```
-
-Luego escribe las rutas nuevas en `js/config.js → video` (`webm` va primero si existe). Si cambias de video, regenera los pósters (primer cuadro) con los mismos nombres:
-
-```bash
-ffmpeg -i NUEVO.mp4 -frames:v 1 -vf scale=960:-2  -quality 62 assets/video/vid1-poster-960.webp
-ffmpeg -i NUEVO.mp4 -frames:v 1 -vf scale=1920:-2 -quality 58 assets/video/vid1-poster-1920.webp
+ffmpeg -i FOTO.jpg -vf "crop=1600:900:0:0,hqdn3d=1.5:1.5:2.5:2.5,scale=1600:900:flags=lanczos,unsharp=5:5:0.65:3:3:0" -c:v libwebp -quality 80 assets/img/portada/slide-15-1600.webp
+ffmpeg -i assets/img/portada/slide-15-1600.webp -vf scale=960:-2 -c:v libwebp -quality 78 assets/img/portada/slide-15-960.webp
 ```
 
 **Tema claro / oscuro.** La página siempre abre en claro (no se usa `prefers-color-scheme`); si el visitante elige oscuro con el botón del encabezado, se recuerda en `localStorage` (clave `ieee-epn-tema`). Los colores de cada tema están en `css/tokens.css` (`[data-theme="light"]` y `[data-theme="dark"]`): cambia ahí el token, no el componente. El script corto del `<head>` aplica el tema antes de pintar; no lo muevas debajo del CSS.

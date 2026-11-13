@@ -38,11 +38,11 @@
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
        cambia el valor en cada publicación para que todos reciban la versión nueva. -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261112-2">
-  <link rel="stylesheet" href="css/base.css?v=20261112-2">
-  <link rel="stylesheet" href="css/layout.css?v=20261112-2">
-  <link rel="stylesheet" href="css/components.css?v=20261112-2">
-  <link rel="stylesheet" href="css/pages.css?v=20261112-2">
+  <link rel="stylesheet" href="css/tokens.css?v=20261113-1">
+  <link rel="stylesheet" href="css/base.css?v=20261113-1">
+  <link rel="stylesheet" href="css/layout.css?v=20261113-1">
+  <link rel="stylesheet" href="css/components.css?v=20261113-1">
+  <link rel="stylesheet" href="css/pages.css?v=20261113-1">
 
   <script type="application/ld+json">
   {
@@ -60,14 +60,14 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261112-2" defer></script>
-  <script src="js/data/chapters.js?v=20261112-2" defer></script>
-  <script src="js/chapters.js?v=20261112-2" defer></script>
-  <script src="js/data/becados.js?v=20261112-2" defer></script>
-  <script src="js/becados.js?v=20261112-2" defer></script>
-  <script src="js/router.js?v=20261112-2" defer></script>
-  <script src="js/hero.js?v=20261112-2" defer></script>
-  <script src="js/form.js?v=20261112-2" defer></script>
+  <script src="js/config.js?v=20261113-1" defer></script>
+  <script src="js/data/chapters.js?v=20261113-1" defer></script>
+  <script src="js/chapters.js?v=20261113-1" defer></script>
+  <script src="js/data/becados.js?v=20261113-1" defer></script>
+  <script src="js/becados.js?v=20261113-1" defer></script>
+  <script src="js/router.js?v=20261113-1" defer></script>
+  <script src="js/hero.js?v=20261113-1" defer></script>
+  <script src="js/form.js?v=20261113-1" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -136,15 +136,14 @@
       data-description="Rama Estudiantil IEEE de la Escuela Politécnica Nacional, Quito: 11 capítulos y grupos técnicos para estudiantes de ingeniería. Conoce los capítulos y únete.">
 
       <div class="hero" id="hero">
-        <!-- VISOR: video de fondo de la portada.
-             · El póster (primer cuadro, WebP 960/1920 px) se pinta de inmediato y es el LCP.
-             · js/hero.js agrega el <video> después del evento load, con las rutas de js/config.js.
-             · Si cambias el video, regenera los dos pósters con el mismo nombre (ver README). -->
+        <!-- VISOR: fotos de la portada que rotan en bucle (js/hero.js, lista en js/config.js → portada).
+             · La primera foto se pinta de inmediato y es el LCP; las demás se cargan después, una por una.
+             · Escritorio: a pantalla completa. Celular en vertical: franja 16:9 completa bajo el encabezado. -->
         <div class="visor" id="visor" aria-hidden="true">
           <div class="visor-media" id="visor-media">
-            <img class="visor-poster" id="visor-poster" alt="" width="1920" height="1080" fetchpriority="high" decoding="async"
-                 src="assets/video/vid1-poster-1920.webp"
-                 srcset="assets/video/vid1-poster-960.webp 960w, assets/video/vid1-poster-1920.webp 1920w" sizes="100vw">
+            <img class="visor-slide is-on" id="visor-poster" alt="" width="1600" height="900" fetchpriority="high" decoding="async"
+                 src="assets/img/portada/slide-01-1600.webp"
+                 srcset="assets/img/portada/slide-01-960.webp 960w, assets/img/portada/slide-01-1600.webp 1600w" sizes="100vw">
           </div>
           <div class="visor-frame"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span></div>
         </div>
@@ -313,14 +312,14 @@
         <div class="wrap">
           <span class="section-label mono">Directiva</span>
           <h2 class="section-title" id="h-board">Equipo directivo</h2>
-          <p class="lead">Directiva del periodo vigente. <span class="pending">Pendiente: nombre del Secretario</span> IEEE pide registrar Chair, Counselor y Webmaster en vTools.</p>
+          <p class="lead">Directiva del periodo vigente. IEEE pide registrar Chair, Counselor y Webmaster en vTools.</p>
           <!-- Directiva en pirámide: Counselor arriba, Chair y Vice Chair al medio, el resto abajo.
-               Fotos: assets/img/directiva/*.webp (480 × 600, 4:5). PENDIENTE: nombre del Secretario. -->
+               Fotos: assets/img/directiva/*.webp (480 × 600, 4:5). -->
           <ul class="people board">
             <li class="person tier-1"><img class="person-photo" src="assets/img/directiva/counselor.webp" width="480" height="600" alt="Dr. Fabián Perez, Branch Counselor" decoding="async"><span class="role mono">Branch Counselor</span><h3>Dr. Fabián Perez</h3></li>
             <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/chair.webp" width="480" height="600" alt="Elias Viteri, Chair" decoding="async"><span class="role mono">Chair</span><h3>Elias Viteri</h3></li>
             <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/vice-chair.webp" width="480" height="600" alt="Andrey Carrillo, Vice Chair" decoding="async"><span class="role mono">Vice Chair</span><h3>Andrey Carrillo</h3></li>
-            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/secretario.webp" width="480" height="600" alt="Foto del Secretario de la rama" decoding="async"><span class="role mono">Secretario</span><h3>Nombre pendiente</h3></li>
+            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/secretario.webp" width="480" height="600" alt="Erick Alarcón, Secretario" decoding="async"><span class="role mono">Secretario</span><h3>Erick Alarcón</h3></li>
             <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/tesorero.webp" width="480" height="600" alt="Martín Muñoz, Tesorero" decoding="async"><span class="role mono">Tesorero</span><h3>Martín Muñoz</h3></li>
             <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/webmaster.webp" width="480" height="600" alt="Jazmín Zambrano, Webmaster" decoding="async"><span class="role mono">Webmaster</span><h3>Jazmín Zambrano</h3></li>
           </ul>

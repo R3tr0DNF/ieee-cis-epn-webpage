@@ -1,73 +1,91 @@
 /* ==========================================================
    IEEE Student Branch EPN — Portada (visor)
-   · Video de fondo (js/config.js): muted, loop, playsinline,
-     autoplay y póster. Se agrega después del evento load, así no
-     compite con el LCP (el LCP es el póster, que ya está en el HTML).
+   · Fotos en bucle (js/config.js → portada): cada una se ve
+     `intervalo` ms, con fundido cruzado y un acercamiento lento
+     (CSS), para que la portada se sienta como un video.
+   · La primera foto ya está en el HTML (es el LCP). Las demás se
+     crean después del evento load y se descargan de a una: siempre
+     solo la siguiente, para no gastar datos de golpe.
    · Sin botón de pausa. Para compensarlo:
-       - con prefers-reduced-motion solo se ve el póster (el video
-         ni se descarga; si la preferencia cambia, se aplica al vuelo);
-       - se pausa cuando la portada casi no se ve o la pestaña está oculta;
-       - con ahorro de datos (Save-Data) no se carga.
+       - con prefers-reduced-motion queda fija la primera foto
+         (si la preferencia cambia, se aplica al vuelo);
+       - se pausa cuando la portada casi no se ve, en otra vista o
+         con la pestaña oculta;
+       - con ahorro de datos (Save-Data) no se cargan más fotos.
    · Respaldo del efecto de scroll para navegadores sin CSS
      scroll-driven animations: fija --p (0 → 1) con rAF pasivo.
    ========================================================== */
 (function () {
   var D = window.IEEE_EPN || {};
-  var cfg = (D.config && D.config.video) || {};
+  var cfg = (D.config && D.config.portada) || {};
   var hero = document.getElementById('hero');
   if (!hero) return;
   var media = document.getElementById('visor-media');
-  var posterImg = document.getElementById('visor-poster');
+  var first = document.getElementById('visor-poster');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var reducedData = window.matchMedia('(prefers-reduced-data: reduce)');
   var saveData = (navigator.connection && navigator.connection.saveData) || reducedData.matches;
-  var video = null, inView = true, loaded = false;
+  var names = cfg.fotos || [];
+  var every = Math.max(cfg.intervalo || 6000, 2500);
+  var slides = first ? [first] : [];
+  var current = 0, timer = null, inView = true, started = false;
+  var BASE = 'assets/img/portada/';
 
-  /* 1. Video */
-  function canPlay() { return video && inView && !document.hidden && !reduce.matches; }
+  /* 1. Fotos en bucle */
+  function make(i) {                      // crea (y empieza a descargar) la foto i
+    if (slides[i]) return slides[i];
+    var img = document.createElement('img');
+    img.className = 'visor-slide';
+    img.alt = ''; img.decoding = 'async';
+    img.width = 1600; img.height = 900;
+    img.sizes = '100vw';
+    img.srcset = BASE + names[i] + '-960.webp 960w, ' + BASE + names[i] + '-1600.webp 1600w';
+    img.src = BASE + names[i] + '-1600.webp';
+    media.appendChild(img);
+    slides[i] = img;
+    return img;
+  }
+  function ready(img) { return img.complete && img.naturalWidth > 0; }
+  function canRun() { return started && names.length > 1 && inView && !document.hidden && !reduce.matches && !saveData; }
+  function step() {
+    timer = null;
+    if (!canRun()) return;
+    var next = (current + 1) % names.length;
+    var img = make(next);
+    if (!ready(img)) {                    // aún descargando: espera sin saltarse la foto
+      img.addEventListener('load', schedule, { once: true });
+      img.addEventListener('error', function () { names.splice(next, 1); slides.splice(next, 1); schedule(); }, { once: true });
+      return;
+    }
+    slides[current].classList.remove('is-on');
+    img.classList.add('is-on');
+    current = next;
+    make((current + 1) % names.length);   // descarga la siguiente mientras se ve esta
+    schedule();
+  }
+  function schedule() {
+    if (timer || !canRun()) return;
+    timer = setTimeout(step, every);
+  }
   function sync() {
-    if (!video) return;
-    if (canPlay()) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
-    else video.pause();
-  }
-  function loadVideo() {
-    if (video || reduce.matches) return;
-    video = document.createElement('video');
-    video.className = 'visor-video';
-    video.muted = true; video.defaultMuted = true; video.loop = true; video.autoplay = true; video.playsInline = true;
-    ['muted', 'loop', 'autoplay', 'playsinline'].forEach(function (a) { video.setAttribute(a, ''); });
-    video.setAttribute('aria-hidden', 'true');
-    video.setAttribute('tabindex', '-1');
-    video.preload = 'auto';
-    var poster = (posterImg && posterImg.currentSrc) || cfg.poster;   // la misma imagen ya descargada
-    if (poster) video.poster = poster;
-    [[cfg.webm, 'video/webm'], [cfg.mp4, 'video/mp4']].forEach(function (s) {
-      if (!s[0]) return;
-      var src = document.createElement('source'); src.src = s[0]; src.type = s[1]; video.appendChild(src);
-    });
-    video.addEventListener('playing', function () { hero.classList.add('has-video'); }, { once: true });
-    video.addEventListener('error', function () { removeVideo(); }, true);   // queda el póster
-    media.appendChild(video);
-    sync();
-  }
-  function removeVideo() {
-    if (!video) return;
-    video.pause(); video.removeAttribute('src'); video.remove(); video = null;
-    hero.classList.remove('has-video');
+    if (canRun()) { hero.classList.remove('is-paused'); schedule(); }
+    else { clearTimeout(timer); timer = null; hero.classList.add('is-paused'); }
   }
   function start() {
-    loaded = true;
-    if (!(cfg.webm || cfg.mp4) || saveData || reduce.matches) return;
-    ('requestIdleCallback' in window) ? requestIdleCallback(loadVideo, { timeout: 2000 }) : setTimeout(loadVideo, 300);
+    started = true;
+    if (canRun()) make(1);
+    sync();
   }
   if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
 
-  /* La preferencia de movimiento puede cambiar con la página abierta */
-  var onReduce = function () { if (reduce.matches) removeVideo(); else if (loaded) start(); };
+  /* La preferencia de movimiento puede cambiar con la página abierta: con "reducir", vuelve a la primera foto */
+  var onReduce = function () {
+    if (reduce.matches && slides[current] && current !== 0) { slides[current].classList.remove('is-on'); slides[0].classList.add('is-on'); current = 0; }
+    sync();
+  };
   if (reduce.addEventListener) reduce.addEventListener('change', onReduce); else if (reduce.addListener) reduce.addListener(onReduce);
 
-  /* Pausa cuando la portada casi no se ve (el video ya se desvaneció),
-     en otra vista (la portada queda oculta) o con la pestaña oculta */
+  /* Pausa cuando la portada casi no se ve, en otra vista (la portada queda oculta) o con la pestaña oculta */
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (e) {
       inView = e[0].isIntersecting && e[0].intersectionRatio >= 0.25;
