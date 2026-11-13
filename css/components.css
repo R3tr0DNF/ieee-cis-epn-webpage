@@ -93,6 +93,7 @@
 .frame-visor { position: relative; border: 1px solid var(--c-line); padding: var(--sp-3); background: var(--c-card); }
 .frame-visor .corner { border-color: var(--c-heading); }
 .frame-visor .ph, .frame-visor img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.frame-visor.is-wide img { aspect-ratio: 2 / 1; height: auto; display: block; }
 .frame-visor figcaption { margin-top: var(--sp-3); color: var(--c-muted); }
 
 /* Módulos de capítulo (tablero) -------------------------------------------- */
@@ -173,6 +174,25 @@ a.social:hover::after { transform: translate(3px, 3px); }
 /* Personas y registro de iniciativas --------------------------------------- */
 .people { margin-top: var(--sp-6); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); list-style: none; }
 .person .ph { aspect-ratio: 4 / 5; margin-bottom: var(--sp-3); }
+/* Directiva: recortes sobre fondo transparente, apoyados en un fondo de tinte */
+.person-photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; margin-bottom: var(--sp-3); border-radius: var(--r-media); background: var(--c-tint); }
+/* Directiva en pirámide (6 columnas): Counselor | Chair + Vice Chair | resto */
+.people.board { grid-template-columns: repeat(6, minmax(0, 1fr)); max-width: 960px; margin-inline: auto; text-align: center; }
+.people.board .person { grid-column: span 2; }
+.people.board .tier-1 { grid-row: 1; grid-column: 3 / span 2; }
+.people.board .tier-2 { grid-row: 2; }
+.people.board .tier-2:nth-child(2) { grid-column: 2 / span 2; }
+.people.board .tier-2:nth-child(3) { grid-column: 4 / span 2; }
+.people.board .tier-3 { grid-row: 3; }
+@media (max-width: 600px) {          /* móvil: 1 · 2 · 2 · 1, centrado */
+  .people.board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .people.board .tier-1, .people.board .tier-3:last-child { grid-column: 2 / span 2; }
+  .people.board .tier-2:nth-child(2) { grid-column: 1 / span 2; }
+  .people.board .tier-2:nth-child(3) { grid-column: 3 / span 2; }
+  .people.board .tier-3 { grid-row: auto; }
+  .people.board .tier-3:nth-child(4) { grid-column: 1 / span 2; }
+  .people.board .tier-3:nth-child(5) { grid-column: 3 / span 2; }
+}
 .person .role { color: var(--c-orange-text); display: block; margin-bottom: var(--sp-1); }
 .person h3 { font-size: var(--fs-md); color: var(--c-heading); }
 /* Becados: misma tarjeta de persona; iniciales si no hay foto autorizada */

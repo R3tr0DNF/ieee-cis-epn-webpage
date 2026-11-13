@@ -6,16 +6,18 @@ HTML, CSS y JavaScript sin framework ni compilación. Concepto visual: **"Visor"
 ## Ejecutar
 
 ```bash
-cd ieee-sb-epn-webpage
+cd ieee-cis-epn-webpage
 python3 -m http.server 8000        # abrir http://localhost:8000
 ```
 
-También funciona con cualquier servidor estático (`npx serve .`) o abriendo `index.html` directamente.
+Las vistas usan rutas limpias sin `#` (`/capitulos`, `/directiva`…), así que el sitio se abre desde la raíz de un servidor, no con doble clic en `index.html`. En local, recargar una ruta interna da 404 (el servidor de Python no usa `404.html`): entra por `/` y navega.
 
 ## Estructura
 
 ```
-index.html                  todas las vistas: #inicio, #capitulos, #iniciativas, #directiva, #contacto
+index.html                  todas las vistas: /, /capitulos, /iniciativas, /directiva, /contacto (<base href="/">)
+404.html                    GitHub Pages: guarda la ruta pedida (/capitulos/cis…) y vuelve a /, donde router.js la restaura
+CNAME                       dominio de GitHub Pages (ieee-epn.org)
 robots.txt, sitemap.xml     SEO (PENDIENTE: dominio definitivo)
 css/tokens.css              tokens: color (temas claro y oscuro), tipografía, espaciado, radios, movimiento, fuentes
 css/base.css                reset, tipografía, foco, utilidades, etiqueta PENDIENTE
@@ -27,13 +29,15 @@ js/data/chapters.js         DATOS de capítulos y grupos (único archivo a edita
 js/chapters.js              plantilla única: tablero, índice de Inicio y opciones del formulario
 js/data/becados.js          DATOS de becados (agregar un becado = agregar un objeto)
 js/becados.js               plantilla única de becados: aplica las autorizaciones y el estado vacío
-js/router.js                vistas por hash, título y descripción, encabezado (sólido / se oculta al bajar), menú móvil, botón de tema
+js/router.js                vistas por ruta (History API, sin #; acepta enlaces antiguos con #), título, descripción y canonical, encabezado (sólido / se oculta al bajar), menú móvil, botón de tema
 js/hero.js                  video de fondo (carga diferida, pausa fuera de pantalla) y respaldo del efecto de scroll
 js/form.js                  validación accesible y envío del formulario
 assets/fonts/               Open Sans + IBM Plex Mono (OFL), alojadas en el sitio
 assets/img/brand/           logos optimizados (WebP 1x/2x + PNG), IEEE Master Brand, favicon
 assets/img/brand/source/    archivos originales de marca (PNG y SVG), no se cargan en la página
-assets/img/chapters/        logos de capítulos
+assets/img/chapters/        logos de capítulos (WebP 480/960 + PNG 480, recortados al contenido)
+assets/img/directiva/       fotos de la directiva (WebP 480 × 600, 4:5)
+assets/img/rama/            foto grupal de la rama en Inicio (2:1, WebP 800/1120 + JPG)
 assets/img/globe-ecuador.svg  globo estático del pie (Natural Earth, dominio público)
 assets/img/og-image.jpg     imagen al compartir el enlace
 assets/video/               video de la portada (vid1.mp4) y sus pósters WebP de 960 y 1920 px

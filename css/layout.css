@@ -134,12 +134,13 @@ main { flex: 1; }
 
 /* Planeta: imagen de 900 × 900 con un círculo de radio 440 → caja de --gr × 900/440 */
 .foot-globe {
+  --px: 284.6; --py: 491.5;      /* centro de Ecuador (puntos celestes) en la imagen de 900 px */
   position: absolute; z-index: 0; top: 50%; right: calc(var(--gx) - var(--gr) * 450 / 440);
   width: calc(var(--gr) * 900 / 440); aspect-ratio: 1; transform: translateY(-50%); pointer-events: none;
 }
-.foot-globe img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.foot-globe img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
 .globe-pin {
-  position: absolute; left: calc(281.7 / 900 * 100%); top: calc(479.9 / 900 * 100%);   /* Quito en la imagen de 900 px */
+  position: absolute; left: calc(var(--px) / 900 * 100%); top: calc(var(--py) / 900 * 100%);
   width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: var(--r-round); background: #fff;
   box-shadow: 0 0 0 4px rgba(0, 181, 226, .55);
 }
