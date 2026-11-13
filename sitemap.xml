@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- PENDIENTE: reemplazar PENDIENTE-dominio-de-la-rama por el dominio ieee.org definitivo.
-     Las vistas internas usan # (una sola página), por eso hay una sola URL. -->
+<!-- Las vistas internas usan # (una sola página), por eso hay una sola URL. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://PENDIENTE-dominio-de-la-rama/</loc>
+    <loc>https://ieee-epn.org/</loc>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
