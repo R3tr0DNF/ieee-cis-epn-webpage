@@ -77,6 +77,8 @@ ffmpeg -i NUEVO.mp4 -frames:v 1 -vf scale=1920:-2 -quality 58 assets/video/vid1-
 
 **Formulario.** Crea un formulario en un servicio que acepte `POST` con `FormData` (Formspree, Getform, Basin…) y pega su URL en `js/config.js → form.endpoint`. Sin endpoint, el envío abre el correo del visitante.
 
+**Versión de CSS y JS.** Cloudflare indica a los navegadores guardar CSS y JS durante 4 horas. Cada vez que publiques cambios en `css/` o `js/`, cambia el valor `?v=` de los enlaces en `index.html` (por ejemplo `?v=20261113-1`) para que todos reciban la versión nueva al instante.
+
 **Publicar.** Cambia `MOSTRAR_PENDIENTES` a `false` en `js/config.js`, completa el dominio en `robots.txt`, `sitemap.xml` y las etiquetas `og:` / `canonical` de `index.html`.
 
 ## Elementos obligatorios de IEEE (Brand Experience, Global Page Elements)
