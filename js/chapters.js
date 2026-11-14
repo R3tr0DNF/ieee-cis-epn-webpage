@@ -147,30 +147,111 @@
     }
   }
 
-  /* Índice de Inicio */
+  /* Franja de logos de Inicio
+     · Orden: el de las áreas (y dentro de cada área, el de la data).
+     · Tamaño por ÁREA VISUAL EQUIVALENTE: cada logo ocupa la misma superficie, así un logo
+       muy ancho (WIE, ComSoc) no domina y uno casi cuadrado (SIGHT) no se pierde.
+       alto = --s / √proporción (en CSS); aquí solo se pasa la proporción --r = ancho / alto.
+     · Versión blanca para el modo oscuro: mismo nombre con "-white" (cis-480.webp → cis-white-480.webp),
+       o logo.blanco / logo.blanco2x en la data si se quiere otra ruta. */
   var index = document.getElementById('chapter-index');
   if (index) {
-    areas.forEach(function (a, ai) {
-      var list = byArea(a.id);
-      if (!list.length) return;
-      var li = el('li');
-      var head = el('div', 'index-area');
-      head.appendChild(el('span', 'mono', 'A' + (ai + 1)));
-      head.appendChild(el('span', null, a.titulo));
-      li.appendChild(head);
-      var ul = el('ul', 'index-siglas');
-      ul.setAttribute('role', 'list');
-      list.forEach(function (c) {
-        var item = el('li');
-        var link = el('a', null, c.siglas.join(' / '));
-        link.href = '/capitulos/' + c.id;
-        link.setAttribute('aria-label', c.siglas.join(', ') + ': ' + c.sociedades.join(', '));
-        item.appendChild(link);
-        ul.appendChild(item);
-      });
-      li.appendChild(ul);
-      index.appendChild(li);
+    var ordered = [];
+    areas.forEach(function (a) { ordered = ordered.concat(byArea(a.id)); });
+    chapters.forEach(function (c) { if (ordered.indexOf(c) < 0) ordered.push(c); });
+
+    function logoImg(cls, src, src2x, c, alt) {
+      var img = el('img', cls);
+      img.src = src;
+      if (src2x) img.srcset = src + ' 1x, ' + src2x + ' 2x';
+      img.width = c.logo.width; img.height = c.logo.height;
+      img.alt = alt; img.loading = 'lazy'; img.decoding = 'async';
+      return img;
+    }
+    ordered.forEach(function (c, i) {
+      var item = el('li', 'logo-item');
+      item.style.setProperty('--i', i);
+      var link = el('a', 'logo-link');
+      link.href = '/capitulos/' + c.id;
+      var name = c.siglas.join(' / ') + ': ' + c.sociedades.join(', ');
+      if (c.logo) {
+        item.style.setProperty('--r', (c.logo.width / c.logo.height).toFixed(3));
+        var white = c.logo.blanco || c.logo.src.replace(/-(\d+)\.webp$/, '-white-$1.webp');
+        var white2x = c.logo.blanco2x || (c.logo.src2x ? c.logo.src2x.replace(/-(\d+)\.webp$/, '-white-$1.webp') : '');
+        link.appendChild(logoImg('logo-color', c.logo.src, c.logo.src2x, c, name));
+        link.appendChild(logoImg('logo-white', white, white2x, c, ''));   // decorativa: el nombre ya está en la de color
+      } else {
+        link.classList.add('is-text');
+        link.textContent = c.siglas.join(' / ');
+        link.setAttribute('aria-label', name);
+      }
+      item.appendChild(link);
+      index.appendChild(item);
     });
+
+    stripScroller(document.getElementById('chapter-strip'));
+  }
+
+  /* Desplazamiento de la franja
+     · Con mouse: al acercar el cursor a un extremo (zona de 18 % del ancho, mínimo 90 px) la franja
+       avanza sola hacia ese lado; más rápido cuanto más cerca del borde. Al salir, se detiene.
+     · Flechas a los lados para quien prefiera hacer clic; en pantallas táctiles se desliza con el dedo.
+     · Con teclado, cada logo es un enlace: al enfocarlo el navegador lo trae a la vista.
+     · Sin desbordamiento (pantallas muy anchas) los logos se centran y no hay flechas ni desplazamiento. */
+  function stripScroller(strip) {
+    if (!strip) return;
+    var vp = strip.querySelector('.logo-viewport');
+    var prev = strip.querySelector('.strip-nav.prev');
+    var next = strip.querySelector('.strip-nav.next');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var speed = 0, raf = 0;
+
+    function update() {
+      var max = vp.scrollWidth - vp.clientWidth;
+      var over = max > 2;
+      strip.classList.toggle('is-overflowing', over);
+      strip.classList.toggle('at-start', !over || vp.scrollLeft <= 2);
+      strip.classList.toggle('at-end', !over || vp.scrollLeft >= max - 2);
+    }
+    function loop() {
+      if (!speed) { raf = 0; return; }
+      vp.scrollLeft += speed;
+      update();
+      raf = requestAnimationFrame(loop);
+    }
+    function setSpeed(v) {
+      speed = v;
+      if (speed && !raf) raf = requestAnimationFrame(loop);
+    }
+    vp.addEventListener('mousemove', function (e) {
+      if (!fine.matches || !strip.classList.contains('is-overflowing')) return;
+      var r = vp.getBoundingClientRect();
+      var zone = Math.max(90, r.width * 0.18);
+      var x = e.clientX - r.left;
+      var max = reduce.matches ? 6 : 14;                 // px por cuadro
+      if (x < zone) setSpeed(-max * Math.pow(1 - x / zone, 1.5));
+      else if (x > r.width - zone) setSpeed(max * Math.pow(1 - (r.width - x) / zone, 1.5));
+      else setSpeed(0);
+    });
+    vp.addEventListener('mouseleave', function () { setSpeed(0); });
+    vp.addEventListener('scroll', update, { passive: true });
+    function page(dir) { vp.scrollBy({ left: dir * vp.clientWidth * 0.7, behavior: reduce.matches ? 'auto' : 'smooth' }); }
+    prev.addEventListener('click', function () { page(-1); });
+    next.addEventListener('click', function () { page(1); });
+    window.addEventListener('resize', update);
+    document.addEventListener('ieee:view', function () { requestAnimationFrame(update); });
+    strip.querySelectorAll('img').forEach(function (img) { img.addEventListener('load', update); });
+    update();
+
+    /* "Se van mostrando": aparición escalonada al entrar en pantalla (sin efecto con movimiento reducido) */
+    if ('IntersectionObserver' in window && !reduce.matches) {
+      strip.classList.add('will-reveal');
+      var io = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { strip.classList.add('is-revealed'); io.disconnect(); }
+      }, { threshold: 0.2 });
+      io.observe(strip);
+    }
   }
 
   /* Opciones del formulario */

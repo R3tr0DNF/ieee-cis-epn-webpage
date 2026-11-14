@@ -15,8 +15,9 @@ window.IEEE_EPN.config = {
      Agregar una foto = exportarla en 16:9 con esos dos tamaños y sumar su nombre aquí. */
   portada: {
     intervalo: 6000,          // ms que se ve cada foto
-    fotos: ['slide-01', 'slide-02', 'slide-03', 'slide-04', 'slide-05', 'slide-06', 'slide-07',
-            'slide-08', 'slide-09', 'slide-10', 'slide-11', 'slide-12', 'slide-13', 'slide-14']
+    /* slide-15/16/17: CIS en las letras EPN; las dos selfies (16 y 17) van separadas */
+    fotos: ['slide-01', 'slide-02', 'slide-03', 'slide-15', 'slide-04', 'slide-05',
+            'slide-16', 'slide-08', 'slide-09', 'slide-10', 'slide-11', 'slide-12', 'slide-17', 'slide-13', 'slide-14']
   },
 
   /* Formulario de contacto.

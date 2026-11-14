@@ -15,7 +15,7 @@ Las vistas usan rutas limpias sin `#` (`/capitulos`, `/directiva`…), así que 
 ## Estructura
 
 ```
-index.html                  todas las vistas: /, /capitulos, /eventos, /directiva, /contacto (<base href="/">)
+index.html                  todas las vistas: /, /capitulos, /eventos, /directiva, /contacto y /desarrolladores (solo desde el pie) (<base href="/">)
 404.html                    GitHub Pages: guarda la ruta pedida (/capitulos/cis…) y vuelve a /, donde router.js la restaura
 CNAME                       dominio de GitHub Pages (ieee-epn.org)
 robots.txt, sitemap.xml     SEO (PENDIENTE: dominio definitivo)
@@ -40,6 +40,7 @@ assets/img/directiva/       fotos de la directiva (WebP 480 × 600, 4:5)
 assets/img/rama/            foto grupal de la rama en Inicio (2:1, WebP 800/1120 + JPG)
 assets/img/globe-ecuador.svg  globo estático del pie (Natural Earth, dominio público)
 assets/img/og-image.jpg     imagen al compartir el enlace
+assets/img/desarrolladores/ fotos de los desarrolladores del sitio (4:5, fondo transparente, WebP 480 y 720 px)
 assets/img/eventos/         imágenes de los eventos destacados (4:5, WebP 480 y 960 px)
 assets/img/portada/         fotos de la portada en bucle (16:9, WebP 960 y 1600 px)
 ```
@@ -50,9 +51,13 @@ assets/img/portada/         fotos de la portada en bucle (16:9, WebP 960 y 1600 
 
 **Agregar un becado.** En `js/data/becados.js`, copia la PLANTILLA y completa `nombre`, `programa` (programa o beca IEEE), `anio`, `carrera`, y opcionalmente `foto` (WebP 4:5, 480 × 600 px, en `assets/img/becados/`) y `enlace` (https://). Solo se publica si `consentimiento.datos` es `true`; la foto, solo si además `consentimiento.foto` es `true`. Guarda la autorización firmada de cada persona.
 
+**Franja de logos de Inicio.** La sección "Capítulos y grupos" de Inicio muestra los logos a lo ancho (la dibuja `js/chapters.js`). Cada logo ocupa la misma área visual (`--s` en `css/pages.css`: 104 px en escritorio, 72 px en celular; alto = `--s ÷ √(ancho/alto)`), así ninguno domina. Si no caben, la franja se recorre acercando el cursor a un extremo, con las flechas o deslizando en celular. En modo oscuro se usa la versión blanca de cada logo: mismo nombre con `-white` (`cis-white-480.webp`, `cis-white-960.webp`).
+
 **Logo de un capítulo.** Exporta el logo en WebP a 480 px y 960 px de ancho (y un PNG de 480 px), guárdalo en `assets/img/chapters/` y completa el campo `logo` (mira el de CIS como ejemplo). Usa `formato: 'ancho'` para logos apaisados y `'cuadrado'` para íconos.
 
-**Agregar un evento destacado.** En `index.html`, sección `#eventos`, copia un `<li class="event">` y cambia fecha (`datetime` y texto), tipo, nombre, descripción corta, lugar, capítulo (enlace a `/capitulos/<id>`) y enlace a vTools o Instagram. Guarda la imagen en `assets/img/eventos/` en 4:5: `<nombre>-480.webp` (480 × 600) y `<nombre>-960.webp` (960 × 1200). Mantén el orden del más reciente al más antiguo. La ruta antigua `/iniciativas` redirige a `/eventos`.
+**Desarrolladores oficiales.** Página `/desarrolladores` (sección `#desarrolladores` de `index.html`). No aparece en el menú: solo se llega desde el enlace "Desarrolladores oficiales" del pie, junto a Sitemap, y conserva el encabezado y el menú del sitio.
+
+**Agregar un evento destacado.** En `index.html`, sección `#eventos`, copia un `<li class="event">` y cambia fecha (`datetime` y texto), tipo, nombre, descripción corta, lugar, capítulo (enlace a `/capitulos/<id>`) y enlace a vTools o Instagram. Guarda la imagen en `assets/img/eventos/` en 4:5: `<nombre>-480.webp` (480 × 600) y `<nombre>-960.webp` (960 × 1200). El orden lo decide la rama (hoy el MTT-S BPC Workshop va al centro); si queda una tarjeta sola en la última fila, se centra sola. La ruta antigua `/iniciativas` redirige a `/eventos`.
 
 **Fotos de la portada.** La portada muestra fotos que rotan en bucle (fundido y acercamiento lento), en lugar de video. La lista y el tiempo de cada foto están en `js/config.js → portada`. Cada foto va en `assets/img/portada/` en 16:9 y en dos tamaños: `<nombre>-1600.webp` (1600 × 900) y `<nombre>-960.webp` (960 × 540). La primera también está en `index.html` (`<img id="visor-poster">`) porque es el LCP; si cambias la primera, actualiza ahí la ruta. En escritorio la foto llena la portada; en celular o tablet en vertical se ve completa en una franja 16:9 bajo el encabezado, con el texto debajo. Con "reducir movimiento" o ahorro de datos queda fija la primera foto, y el carrusel se pausa fuera de pantalla o con la pestaña oculta.
 

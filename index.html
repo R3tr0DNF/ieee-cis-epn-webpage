@@ -38,11 +38,11 @@
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
        cambia el valor en cada publicación para que todos reciban la versión nueva. -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261113-2">
-  <link rel="stylesheet" href="css/base.css?v=20261113-2">
-  <link rel="stylesheet" href="css/layout.css?v=20261113-2">
-  <link rel="stylesheet" href="css/components.css?v=20261113-2">
-  <link rel="stylesheet" href="css/pages.css?v=20261113-2">
+  <link rel="stylesheet" href="css/tokens.css?v=20261114-2">
+  <link rel="stylesheet" href="css/base.css?v=20261114-2">
+  <link rel="stylesheet" href="css/layout.css?v=20261114-2">
+  <link rel="stylesheet" href="css/components.css?v=20261114-2">
+  <link rel="stylesheet" href="css/pages.css?v=20261114-2">
 
   <script type="application/ld+json">
   {
@@ -60,14 +60,14 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261113-2" defer></script>
-  <script src="js/data/chapters.js?v=20261113-2" defer></script>
-  <script src="js/chapters.js?v=20261113-2" defer></script>
-  <script src="js/data/becados.js?v=20261113-2" defer></script>
-  <script src="js/becados.js?v=20261113-2" defer></script>
-  <script src="js/router.js?v=20261113-2" defer></script>
-  <script src="js/hero.js?v=20261113-2" defer></script>
-  <script src="js/form.js?v=20261113-2" defer></script>
+  <script src="js/config.js?v=20261114-2" defer></script>
+  <script src="js/data/chapters.js?v=20261114-2" defer></script>
+  <script src="js/chapters.js?v=20261114-2" defer></script>
+  <script src="js/data/becados.js?v=20261114-2" defer></script>
+  <script src="js/becados.js?v=20261114-2" defer></script>
+  <script src="js/router.js?v=20261114-2" defer></script>
+  <script src="js/hero.js?v=20261114-2" defer></script>
+  <script src="js/form.js?v=20261114-2" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -191,8 +191,10 @@
         </div>
       </section>
 
-      <!-- Índice de capítulos por área (lo dibuja js/chapters.js desde js/data/chapters.js) -->
-      <section class="band band-surface" aria-labelledby="h-indice">
+      <!-- Franja de logos de capítulos (la dibuja js/chapters.js desde js/data/chapters.js).
+           Logos a color en modo claro y en blanco en modo oscuro; tamaño por área visual equivalente.
+           Si no caben a lo ancho, se recorre acercando el cursor a un extremo, con las flechas o deslizando. -->
+      <section class="band band-surface band-logos" aria-labelledby="h-indice">
         <div class="wrap">
           <div class="index-head">
             <div>
@@ -201,7 +203,13 @@
             </div>
             <a class="link-arrow" href="/capitulos">Ver el tablero completo <span class="arrow" aria-hidden="true">→</span></a>
           </div>
-          <ul class="index" id="chapter-index"></ul>
+        </div>
+        <div class="logo-strip" id="chapter-strip">
+          <button class="strip-nav prev" type="button" aria-hidden="true" tabindex="-1"><span aria-hidden="true">←</span></button>
+          <div class="logo-viewport" id="chapter-strip-viewport">
+            <ul class="logo-track" id="chapter-index" aria-label="Logos de los capítulos y grupos"></ul>
+          </div>
+          <button class="strip-nav next" type="button" aria-hidden="true" tabindex="-1"><span aria-hidden="true">→</span></button>
         </div>
       </section>
 
@@ -267,7 +275,8 @@
     </section>
 
     <!-- ============ EVENTOS ============ -->
-    <!-- Eventos destacados, del más reciente al más antiguo. Agregar uno = copiar un <li class="event">,
+    <!-- Eventos destacados, en el orden que decide la rama (el MTT-S BPC Workshop va al centro).
+         Agregar uno = copiar un <li class="event">,
          cambiar sus datos y poner su imagen en assets/img/eventos/ en 4:5 (480 × 600 y 960 × 1200, WebP). -->
     <section class="page" id="eventos" aria-labelledby="h-eventos"
       data-title="Eventos destacados | IEEE Student Branch EPN"
@@ -313,6 +322,16 @@
               </div>
             </li>
             <li class="event">
+              <img class="event-img" src="assets/img/eventos/aps-mtts-bpc-480.webp" srcset="assets/img/eventos/aps-mtts-bpc-480.webp 480w, assets/img/eventos/aps-mtts-bpc-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Dos estudiantes junto a su póster en el concurso de pósters del MTT-S Broadening Participation Workshop Quito 2026" loading="lazy" decoding="async">
+              <div class="event-body">
+                <p class="event-meta mono"><time datetime="2026-05-28">28–29 may 2026</time><span>Workshop internacional</span></p>
+                <h3>IEEE MTT-S Broadening Participation Workshop Quito 2026</h3>
+                <p>Encuentro latinoamericano de IEEE MTT-S sobre tecnologías de RF, microondas, ondas milimétricas y terahercios: charlas magistrales de expertos internacionales, concursos de presentación en tres minutos y de pósters, un taller de redacción de propuestas técnicas y mentorías de carrera.</p>
+                <p class="event-foot"><span class="event-place">EPN, Quito</span><a class="event-chapter" href="/capitulos/aps-mtts-rfid">AP-S/MTT-S/RFID</a></p>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/562012" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
+            </li>
+            <li class="event">
               <img class="event-img" src="assets/img/eventos/embs-del-aula-480.webp" srcset="assets/img/eventos/embs-del-aula-480.webp 480w, assets/img/eventos/embs-del-aula-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Afiche del evento Del aula al impacto: una carrera profesional en bioingeniería, 4 de julio" loading="lazy" decoding="async">
               <div class="event-body">
                 <p class="event-meta mono"><time datetime="2026-07-04">4 jul 2026</time><span>Charla profesional</span></p>
@@ -345,6 +364,33 @@
           </ol>
         </div>
       </div>
+    </section>
+
+    <!-- ============ DESARROLLADORES ============ -->
+    <!-- Página sin entrada en el menú: solo se llega desde "Desarrolladores oficiales" en el pie.
+         Fotos: assets/img/desarrolladores/*.webp (4:5, fondo transparente, 480 y 720 px). -->
+    <section class="page" id="desarrolladores" aria-labelledby="h-desarrolladores"
+      data-title="Desarrolladores oficiales | IEEE Student Branch EPN"
+      data-description="Equipo que diseñó y desarrolló el sitio web de la Rama Estudiantil IEEE de la Escuela Politécnica Nacional.">
+      <div class="page-head">
+        <div class="wrap">
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Desarrolladores oficiales</li></ol>
+          <h1 id="h-desarrolladores" tabindex="-1">Desarrolladores oficiales</h1>
+          <p class="lead">El equipo de IEEE CIS EPN que diseñó y desarrolló este sitio web para la Rama Estudiantil IEEE de la Escuela Politécnica Nacional.</p>
+        </div>
+      </div>
+      <section class="band" aria-labelledby="h-devs">
+        <div class="wrap">
+          <span class="section-label mono">Equipo</span>
+          <h2 class="section-title" id="h-devs">Quiénes hicieron este sitio</h2>
+          <ul class="people devs">
+            <li class="person"><img class="person-photo" src="assets/img/desarrolladores/anndy-rengifo-480.webp" srcset="assets/img/desarrolladores/anndy-rengifo-480.webp 480w, assets/img/desarrolladores/anndy-rengifo-720.webp 720w" sizes="300px" width="480" height="600" alt="Anndy Rengifo" loading="lazy" decoding="async"><span class="role mono">Chair · IEEE CIS EPN</span><h3>Anndy Rengifo</h3><p>Estudiante de Ingeniería en Ciencias de la Computación</p></li>
+            <li class="person"><img class="person-photo" src="assets/img/desarrolladores/frank-jumbo-480.webp" srcset="assets/img/desarrolladores/frank-jumbo-480.webp 480w, assets/img/desarrolladores/frank-jumbo-720.webp 720w" sizes="300px" width="480" height="600" alt="Frank Jumbo" loading="lazy" decoding="async"><span class="role mono">Webmaster · IEEE CIS EPN</span><h3>Frank Jumbo</h3><p>Estudiante de Ingeniería en Ciencias de la Computación</p></li>
+            <li class="person"><img class="person-photo" src="assets/img/desarrolladores/josue-calvopina-480.webp" srcset="assets/img/desarrolladores/josue-calvopina-480.webp 480w, assets/img/desarrolladores/josue-calvopina-720.webp 720w" sizes="300px" width="480" height="600" alt="Josue Calvopiña" loading="lazy" decoding="async"><span class="role mono">Voluntario · IEEE CIS EPN</span><h3>Josue Calvopiña</h3><p>Estudiante de Ingeniería en Ciencias de la Computación</p></li>
+          </ul>
+          <p class="devs-chapter"><a class="link-arrow" href="/capitulos/cis">Conoce el capítulo IEEE CIS EPN <span class="arrow" aria-hidden="true">→</span></a></p>
+        </div>
+      </section>
     </section>
 
     <!-- ============ DIRECTIVA ============ -->
@@ -516,6 +562,7 @@
             <li><a href="https://www.ieee.org/about/help/site-terms-conditions.html" lang="en">Terms &amp; Disclosures</a></li>
             <li><a href="https://privacy.ieee.org/policies" lang="en">IEEE Privacy Policy</a></li>
             <li><a href="https://www.ieee.org/sitemap.html" lang="en">Sitemap</a></li>
+            <li><a href="/desarrolladores">Desarrolladores oficiales</a></li>
           </ul>
         </div>
       </div>
