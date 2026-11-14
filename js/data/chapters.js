@@ -14,6 +14,9 @@
                  descripción del capítulo EPN)
      descripcion propósito y actividades del capítulo EPN. null = PENDIENTE
      logo        { src, src2x, png, width, height, formato: 'ancho' | 'cuadrado' } o null = PENDIENTE
+                 Versión blanca (modo oscuro, franja de Inicio): mismo nombre con "-white"
+                 (cis-480.webp → cis-white-480.webp, cis-960.webp → cis-white-960.webp),
+                 o logo.blanco / logo.blanco2x con otra ruta.
      instagram   URL del perfil. null = PENDIENTE
    ========================================================== */
 window.IEEE_EPN = window.IEEE_EPN || {};
