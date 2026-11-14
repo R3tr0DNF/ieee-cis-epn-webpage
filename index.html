@@ -38,11 +38,11 @@
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
        cambia el valor en cada publicación para que todos reciban la versión nueva. -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261113-1">
-  <link rel="stylesheet" href="css/base.css?v=20261113-1">
-  <link rel="stylesheet" href="css/layout.css?v=20261113-1">
-  <link rel="stylesheet" href="css/components.css?v=20261113-1">
-  <link rel="stylesheet" href="css/pages.css?v=20261113-1">
+  <link rel="stylesheet" href="css/tokens.css?v=20261113-2">
+  <link rel="stylesheet" href="css/base.css?v=20261113-2">
+  <link rel="stylesheet" href="css/layout.css?v=20261113-2">
+  <link rel="stylesheet" href="css/components.css?v=20261113-2">
+  <link rel="stylesheet" href="css/pages.css?v=20261113-2">
 
   <script type="application/ld+json">
   {
@@ -60,14 +60,14 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261113-1" defer></script>
-  <script src="js/data/chapters.js?v=20261113-1" defer></script>
-  <script src="js/chapters.js?v=20261113-1" defer></script>
-  <script src="js/data/becados.js?v=20261113-1" defer></script>
-  <script src="js/becados.js?v=20261113-1" defer></script>
-  <script src="js/router.js?v=20261113-1" defer></script>
-  <script src="js/hero.js?v=20261113-1" defer></script>
-  <script src="js/form.js?v=20261113-1" defer></script>
+  <script src="js/config.js?v=20261113-2" defer></script>
+  <script src="js/data/chapters.js?v=20261113-2" defer></script>
+  <script src="js/chapters.js?v=20261113-2" defer></script>
+  <script src="js/data/becados.js?v=20261113-2" defer></script>
+  <script src="js/becados.js?v=20261113-2" defer></script>
+  <script src="js/router.js?v=20261113-2" defer></script>
+  <script src="js/hero.js?v=20261113-2" defer></script>
+  <script src="js/form.js?v=20261113-2" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -104,7 +104,7 @@
         <ul>
           <li><a href="/">Inicio</a></li>
           <li><a href="/capitulos">Capítulos y grupos</a></li>
-          <li><a href="/iniciativas">Iniciativas</a></li>
+          <li><a href="/eventos">Eventos</a></li>
           <li><a href="/directiva">Directiva y becados</a></li>
           <li><a href="/contacto">Contacto</a></li>
         </ul>
@@ -227,7 +227,7 @@
           <span class="section-label mono">04 · Participa</span>
           <h2 class="section-title" id="h-participar">Tres formas de participar</h2>
           <ol class="ways">
-            <li><span class="num" aria-hidden="true">01</span><h3>Aprender</h3><p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p><a class="link-arrow" href="/iniciativas">Ver iniciativas <span class="arrow" aria-hidden="true">→</span></a></li>
+            <li><span class="num" aria-hidden="true">01</span><h3>Aprender</h3><p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p><a class="link-arrow" href="/eventos">Ver eventos <span class="arrow" aria-hidden="true">→</span></a></li>
             <li><span class="num" aria-hidden="true">02</span><h3>Investigar</h3><p>Proyectos técnicos donde las ideas se prueban y se convierten en soluciones.</p><a class="link-arrow" href="/capitulos">Ver capítulos <span class="arrow" aria-hidden="true">→</span></a></li>
             <li><span class="num" aria-hidden="true">03</span><h3>Conectar</h3><p>Una comunidad y una red global IEEE para crecer junto a otros.</p><a class="link-arrow" href="/contacto">Escríbenos <span class="arrow" aria-hidden="true">→</span></a></li>
           </ol>
@@ -266,31 +266,81 @@
       </div>
     </section>
 
-    <!-- ============ INICIATIVAS ============ -->
-    <section class="page" id="iniciativas" aria-labelledby="h-iniciativas"
-      data-title="Iniciativas | IEEE Student Branch EPN"
-      data-description="Talleres, capacitaciones y proyectos técnicos de la Rama Estudiantil IEEE de la EPN.">
+    <!-- ============ EVENTOS ============ -->
+    <!-- Eventos destacados, del más reciente al más antiguo. Agregar uno = copiar un <li class="event">,
+         cambiar sus datos y poner su imagen en assets/img/eventos/ en 4:5 (480 × 600 y 960 × 1200, WebP). -->
+    <section class="page" id="eventos" aria-labelledby="h-eventos"
+      data-title="Eventos destacados | IEEE Student Branch EPN"
+      data-description="Eventos destacados de la Rama Estudiantil IEEE de la EPN: talleres, competencias, escuelas de verano, charlas y alianzas de sus capítulos.">
       <div class="page-head">
         <div class="wrap">
-          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Iniciativas</li></ol>
-          <h1 id="h-iniciativas" tabindex="-1">Iniciativas</h1>
-          <p class="lead">Talleres y capacitaciones técnicas para crecer más allá del aula, y proyectos donde las ideas se prueban.</p>
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Eventos</li></ol>
+          <h1 id="h-eventos" tabindex="-1">Eventos destacados</h1>
+          <p class="lead">Talleres, competencias, escuelas de verano y alianzas que organizan los capítulos de la rama para aprender más allá del aula.</p>
         </div>
       </div>
       <div class="band">
         <div class="wrap">
-          <h2 class="section-title">Registro de iniciativas</h2>
-          <p class="lead"><span class="pending">Pendiente</span> La versión A no trae iniciativas. Cada entrada necesita fecha, capítulo responsable, lugar, número de participantes, una foto real y un resultado.</p>
-          <ol class="log">
-            <li class="log-entry">
-              <span class="when mono">Pendiente · fecha</span>
-              <div><span class="mono">Taller · capítulo pendiente</span><h3>Primera iniciativa</h3><p><span class="pending">Pendiente</span> qué se hizo, quién participó y qué resultado tuvo.</p></div>
-              <div class="ph" role="img" aria-label="Espacio para una foto de la iniciativa"><span><span class="pending">Pendiente</span><br>Foto del evento</span></div>
+          <ol class="events">
+            <li class="event">
+              <img class="event-img" src="assets/img/eventos/nasa-space-apps-480.webp" srcset="assets/img/eventos/nasa-space-apps-480.webp 480w, assets/img/eventos/nasa-space-apps-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Afiche de la alianza estratégica entre NASA Space Apps Challenge Riobamba e IEEE Computational Intelligence Society de la EPN" loading="lazy" decoding="async">
+              <div class="event-body">
+                <p class="event-meta mono"><time datetime="2026-10-30">30 oct 2026</time><span>Alianza</span></p>
+                <h3>NASA Space Apps Challenge Riobamba</h3>
+                <p>Alianza estratégica entre IEEE CIS EPN y NASA Space Apps Challenge Riobamba, sede local del hackathon global más grande del mundo, para aportar aprendizaje automático, inteligencia artificial y procesamiento inteligente de datos a soluciones para la exploración espacial y de la Tierra.</p>
+                <p class="event-foot"><span class="event-place">Riobamba</span><a class="event-chapter" href="/capitulos/cis">CIS</a></p>
+                <a class="link-arrow" href="https://www.instagram.com/p/DfIK9RSKMq9/" target="_blank" rel="noopener">Ver en Instagram <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
             </li>
-            <li class="log-entry">
-              <span class="when mono">Pendiente · fecha</span>
-              <div><span class="mono">Proyecto · capítulo pendiente</span><h3>Segunda iniciativa</h3><p><span class="pending">Pendiente</span> objetivo del proyecto, equipo y avance.</p></div>
-              <div class="ph" role="img" aria-label="Espacio para una foto del proyecto"><span><span class="pending">Pendiente</span><br>Foto del proyecto</span></div>
+            <li class="event">
+              <img class="event-img" src="assets/img/eventos/ras-summer-school-480.webp" srcset="assets/img/eventos/ras-summer-school-480.webp 480w, assets/img/eventos/ras-summer-school-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Charla de la escuela de verano con un robot sobre la mesa y el expositor frente a la proyección" loading="lazy" decoding="async">
+              <div class="event-body">
+                <p class="event-meta mono"><time datetime="2026-08-03">3–7 ago 2026</time><span>Escuela de verano</span></p>
+                <h3>Ecuadorian Summer School on Telerobotics and Aerial Vehicles</h3>
+                <p>Escuela técnica de cinco días sobre robótica aérea y drones, vehículos terrestres autónomos y sistemas inteligentes de transporte, y telerobótica, pensada para llevar estas tecnologías a la industria ecuatoriana.</p>
+                <p class="event-foot"><span class="event-place">EPN, Quito</span><a class="event-chapter" href="/capitulos/ras-css">RAS/CSS</a></p>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/560729" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
+            </li>
+            <li class="event">
+              <img class="event-img" src="assets/img/eventos/pes-workshop-480.webp" srcset="assets/img/eventos/pes-workshop-480.webp 480w, assets/img/eventos/pes-workshop-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Afiche del Workshop Ciencia, Tecnología y Desarrollo Personal de IEEE PES EPN con sus dos ponentes" loading="lazy" decoding="async">
+              <div class="event-body">
+                <p class="event-meta mono"><time datetime="2026-07-29">29 jul 2026</time><span>Taller</span></p>
+                <h3>Workshop: Ciencia, Tecnología y Desarrollo Personal</h3>
+                <p>Dos módulos: métodos de inteligencia artificial para planificar el mantenimiento preventivo y predictivo de redes de distribución eléctrica, y desarrollo personal para construir una carrera exitosa. Con networking y certificado digital.</p>
+                <p class="event-foot"><span class="event-place">Auditorio 1, EARME · EPN</span><a class="event-chapter" href="/capitulos/pes">PES</a></p>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/572228" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
+            </li>
+            <li class="event">
+              <img class="event-img" src="assets/img/eventos/embs-del-aula-480.webp" srcset="assets/img/eventos/embs-del-aula-480.webp 480w, assets/img/eventos/embs-del-aula-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Afiche del evento Del aula al impacto: una carrera profesional en bioingeniería, 4 de julio" loading="lazy" decoding="async">
+              <div class="event-body">
+                <p class="event-meta mono"><time datetime="2026-07-04">4 jul 2026</time><span>Charla profesional</span></p>
+                <h3>Del aula al impacto: una carrera profesional en bioingeniería</h3>
+                <p>Espacio de orientación profesional para estudiantes de los últimos semestres y recién graduados: profesionales de la investigación, la innovación y la industria compartieron las rutas laborales y de posgrado en ingeniería biomédica.</p>
+                <p class="event-foot"><span class="event-place">Auditorio 2, EARME · EPN</span><a class="event-chapter" href="/capitulos/embs">EMBS</a></p>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/566038" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
+            </li>
+            <li class="event">
+              <img class="event-img" src="assets/img/eventos/comsoc-waves-480.webp" srcset="assets/img/eventos/comsoc-waves-480.webp 480w, assets/img/eventos/comsoc-waves-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Afiche de Waves and Hunters, competencia de fox hunting en radiofrecuencia" loading="lazy" decoding="async">
+              <div class="event-body">
+                <p class="event-meta mono"><time datetime="2026-07-02">2 jul 2026</time><span>Competencia</span></p>
+                <h3>Waves and Hunters 2026</h3>
+                <p>Segunda edición de la competencia práctica de radiofrecuencia: los equipos localizaron transmisores ocultos (fox hunting) y analizaron y demodularon señales AM y FM con radio definida por software (SDR). Junto a AP-S/MTT-S/RFID EPN y ComSoc ESPE.</p>
+                <p class="event-foot"><span class="event-place">EPN, Quito</span><a class="event-chapter" href="/capitulos/comsoc">ComSoc</a></p>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/572567" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
+            </li>
+            <li class="event">
+              <img class="event-img" src="assets/img/eventos/wie-ella-es-stem-480.webp" srcset="assets/img/eventos/wie-ella-es-stem-480.webp 480w, assets/img/eventos/wie-ella-es-stem-720.webp 720w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Integrante de WIE EPN con la bandera del grupo frente a la pantalla con el mensaje Nosotras también cambiamos las cifras" loading="lazy" decoding="async">
+              <div class="event-body">
+                <p class="event-meta mono"><time datetime="2026-03-31">31 mar 2026</time><span>Visita escolar</span></p>
+                <h3>Ella es STEM · Vol. 1</h3>
+                <p>Por el Día Internacional de las Niñas en las TIC, 34 estudiantes de bachillerato conocieron la brecha de género en ingeniería, historias de mujeres que transformaron la ciencia y las carreras STEM, y compitieron en equipos con Snap Circuits.</p>
+                <p class="event-foot"><span class="event-place">U. E. Johann Strauss, Quito</span><a class="event-chapter" href="/capitulos/wie">WIE</a></p>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/553138" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+              </div>
             </li>
           </ol>
         </div>
