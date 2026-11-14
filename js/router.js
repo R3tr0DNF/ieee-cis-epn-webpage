@@ -1,7 +1,7 @@
 /* ==========================================================
    IEEE Student Branch EPN — Navegación
    · Vistas por ruta limpia (History API, sin #): /, /capitulos,
-     /capitulos/<id>, /iniciativas, /directiva, /contacto. El botón
+     /capitulos/<id>, /eventos, /directiva, /contacto (/iniciativas → /eventos). El botón
      "atrás" funciona. Los enlaces antiguos con # (#capitulos…) se
      convierten a la ruta nueva. En GitHub Pages, 404.html guarda la
      ruta pedida y vuelve a "/", donde se restaura (ver al final).
@@ -84,9 +84,12 @@
   header.addEventListener('focusin', function () { reveal(0); });
 
   /* Vistas */
+  var ALIAS = { iniciativas: 'eventos' };   /* rutas antiguas que siguen funcionando */
   function parse(path) {
     var parts = (path || '').replace(/^[#\/]+/, '').replace(/\/+$/, '').split('/');
-    return { page: parts[0] || 'inicio', sub: parts[1] || '' };
+    var page = parts[0] || 'inicio';
+    if (ALIAS[page]) page = ALIAS[page];
+    return { page: page, sub: parts[1] || '' };
   }
   function pathFor(id) { return id === 'inicio' ? '/' : '/' + id; }
   /* Abierto como archivo (file://) no hay rutas de servidor: se navega con # (#capitulos/cis) */
@@ -165,6 +168,7 @@
   if (location.hash && ids.indexOf(legacy.page) >= 0) start = pathFor(legacy.page) + (legacy.sub ? '/' + legacy.sub : '');
   var first = parse(start);
   if (ids.indexOf(first.page) < 0) { first = parse('/'); start = '/'; }
+  else start = pathFor(first.page) + (first.sub ? '/' + first.sub : '');   /* normaliza alias: /iniciativas → /eventos */
   if (start !== location.pathname || location.hash) history.replaceState(null, '', start + location.search);
   show(first, false);
 })();
