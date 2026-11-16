@@ -44,11 +44,11 @@
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
        cambia el valor en cada publicación para que todos reciban la versión nueva. -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261116-1">
-  <link rel="stylesheet" href="css/base.css?v=20261116-1">
-  <link rel="stylesheet" href="css/layout.css?v=20261116-1">
-  <link rel="stylesheet" href="css/components.css?v=20261116-1">
-  <link rel="stylesheet" href="css/pages.css?v=20261116-1">
+  <link rel="stylesheet" href="css/tokens.css?v=20261116-2">
+  <link rel="stylesheet" href="css/base.css?v=20261116-2">
+  <link rel="stylesheet" href="css/layout.css?v=20261116-2">
+  <link rel="stylesheet" href="css/components.css?v=20261116-2">
+  <link rel="stylesheet" href="css/pages.css?v=20261116-2">
 
   <script type="application/ld+json">
   {
@@ -66,14 +66,14 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261116-1" defer></script>
-  <script src="js/data/chapters.js?v=20261116-1" defer></script>
-  <script src="js/chapters.js?v=20261116-1" defer></script>
-  <script src="js/data/becados.js?v=20261116-1" defer></script>
-  <script src="js/becados.js?v=20261116-1" defer></script>
-  <script src="js/router.js?v=20261116-1" defer></script>
-  <script src="js/hero.js?v=20261116-1" defer></script>
-  <script src="js/form.js?v=20261116-1" defer></script>
+  <script src="js/config.js?v=20261116-2" defer></script>
+  <script src="js/data/chapters.js?v=20261116-2" defer></script>
+  <script src="js/chapters.js?v=20261116-2" defer></script>
+  <script src="js/data/becados.js?v=20261116-2" defer></script>
+  <script src="js/becados.js?v=20261116-2" defer></script>
+  <script src="js/router.js?v=20261116-2" defer></script>
+  <script src="js/hero.js?v=20261116-2" defer></script>
+  <script src="js/form.js?v=20261116-2" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -83,17 +83,17 @@
     <div class="wrap">
       <nav aria-label="Sitios de IEEE">
         <ul class="meta-links">
-          <li><a href="https://www.ieee.org/">IEEE.org</a></li>
-          <li><a href="https://ieeexplore.ieee.org/">IEEE <i>Xplore</i>®</a></li>
-          <li><a href="https://standards.ieee.org/">IEEE Standards</a></li>
-          <li><a href="https://spectrum.ieee.org/">IEEE Spectrum</a></li>
-          <li><a href="https://www.ieee.org/sitemap.html">More Sites</a></li>
+          <li><a href="https://www.ieee.org/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">IEEE.org</a></li>
+          <li><a href="https://ieeexplore.ieee.org/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">IEEE <i>Xplore</i>®</a></li>
+          <li><a href="https://standards.ieee.org/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">IEEE Standards</a></li>
+          <li><a href="https://spectrum.ieee.org/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">IEEE Spectrum</a></li>
+          <li><a href="https://www.ieee.org/sitemap.html" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">More Sites</a></li>
         </ul>
       </nav>
       <nav class="meta-sso" aria-label="Afiliación y donaciones IEEE">
         <ul class="meta-links">
-          <li><a href="https://www.ieee.org/join">Join IEEE</a></li>
-          <li><a href="https://www.ieee.org/give">Donate</a></li>
+          <li><a href="https://www.ieee.org/join" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">Join IEEE</a></li>
+          <li><a href="https://www.ieee.org/give" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">Donate</a></li>
         </ul>
       </nav>
     </div>
@@ -123,7 +123,7 @@
         <a class="btn btn-accent menu-cta" href="/contacto">Únete a la rama</a>
       </nav>
       <a class="btn btn-accent btn-sm header-cta" href="/contacto">Únete a la rama</a>
-      <a class="ieee-mb" href="https://www.ieee.org/">
+      <a class="ieee-mb" href="https://www.ieee.org/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">
         <picture class="mb-dark"><source type="image/webp" srcset="assets/img/brand/ieee-mb-white.webp 1x, assets/img/brand/ieee-mb-white@2x.webp 2x"><img src="assets/img/brand/ieee-mb-white.png" alt="IEEE" width="113" height="33" decoding="async"></picture>
         <picture class="mb-light"><source type="image/webp" srcset="assets/img/brand/ieee-mb-black.webp 1x, assets/img/brand/ieee-mb-black@2x.webp 2x"><img src="assets/img/brand/ieee-mb-black.png" alt="" width="113" height="33" decoding="async"></picture>
       </a>
@@ -164,12 +164,6 @@
         </div>
         <div class="visor-bar">
           <span class="mono">IEEE SB EPN · Sección Ecuador · Región 9</span>
-          <!-- Pausa de las fotos en bucle (WCAG 2.2.2). js/hero.js lo muestra solo cuando las fotos rotan. -->
-          <button class="visor-toggle mono" id="visor-toggle" type="button" hidden>
-            <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/></svg>
-            <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 2.5v11L13.5 8z" fill="currentColor"/></svg>
-            <span class="visor-toggle-label">Pausar fotos</span>
-          </button>
         </div>
       </div>
 
@@ -279,7 +273,7 @@
             <p>La afiliación se tramita en ieee.org. Después, elige el capítulo en el que quieres trabajar y escríbenos.</p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-accent" href="https://www.ieee.org/join">Afíliate en ieee.org <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-accent" href="https://www.ieee.org/join" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">Afíliate en ieee.org <span class="arrow" aria-hidden="true">→</span></a>
             <a class="btn btn-ghost-light" href="/contacto">Escríbenos</a>
           </div>
         </div>
@@ -328,7 +322,7 @@
                 <h3>NASA Space Apps Challenge Riobamba</h3>
                 <p>Alianza estratégica entre IEEE CIS EPN y NASA Space Apps Challenge Riobamba, sede local del hackathon global más grande del mundo, para aportar aprendizaje automático, inteligencia artificial y procesamiento inteligente de datos a soluciones para la exploración espacial y de la Tierra.</p>
                 <p class="event-foot"><span class="event-place">Riobamba</span><a class="event-chapter" href="/capitulos/cis">CIS</a></p>
-                <a class="link-arrow" href="https://www.instagram.com/p/DfIK9RSKMq9/" target="_blank" rel="noopener">Ver en Instagram <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                <a class="link-arrow" href="https://www.instagram.com/p/DfIK9RSKMq9/" target="_blank" rel="noopener noreferrer">Ver en Instagram <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
               </div>
             </li>
             <li class="event">
@@ -338,7 +332,7 @@
                 <h3>Ecuadorian Summer School on Telerobotics and Aerial Vehicles</h3>
                 <p>Escuela técnica de cinco días sobre robótica aérea y drones, vehículos terrestres autónomos y sistemas inteligentes de transporte, y telerobótica, pensada para llevar estas tecnologías a la industria ecuatoriana.</p>
                 <p class="event-foot"><span class="event-place">EPN, Quito</span><a class="event-chapter" href="/capitulos/ras-css">RAS/CSS</a></p>
-                <a class="link-arrow" href="https://events.vtools.ieee.org/m/560729" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/560729" target="_blank" rel="noopener noreferrer">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
               </div>
             </li>
             <li class="event">
@@ -348,7 +342,7 @@
                 <h3>Workshop: Ciencia, Tecnología y Desarrollo Personal</h3>
                 <p>Dos módulos: métodos de inteligencia artificial para planificar el mantenimiento preventivo y predictivo de redes de distribución eléctrica, y desarrollo personal para construir una carrera exitosa. Con networking y certificado digital.</p>
                 <p class="event-foot"><span class="event-place">Auditorio 1, EARME · EPN</span><a class="event-chapter" href="/capitulos/pes">PES</a></p>
-                <a class="link-arrow" href="https://events.vtools.ieee.org/m/572228" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/572228" target="_blank" rel="noopener noreferrer">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
               </div>
             </li>
             <li class="event">
@@ -358,7 +352,7 @@
                 <h3>IEEE MTT-S Broadening Participation Workshop Quito 2026</h3>
                 <p>Encuentro latinoamericano de IEEE MTT-S sobre tecnologías de RF, microondas, ondas milimétricas y terahercios: charlas magistrales de expertos internacionales, concursos de presentación en tres minutos y de pósters, un taller de redacción de propuestas técnicas y mentorías de carrera.</p>
                 <p class="event-foot"><span class="event-place">EPN, Quito</span><a class="event-chapter" href="/capitulos/aps-mtts-rfid">AP-S/MTT-S/RFID</a></p>
-                <a class="link-arrow" href="https://events.vtools.ieee.org/m/562012" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/562012" target="_blank" rel="noopener noreferrer">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
               </div>
             </li>
             <li class="event">
@@ -368,7 +362,7 @@
                 <h3>Del aula al impacto: una carrera profesional en bioingeniería</h3>
                 <p>Espacio de orientación profesional para estudiantes de los últimos semestres y recién graduados: profesionales de la investigación, la innovación y la industria compartieron las rutas laborales y de posgrado en ingeniería biomédica.</p>
                 <p class="event-foot"><span class="event-place">Auditorio 2, EARME · EPN</span><a class="event-chapter" href="/capitulos/embs">EMBS</a></p>
-                <a class="link-arrow" href="https://events.vtools.ieee.org/m/566038" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/566038" target="_blank" rel="noopener noreferrer">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
               </div>
             </li>
             <li class="event">
@@ -378,7 +372,7 @@
                 <h3>Waves and Hunters 2026</h3>
                 <p>Segunda edición de la competencia práctica de radiofrecuencia: los equipos localizaron transmisores ocultos (fox hunting) y analizaron y demodularon señales AM y FM con radio definida por software (SDR). Junto a AP-S/MTT-S/RFID EPN y ComSoc ESPE.</p>
                 <p class="event-foot"><span class="event-place">EPN, Quito</span><a class="event-chapter" href="/capitulos/comsoc">ComSoc</a></p>
-                <a class="link-arrow" href="https://events.vtools.ieee.org/m/572567" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/572567" target="_blank" rel="noopener noreferrer">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
               </div>
             </li>
             <li class="event">
@@ -388,7 +382,7 @@
                 <h3>Ella es STEM · Vol. 1</h3>
                 <p>Por el Día Internacional de las Niñas en las TIC, 34 estudiantes de bachillerato conocieron la brecha de género en ingeniería, historias de mujeres que transformaron la ciencia y las carreras STEM, y compitieron en equipos con Snap Circuits.</p>
                 <p class="event-foot"><span class="event-place">U. E. Johann Strauss, Quito</span><a class="event-chapter" href="/capitulos/wie">WIE</a></p>
-                <a class="link-arrow" href="https://events.vtools.ieee.org/m/553138" target="_blank" rel="noopener">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+                <a class="link-arrow" href="https://events.vtools.ieee.org/m/553138" target="_blank" rel="noopener noreferrer">Ver en vTools <span class="arrow" aria-hidden="true">↗</span><span class="sr-only"> (se abre en una pestaña nueva)</span></a>
               </div>
             </li>
           </ol>
@@ -471,11 +465,12 @@
             <li><span class="mono">Ubicación</span><address>Escuela Politécnica Nacional<br>Quito, Ecuador</address></li>
             <li><span class="mono">Redes de la rama</span>
               <ul class="handles">
-                <li><a href="https://www.instagram.com/sb.ieee.epn/">Instagram · @sb.ieee.epn</a></li>
-                <li><a href="https://www.facebook.com/sb.ieee.epn/">Facebook · sb.ieee.epn</a></li>
-                <li><a href="https://www.linkedin.com/in/rama-estudiantil-ieee-epn-172506235/">LinkedIn · sb.ieee.epn</a></li>
+                <li><a href="https://www.instagram.com/sb.ieee.epn/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">Instagram · @sb.ieee.epn</a></li>
+                <li><a href="https://www.facebook.com/sb.ieee.epn/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">Facebook · sb.ieee.epn</a></li>
+                <li><a href="https://www.linkedin.com/in/rama-estudiantil-ieee-epn-172506235/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">LinkedIn · sb.ieee.epn</a></li>
               </ul>
-            <li><span class="mono">Afiliación</span><p>La membresía estudiantil se tramita en <a href="https://www.ieee.org/join">ieee.org/join</a>.</p></li>
+            </li>
+            <li><span class="mono">Afiliación</span><p>La membresía estudiantil se tramita en <a href="https://www.ieee.org/join" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">ieee.org/join</a>.</p></li>
           </ul>
 
           <form class="form" id="contact-form" novalidate aria-describedby="form-note">
@@ -533,9 +528,9 @@
           <p>La Rama Estudiantil IEEE de la Escuela Politécnica Nacional reúne 11 capítulos y grupos técnicos en Quito, Ecuador, y conecta a sus estudiantes con IEEE a través de la Sección Ecuador y la Región 9.</p>
           <div class="foot-social">
             <ul class="socials" aria-label="Redes sociales de la rama">
-              <li><a class="social" href="https://www.instagram.com/sb.ieee.epn/" aria-label="Instagram de IEEE Student Branch EPN"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a></li>
-              <li><a class="social" href="https://www.facebook.com/sb.ieee.epn/" aria-label="Facebook de IEEE Student Branch EPN"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a></li>
-              <li><a class="social" href="https://www.linkedin.com/in/rama-estudiantil-ieee-epn-172506235/" aria-label="LinkedIn de IEEE Student Branch EPN"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.7h-4v-5.05c0-1.2-.02-2.75-1.75-2.75-1.75 0-2.02 1.3-2.02 2.66v5.14h-4z"/></svg></a></li>
+              <li><a class="social" href="https://www.instagram.com/sb.ieee.epn/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de IEEE Student Branch EPN" aria-describedby="nueva-pestana"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a></li>
+              <li><a class="social" href="https://www.facebook.com/sb.ieee.epn/" target="_blank" rel="noopener noreferrer" aria-label="Facebook de IEEE Student Branch EPN" aria-describedby="nueva-pestana"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a></li>
+              <li><a class="social" href="https://www.linkedin.com/in/rama-estudiantil-ieee-epn-172506235/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de IEEE Student Branch EPN" aria-describedby="nueva-pestana"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.7h-4v-5.05c0-1.2-.02-2.75-1.75-2.75-1.75 0-2.02 1.3-2.02 2.66v5.14h-4z"/></svg></a></li>
             </ul>
             <p class="social-handle mono">@sb.ieee.epn</p>
           </div>
@@ -546,10 +541,10 @@
             <span class="arc-shape" aria-hidden="true"></span><span class="arc-pad" aria-hidden="true"></span>
             <h2 id="f-red">Red IEEE</h2>
             <ul aria-labelledby="f-red">
-              <li><a href="https://r9.ieee.org/ecuador/">IEEE Sección Ecuador</a></li>
-              <li><a href="https://r9.ieee.org/">IEEE Región 9</a></li>
-              <li><a href="https://www.ieee.org/">IEEE.org</a></li>
-              <li><a href="https://www.ieee.org/about/corporate/governance/p7-8.html">Código de Ética IEEE</a></li>
+              <li><a href="https://r9.ieee.org/ecuador/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">IEEE Sección Ecuador</a></li>
+              <li><a href="https://r9.ieee.org/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">IEEE Región 9</a></li>
+              <li><a href="https://www.ieee.org/" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">IEEE.org</a></li>
+              <li><a href="https://www.ieee.org/about/corporate/governance/p7-8.html" target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana">Código de Ética IEEE</a></li>
             </ul>
           </div>
           <div class="arc-group arc-bottom">
@@ -569,17 +564,19 @@
           <ul class="admin-links" aria-label="Avisos legales de IEEE">
             <li><a href="/">Inicio</a></li>
             <li><a href="/contacto">Contacto</a></li>
-            <li><a href="https://www.ieee.org/accessibility-statement.html" lang="en">Accessibility</a></li>
-            <li><a href="https://www.ieee.org/about/corporate/governance/p9-26.html" lang="en">Nondiscrimination Policy</a></li>
-            <li><a href="https://secure.ethicspoint.com/domain/media/en/gui/20410/index.html" lang="en">IEEE Ethics Reporting</a></li>
-            <li><a href="https://www.ieee.org/about/help/site-terms-conditions.html" lang="en">Terms &amp; Disclosures</a></li>
-            <li><a href="https://privacy.ieee.org/policies" lang="en">IEEE Privacy Policy</a></li>
-            <li><a href="https://www.ieee.org/sitemap.html" lang="en">Sitemap</a></li>
+            <li><a href="https://www.ieee.org/accessibility-statement.html" target="_blank" rel="noopener noreferrer" lang="en" aria-describedby="nueva-pestana">Accessibility</a></li>
+            <li><a href="https://www.ieee.org/about/corporate/governance/p9-26.html" target="_blank" rel="noopener noreferrer" lang="en" aria-describedby="nueva-pestana">Nondiscrimination Policy</a></li>
+            <li><a href="https://secure.ethicspoint.com/domain/media/en/gui/20410/index.html" target="_blank" rel="noopener noreferrer" lang="en" aria-describedby="nueva-pestana">IEEE Ethics Reporting</a></li>
+            <li><a href="https://www.ieee.org/about/help/site-terms-conditions.html" target="_blank" rel="noopener noreferrer" lang="en" aria-describedby="nueva-pestana">Terms &amp; Disclosures</a></li>
+            <li><a href="https://privacy.ieee.org/policies" target="_blank" rel="noopener noreferrer" lang="en" aria-describedby="nueva-pestana">IEEE Privacy Policy</a></li>
+            <li><a href="https://www.ieee.org/sitemap.html" target="_blank" rel="noopener noreferrer" lang="en" aria-describedby="nueva-pestana">Sitemap</a></li>
             <li><a href="/desarrolladores">Desarrolladores oficiales</a></li>
           </ul>
         </div>
       </div>
     </div>
   </footer>
+  <!-- Descripción para lectores de pantalla de los enlaces externos (aria-describedby="nueva-pestana") -->
+  <span id="nueva-pestana" hidden>Se abre en una pestaña nueva</span>
 </body>
 </html>

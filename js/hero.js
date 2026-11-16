@@ -6,8 +6,7 @@
    · La primera foto ya está en el HTML (es el LCP). Las demás se
      crean después del evento load y se descargan de a una: siempre
      solo la siguiente, para no gastar datos de golpe.
-   · Botón "Pausar fotos" en la barra del visor (WCAG 2.2.2): solo
-     aparece cuando las fotos rotan. Además:
+   · Sin botón de pausa (decisión de diseño de la rama). Para compensarlo:
        - con prefers-reduced-motion queda fija la primera foto
          (si la preferencia cambia, se aplica al vuelo);
        - se pausa cuando la portada casi no se ve, en otra vista o
@@ -29,8 +28,7 @@
   var names = cfg.fotos || [];
   var every = Math.max(cfg.intervalo || 6000, 2500);
   var slides = first ? [first] : [];
-  var toggle = document.getElementById('visor-toggle');
-  var current = 0, timer = null, inView = true, started = false, held = false;   // held: pausa pedida con el botón
+  var current = 0, timer = null, inView = true, started = false;
   var BASE = 'assets/img/portada/';
 
   /* 1. Fotos en bucle */
@@ -51,8 +49,7 @@
     return img;
   }
   function ready(img) { return img.complete && img.naturalWidth > 0; }
-  function rotates() { return names.length > 1 && !reduce.matches && !saveData; }
-  function canRun() { return started && rotates() && !held && inView && !document.hidden; }
+  function canRun() { return started && names.length > 1 && inView && !document.hidden && !reduce.matches && !saveData; }
   function drop(img) {                    // saca del bucle una foto que no cargó (404, red) y sigue
     var i = slides.indexOf(img);
     if (i < 1) return;                    // la 0 es la del HTML: nunca se quita
@@ -84,14 +81,7 @@
   function sync() {
     if (canRun()) { hero.classList.remove('is-paused'); schedule(); }
     else { clearTimeout(timer); timer = null; hero.classList.add('is-paused'); }
-    if (toggle) toggle.hidden = !(started && rotates());
   }
-  if (toggle) toggle.addEventListener('click', function () {
-    held = !held;
-    toggle.classList.toggle('is-held', held);
-    toggle.querySelector('.visor-toggle-label').textContent = held ? 'Reanudar fotos' : 'Pausar fotos';
-    sync();
-  });
   function start() {
     started = true;
     /* La 2.ª foto se pide cuando el navegador queda libre (no hace falta antes de `intervalo` ms):

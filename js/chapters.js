@@ -22,6 +22,25 @@
     return n;
   }
   function pending(text) { return el('span', 'pending', text || 'Pendiente'); }
+  /* Solo URLs https:// válidas (nunca javascript:, data: ni rutas raras), aunque la data sea propia */
+  function safeHttps(url) {
+    try { var u = new URL(url); return u.protocol === 'https:' ? u.href : ''; } catch (e) { return ''; }
+  }
+  /* Ícono SVG creado como nodos (sin innerHTML) */
+  function icon(cls, viewBox, d, stroke) {
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', viewBox);
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    if (cls) svg.setAttribute('class', cls);
+    var path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', d);
+    if (stroke) { path.setAttribute('fill', 'none'); path.setAttribute('stroke', 'currentColor'); path.setAttribute('stroke-width', '1.6'); path.setAttribute('stroke-linecap', 'round'); path.setAttribute('stroke-linejoin', 'round'); }
+    else path.setAttribute('fill', 'currentColor');
+    svg.appendChild(path);
+    return svg;
+  }
   function handle(url) {
     var m = /instagram\.com\/([^/?#]+)/.exec(url || '');
     return m ? '@' + m[1] : url;
@@ -93,14 +112,22 @@
     }
     art.appendChild(p);
 
+    /* Instagram: el enlace visible del pie del módulo también cubre TODO el recuadro (su ::after,
+       ver .module.is-link en components.css). Un solo <a> por capítulo: mismo destino, una sola
+       parada de tabulador y sin JS de clic. Abre en pestaña nueva, sin acceso a window.opener. */
     var port = el('div', 'module-port');
-    if (c.instagram) {
+    var ig = safeHttps(c.instagram);
+    if (ig) {
+      art.classList.add('is-link');
       var a = el('a', 'ig-link');
-      a.href = c.instagram;
-      a.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="' + IG + '"/></svg>';
-      var t = el('span', null, handle(c.instagram));
-      a.appendChild(t);
-      a.setAttribute('aria-label', 'Instagram del capítulo ' + c.siglas.join(', ') + ': ' + handle(c.instagram));
+      a.href = ig;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.appendChild(icon(null, '0 0 24 24', IG));
+      a.appendChild(el('span', null, handle(ig)));
+      a.appendChild(icon('ext-arrow', '0 0 16 16', 'M5.5 10.5l5-5M6.5 5.5h4v4', true));
+      a.setAttribute('aria-label', 'Instagram del capítulo ' + c.siglas.join(', ') + ': ' + handle(ig));
+      a.setAttribute('aria-describedby', 'nueva-pestana');
       port.appendChild(a);
     } else {
       port.appendChild(pending('Instagram pendiente'));
