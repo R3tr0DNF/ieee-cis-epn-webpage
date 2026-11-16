@@ -84,6 +84,8 @@ Las fotos verticales se adaptan solo con recorte, encuadre o escala, sin alterar
 
 **Pie de página.** Mide unos 400 px en escritorio. El tamaño del planeta y del arco de enlaces sale de tres variables en `.site-footer` (`--gr`, `--gx`, `--gap`, en `css/layout.css`). El degradado de transición es `.site-footer::before` y su alto es `--foot-fade` (`css/tokens.css`); la última sección de cada vista necesita al menos ese relleno inferior.
 
+**Marcador de Quito en el planeta.** El punto y la etiqueta "Escuela Politécnica Nacional · Quito" forman un solo enlace (`a.globe-pin`, al final del pie en `index.html`) a la ubicación de la EPN en Google Maps, y se abre en una pestaña nueva. El planeta y el arco de enlaces no reciben clics (`pointer-events: none`), así que solo el marcador y los enlaces responden. `.foot-hero` usa `overflow: clip` para que enfocar el marcador no desplace el pie hacia un lado. Para cambiar el destino, edita el `href` de `a.globe-pin`.
+
 **Formulario.** Crea un formulario en un servicio que acepte `POST` con `FormData` (Formspree, Getform, Basin…) y pega su URL en `js/config.js → form.endpoint`. Sin endpoint, el envío abre el correo del visitante.
 
 **Versión de CSS y JS.** Cloudflare indica a los navegadores guardar CSS, JS e imágenes durante 4 horas. Cada vez que publiques cambios en `css/` o `js/`, cambia el valor `?v=` de los enlaces en `index.html` (por ejemplo `?v=20261116-2`) para que todos reciban la versión nueva al instante. Si reemplazas una imagen con el mismo nombre, purga esa URL en Cloudflare (Caching → Configuration → Custom Purge) o cámbiale el nombre.

@@ -123,7 +123,7 @@ main { flex: 1; }
   background: linear-gradient(to bottom, color-mix(in srgb, var(--c-footer) 0%, transparent), var(--c-footer));
 }
 .site-footer a { color: #fff; }
-.foot-hero { position: relative; overflow: hidden; isolation: isolate; }
+.foot-hero { position: relative; overflow: hidden; overflow: clip; isolation: isolate; }   /* clip: recorta igual, pero no se puede desplazar (al enfocar el marcador o con scrollIntoView el pie no se corre de lado) */
 .foot-main { padding-block: var(--pt) var(--pb); }
 .foot-intro, .foot-legal { position: relative; z-index: 1; max-width: min(480px, 100vw - 620px); }
 .foot-intro .site-id img { height: 56px; }
@@ -150,6 +150,15 @@ main { flex: 1; }
   font-family: var(--f-mono); font-size: .75rem; font-weight: 500; color: #fff;
 }
 .globe-pin-label::after { content: ""; position: absolute; top: 100%; left: 50%; width: 1px; height: 10px; background: #5B9CC3; }
+/* El marcador es un enlace (Google Maps, pestaña nueva): el planeta no recibe clics, solo el punto y la etiqueta.
+   El ::before agranda el área del punto a 28 px para tocarlo en móvil; la etiqueta ya es parte del enlace. */
+a.globe-pin { pointer-events: auto; text-decoration: none; transition: box-shadow var(--dur-2) var(--ease); }
+a.globe-pin::before { content: ""; position: absolute; inset: -8px; border-radius: inherit; }
+a.globe-pin .globe-pin-label { transition: border-color var(--dur-2) var(--ease); }
+a.globe-pin:hover, a.globe-pin:focus-visible { box-shadow: 0 0 0 6px rgba(0, 181, 226, .75); }
+a.globe-pin:hover .globe-pin-label, a.globe-pin:focus-visible .globe-pin-label { border-color: #5B9CC3; text-decoration: underline; text-underline-offset: 3px; }
+a.globe-pin:focus-visible { outline: none; }                                 /* el anillo de foco rodea la etiqueta */
+a.globe-pin:focus-visible .globe-pin-label { outline: 3px solid var(--c-focus); outline-offset: 2px; }
 
 /* Enlaces en arco: "Red IEEE" arriba y "Contacto" abajo, pegados al borde del planeta.
    Cada grupo cubre todo el pie y lleva un float con forma de círculo (radio + --gap)
@@ -157,6 +166,7 @@ main { flex: 1; }
 .foot-arc {
   position: absolute; z-index: 1; top: 0; bottom: 0; right: var(--gx);    /* borde derecho = centro del planeta */
   width: calc(var(--gr) + var(--gap) + 220px);
+  pointer-events: none;                        /* cubre el planeta: deja pasar los clics al marcador de Quito (solo h2 y enlaces los reciben) */
 }
 .arc-group { position: absolute; inset: 0; text-align: right; pointer-events: none; }
 .arc-group h2, .arc-group a { pointer-events: auto; }

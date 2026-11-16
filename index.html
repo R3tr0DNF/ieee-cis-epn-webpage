@@ -44,11 +44,11 @@
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
        cambia el valor en cada publicación para que todos reciban la versión nueva. -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261116-3">
-  <link rel="stylesheet" href="css/base.css?v=20261116-3">
-  <link rel="stylesheet" href="css/layout.css?v=20261116-3">
-  <link rel="stylesheet" href="css/components.css?v=20261116-3">
-  <link rel="stylesheet" href="css/pages.css?v=20261116-3">
+  <link rel="stylesheet" href="css/tokens.css?v=20261116-4">
+  <link rel="stylesheet" href="css/base.css?v=20261116-4">
+  <link rel="stylesheet" href="css/layout.css?v=20261116-4">
+  <link rel="stylesheet" href="css/components.css?v=20261116-4">
+  <link rel="stylesheet" href="css/pages.css?v=20261116-4">
 
   <script type="application/ld+json">
   {
@@ -66,14 +66,14 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261116-3" defer></script>
-  <script src="js/data/chapters.js?v=20261116-3" defer></script>
-  <script src="js/chapters.js?v=20261116-3" defer></script>
-  <script src="js/data/becados.js?v=20261116-3" defer></script>
-  <script src="js/becados.js?v=20261116-3" defer></script>
-  <script src="js/router.js?v=20261116-3" defer></script>
-  <script src="js/hero.js?v=20261116-3" defer></script>
-  <script src="js/form.js?v=20261116-3" defer></script>
+  <script src="js/config.js?v=20261116-4" defer></script>
+  <script src="js/data/chapters.js?v=20261116-4" defer></script>
+  <script src="js/chapters.js?v=20261116-4" defer></script>
+  <script src="js/data/becados.js?v=20261116-4" defer></script>
+  <script src="js/becados.js?v=20261116-4" defer></script>
+  <script src="js/router.js?v=20261116-4" defer></script>
+  <script src="js/hero.js?v=20261116-4" defer></script>
+  <script src="js/form.js?v=20261116-4" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -515,11 +515,6 @@
        El degradado de transición con la sección anterior es el ::before de .site-footer (CSS). -->
   <footer class="site-footer">
     <div class="foot-hero">
-      <!-- Globo de puntos (imagen estática, datos Natural Earth de dominio público): Ecuador en celeste, marcador en el centro de Ecuador (--px/--py en css/layout.css) -->
-      <div class="foot-globe" aria-hidden="true">
-        <img src="assets/img/globe-ecuador.svg" alt="" width="900" height="900" loading="lazy" decoding="async">
-        <span class="globe-pin"><span class="globe-pin-label">Escuela Politécnica Nacional · Quito</span></span>
-      </div>
       <div class="wrap foot-main">
         <div class="foot-intro">
           <a class="site-id foot-brand" href="/" aria-label="IEEE Student Branch, Escuela Politécnica Nacional: inicio">
@@ -573,6 +568,13 @@
             <li><a href="/desarrolladores">Desarrolladores oficiales</a></li>
           </ul>
         </div>
+      </div>
+      <!-- Globo de puntos (imagen estática, datos Natural Earth de dominio público): Ecuador en celeste, marcador en el centro de Ecuador (--px/--py en css/layout.css).
+           El marcador (punto + etiqueta) es un enlace a la ubicación de la EPN en Google Maps. Va después del contenido del pie
+           para que sea la última parada del tabulador, igual que su lugar visual en móvil (franja al final). -->
+      <div class="foot-globe">
+        <img src="assets/img/globe-ecuador.svg" alt="" width="900" height="900" loading="lazy" decoding="async">
+        <a class="globe-pin" href="https://maps.app.goo.gl/S6yPkwnSJmmtby6cA" target="_blank" rel="noopener noreferrer" aria-label="Escuela Politécnica Nacional · Quito: ver la ubicación en Google Maps" aria-describedby="nueva-pestana"><span class="globe-pin-label">Escuela Politécnica Nacional · Quito</span></a>
       </div>
     </div>
   </footer>
