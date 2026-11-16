@@ -247,6 +247,30 @@ a.social:hover::after { transform: translate(3px, 3px); }
 .event-foot { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2); padding-top: var(--sp-3); border-top: 1px solid var(--c-line); font-size: .875rem; color: var(--c-muted); }
 .event-chapter { font-family: var(--f-mono); font-size: var(--fs-xs); font-weight: 500; padding: .2rem .6rem; border: 1px solid var(--c-line); border-radius: var(--r-round); color: var(--c-link); text-decoration: none; }
 .event-chapter:hover { border-color: var(--c-link); }
+
+/* Tarjeta completa como enlace (mismo patrón que .module.is-link): el ::after del enlace del evento
+   ("Ver en vTools / Instagram") cubre toda la tarjeta, imagen incluida. Un solo enlace por destino y sin JS.
+   La píldora del capítulo queda POR ENCIMA de esa capa: sigue llevando a /capitulos/<id> en la misma pestaña. */
+.event { position: relative; transition: translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
+.event .link-arrow::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.event .event-chapter { position: relative; z-index: 2; }
+.event::before {                              /* borde de acento al pasar o enfocar (como en los capítulos) */
+  content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; border: 2px solid var(--c-link);
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-2) var(--ease);
+}
+.event:has(.link-arrow) { cursor: pointer; }
+.event:hover, .event:focus-within { box-shadow: 0 10px 28px -14px var(--c-menu-shadow); }
+.event:hover::before, .event:focus-within::before { opacity: 1; }
+.event:hover .link-arrow { text-decoration: underline; }
+.event:hover .link-arrow .arrow, .event:focus-within .link-arrow .arrow { transform: translateX(3px); }
+@media (prefers-reduced-motion: no-preference) {
+  .event:hover, .event:focus-within { translate: 0 -3px; }
+}
+/* Foco de teclado del enlace del evento: se dibuja en toda la tarjeta (con :has); sin :has queda el foco normal */
+@supports selector(:has(*)) {
+  .event .link-arrow:focus-visible { outline: none; }
+  .event:has(.link-arrow:focus-visible) { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+}
 @media (max-width: 1100px) { .events { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5); } }
 @media (max-width: 760px)  { .events { grid-template-columns: minmax(0, 1fr); max-width: 520px; margin-inline: auto; } }
 /* Eventos: con 7 tarjetas la última queda sola; se centra en su fila */
