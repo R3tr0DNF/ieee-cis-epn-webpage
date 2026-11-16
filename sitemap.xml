@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Solo /: las vistas internas (/capitulos, /eventos…) son rutas de una sola página y GitHub Pages responde 404 en ellas (ver README). -->
+<!-- GENERADO por scripts/generar-paginas.py. Las secciones existen como capitulos.html, eventos.html…
+     (GitHub Pages las sirve en /capitulos, /eventos… con estado 200). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ieee-epn.org/</loc>
-    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ieee-epn.org/capitulos</loc>
+  </url>
+  <url>
+    <loc>https://ieee-epn.org/eventos</loc>
+  </url>
+  <url>
+    <loc>https://ieee-epn.org/directiva</loc>
+  </url>
+  <url>
+    <loc>https://ieee-epn.org/contacto</loc>
+  </url>
+  <url>
+    <loc>https://ieee-epn.org/desarrolladores</loc>
   </url>
 </urlset>

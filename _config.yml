@@ -4,3 +4,4 @@ exclude:
   - README.md
   - analisis-sitio-ieee-cis-epn.md
   - .claude/
+  - scripts/
