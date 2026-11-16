@@ -1,0 +1,6 @@
+# GitHub Pages (Jekyll): archivos del repositorio que NO se publican en ieee-epn.org.
+# Siguen en el repositorio para el equipo; solo dejan de servirse en el sitio.
+exclude:
+  - README.md
+  - analisis-sitio-ieee-cis-epn.md
+  - .claude/

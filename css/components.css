@@ -82,6 +82,17 @@
   display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap;
   color: var(--c-on-dark-muted);
 }
+/* Pausar / reanudar las fotos (js/hero.js lo muestra solo si rotan). Objetivo de 32 px (WCAG 2.5.8). */
+.visor-toggle {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 32px; padding: 0 var(--sp-3);
+  border: 1px solid var(--c-line-dark); border-radius: var(--r-round); background: rgba(0, 20, 46, .45);
+  color: var(--c-on-dark); cursor: pointer; transition: border-color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease);
+}
+.visor-toggle[hidden] { display: none; }
+.visor-toggle:hover { border-color: rgba(255, 255, 255, .7); background: rgba(0, 20, 46, .7); }
+.visor-toggle svg { width: 12px; height: 12px; flex: none; }
+.visor-toggle .i-play, .visor-toggle.is-held .i-pause { display: none; }
+.visor-toggle.is-held .i-play { display: block; }
 
 /* Scroll-driven: el visor se reduce y el video se desvanece al bajar.
    El texto del hero no tiene efecto propio: se desplaza con el scroll normal. */
@@ -101,7 +112,6 @@
 .frame-visor { position: relative; border: 1px solid var(--c-line); padding: var(--sp-3); background: var(--c-card); }
 .frame-visor .corner { border-color: var(--c-heading); }
 .frame-visor .ph, .frame-visor img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-.frame-visor.is-wide img { aspect-ratio: 2 / 1; height: auto; display: block; }
 .frame-visor figcaption { margin-top: var(--sp-3); color: var(--c-muted); }
 
 /* Módulos de capítulo (tablero) -------------------------------------------- */
@@ -179,7 +189,7 @@ a.social:hover::after { transform: translate(3px, 3px); }
 .social.is-pending { color: #5D6D82; border-style: dashed; }
 .social-handle { margin-top: var(--sp-3); color: #8EA3BA; }
 
-/* Personas y registro de iniciativas --------------------------------------- */
+/* Personas ---------------------------------------------------------------- */
 .people { margin-top: var(--sp-6); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); list-style: none; }
 .person .ph { aspect-ratio: 4 / 5; margin-bottom: var(--sp-3); }
 /* Directiva: recortes sobre fondo transparente, apoyados en un fondo de tinte */
@@ -203,22 +213,6 @@ a.social:hover::after { transform: translate(3px, 3px); }
 }
 .person .role { color: var(--c-orange-text); display: block; margin-bottom: var(--sp-1); }
 .person h3 { font-size: var(--fs-md); color: var(--c-heading); }
-/* Becados: misma tarjeta de persona; iniciales si no hay foto autorizada */
-.becado-photo, .becado-initials { width: 100%; aspect-ratio: 4 / 5; margin-bottom: var(--sp-3); border-radius: var(--r-media); object-fit: cover; }
-.becado-initials { display: grid; place-items: center; background: var(--c-tint); color: var(--c-heading); font-size: var(--fs-xl); font-weight: 700; letter-spacing: .02em; }
-.becado-meta { color: var(--c-muted); font-size: var(--fs-sm); margin-top: var(--sp-1); }
-.becado-meta .pending + .pending { margin-left: var(--sp-1); }
-.becado .link-arrow { margin-top: var(--sp-2); font-size: var(--fs-sm); min-height: 44px; }
-.becado.is-sample { opacity: .85; }
-.empty-state { margin-top: var(--sp-6); padding: var(--sp-5) var(--sp-6); background: var(--c-card); border: 1px dashed var(--c-line); border-radius: var(--r-panel); max-width: 64ch; }
-.empty-state .empty-title { font-weight: 700; color: var(--c-heading); }
-.empty-state p + p { margin-top: var(--sp-2); color: var(--c-muted); }
-.becados-note { margin-top: var(--sp-4); }
-.log { list-style: none; border-top: 1px solid var(--c-line); }
-.log-entry { display: grid; grid-template-columns: 160px minmax(0, 1fr) 280px; gap: var(--sp-6); padding-block: var(--sp-6); border-bottom: 1px solid var(--c-line); }
-.log-entry .when { color: var(--c-muted); }
-.log-entry h3 { font-size: var(--fs-lg); color: var(--c-heading); margin-bottom: var(--sp-2); }
-.log-entry .ph { aspect-ratio: 4 / 3; }
 .module.is-wide .module-logo { height: 140px; }
 .module.is-wide .module-logo img { max-height: 120px; }
 @media (min-width: 1101px) { .area-head { position: sticky; top: calc(var(--header-h) + var(--sp-5)); align-self: start; } }

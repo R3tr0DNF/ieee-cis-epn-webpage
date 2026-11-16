@@ -1,0 +1,15 @@
+# Archivos del sistema y de OneDrive/Office que no deben llegar al repositorio (ni al sitio público)
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
+*.tmp
+
+# Configuración local de cada persona (Claude Code); .claude/launch.json sí se versiona
+.claude/settings.local.json
+
+# Credenciales: nunca en el repositorio
+.env
+.env.*
+*.pem
+*.key

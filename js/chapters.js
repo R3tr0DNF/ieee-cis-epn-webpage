@@ -58,10 +58,10 @@
       s.srcset = c.logo.src + ' 1x' + (c.logo.src2x ? ', ' + c.logo.src2x + ' 2x' : '');
       pic.appendChild(s);
       var img = el('img');
+      img.loading = 'lazy'; img.decoding = 'async';   // ANTES de src: asignar src inicia la descarga (la vista puede estar oculta)
       img.src = c.logo.png || c.logo.src;
       img.alt = 'Logotipo del capítulo ' + c.siglas.join(', ') + ' de la EPN';
       img.width = c.logo.width; img.height = c.logo.height;
-      img.loading = 'lazy'; img.decoding = 'async';
       pic.appendChild(img);
       logo.appendChild(pic);
     } else {
@@ -162,10 +162,11 @@
 
     function logoImg(cls, src, src2x, c, alt) {
       var img = el('img', cls);
+      img.loading = 'lazy'; img.decoding = 'async';   // ANTES de src: así el logo del otro tema no se descarga
       img.src = src;
       if (src2x) img.srcset = src + ' 1x, ' + src2x + ' 2x';
       img.width = c.logo.width; img.height = c.logo.height;
-      img.alt = alt; img.loading = 'lazy'; img.decoding = 'async';
+      img.alt = alt;
       return img;
     }
     ordered.forEach(function (c, i) {
@@ -242,7 +243,7 @@
     window.addEventListener('resize', update);
     document.addEventListener('ieee:view', function () { requestAnimationFrame(update); });
     strip.querySelectorAll('img').forEach(function (img) { img.addEventListener('load', update); });
-    update();
+    requestAnimationFrame(update);   // no update() directo: leer scrollWidth aquí forzaría un reflow completo durante la carga
 
     /* "Se van mostrando": aparición escalonada al entrar en pantalla (sin efecto con movimiento reducido) */
     if ('IntersectionObserver' in window && !reduce.matches) {
