@@ -6,7 +6,8 @@
    · La primera foto ya está en el HTML (es el LCP). Las demás se
      crean después del evento load y se descargan de a una: siempre
      solo la siguiente, para no gastar datos de golpe.
-   · Sin botón de pausa. Para compensarlo:
+   · Botón "Pausar fotos" en la barra del visor (WCAG 2.2.2): solo
+     aparece cuando las fotos rotan. Además:
        - con prefers-reduced-motion queda fija la primera foto
          (si la preferencia cambia, se aplica al vuelo);
        - se pausa cuando la portada casi no se ve, en otra vista o
@@ -28,7 +29,8 @@
   var names = cfg.fotos || [];
   var every = Math.max(cfg.intervalo || 6000, 2500);
   var slides = first ? [first] : [];
-  var current = 0, timer = null, inView = true, started = false;
+  var toggle = document.getElementById('visor-toggle');
+  var current = 0, timer = null, inView = true, started = false, held = false;   // held: pausa pedida con el botón
   var BASE = 'assets/img/portada/';
 
   /* 1. Fotos en bucle */
@@ -39,22 +41,34 @@
     img.alt = ''; img.decoding = 'async';
     img.width = 1600; img.height = 900;
     img.sizes = '100vw';
-    img.srcset = BASE + names[i] + '-960.webp 960w, ' + BASE + names[i] + '-1600.webp 1600w';
+    /* El error se anota al crearla: una foto que falta suele fallar ANTES de que le toque el turno,
+       y un listener puesto después no se dispararía nunca (el bucle quedaría detenido). */
+    img.addEventListener('error', function () { img.dataset.failed = '1'; }, { once: true });
+    img.srcset = [640, 960, 1200, 1600].map(function (w) { return BASE + names[i] + '-' + w + '.webp ' + w + 'w'; }).join(', ');
     img.src = BASE + names[i] + '-1600.webp';
     media.appendChild(img);
     slides[i] = img;
     return img;
   }
   function ready(img) { return img.complete && img.naturalWidth > 0; }
-  function canRun() { return started && names.length > 1 && inView && !document.hidden && !reduce.matches && !saveData; }
+  function rotates() { return names.length > 1 && !reduce.matches && !saveData; }
+  function canRun() { return started && rotates() && !held && inView && !document.hidden; }
+  function drop(img) {                    // saca del bucle una foto que no cargó (404, red) y sigue
+    var i = slides.indexOf(img);
+    if (i < 1) return;                    // la 0 es la del HTML: nunca se quita
+    if (img.parentNode) img.parentNode.removeChild(img);
+    names.splice(i, 1); slides.splice(i, 1);
+    if (i < current) current--;
+  }
   function step() {
     timer = null;
     if (!canRun()) return;
     var next = (current + 1) % names.length;
     var img = make(next);
+    if (img.dataset.failed) { drop(img); step(); return; }
     if (!ready(img)) {                    // aún descargando: espera sin saltarse la foto
       img.addEventListener('load', schedule, { once: true });
-      img.addEventListener('error', function () { names.splice(next, 1); slides.splice(next, 1); schedule(); }, { once: true });
+      img.addEventListener('error', function () { drop(img); schedule(); }, { once: true });
       return;
     }
     slides[current].classList.remove('is-on');
@@ -70,10 +84,20 @@
   function sync() {
     if (canRun()) { hero.classList.remove('is-paused'); schedule(); }
     else { clearTimeout(timer); timer = null; hero.classList.add('is-paused'); }
+    if (toggle) toggle.hidden = !(started && rotates());
   }
+  if (toggle) toggle.addEventListener('click', function () {
+    held = !held;
+    toggle.classList.toggle('is-held', held);
+    toggle.querySelector('.visor-toggle-label').textContent = held ? 'Reanudar fotos' : 'Pausar fotos';
+    sync();
+  });
   function start() {
     started = true;
-    if (canRun()) make(1);
+    /* La 2.ª foto se pide cuando el navegador queda libre (no hace falta antes de `intervalo` ms):
+       así no le quita ancho de banda a la primera, que es el LCP, en conexiones lentas */
+    var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 1500); };
+    idle(function () { if (canRun()) make(1); }, { timeout: 2500 });
     sync();
   }
   if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });

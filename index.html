@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Seguridad (GitHub Pages no permite cabeceras propias; lo demás va en Cloudflare, ver README).
+       CSP: solo recursos de este mismo sitio. Los dos <script> en línea de este <head> se autorizan
+       por su hash SHA-256: si cambias una sola letra de ellos, recalcula su hash y reemplázalo aquí
+       (README → "Seguridad"). Si configuras form.endpoint (js/config.js), agrega su dominio a connect-src. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-s9rZjzDObFVyEHb8ROTKuzJLZfDMzyDefhr2pzPPoic=' 'sha256-ER0MyvsUfibrnPhQopAc5t2PPBEOSij6MJYfX3/faNY='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <!-- Rutas limpias (/capitulos, /directiva…): en un servidor, las rutas relativas se resuelven
        desde la raíz. Abierto como archivo (file://) no se usa <base> y la navegación usa #. -->
   <script>
@@ -38,11 +44,11 @@
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
        cambia el valor en cada publicación para que todos reciban la versión nueva. -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261114-2">
-  <link rel="stylesheet" href="css/base.css?v=20261114-2">
-  <link rel="stylesheet" href="css/layout.css?v=20261114-2">
-  <link rel="stylesheet" href="css/components.css?v=20261114-2">
-  <link rel="stylesheet" href="css/pages.css?v=20261114-2">
+  <link rel="stylesheet" href="css/tokens.css?v=20261116-1">
+  <link rel="stylesheet" href="css/base.css?v=20261116-1">
+  <link rel="stylesheet" href="css/layout.css?v=20261116-1">
+  <link rel="stylesheet" href="css/components.css?v=20261116-1">
+  <link rel="stylesheet" href="css/pages.css?v=20261116-1">
 
   <script type="application/ld+json">
   {
@@ -60,14 +66,14 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261114-2" defer></script>
-  <script src="js/data/chapters.js?v=20261114-2" defer></script>
-  <script src="js/chapters.js?v=20261114-2" defer></script>
-  <script src="js/data/becados.js?v=20261114-2" defer></script>
-  <script src="js/becados.js?v=20261114-2" defer></script>
-  <script src="js/router.js?v=20261114-2" defer></script>
-  <script src="js/hero.js?v=20261114-2" defer></script>
-  <script src="js/form.js?v=20261114-2" defer></script>
+  <script src="js/config.js?v=20261116-1" defer></script>
+  <script src="js/data/chapters.js?v=20261116-1" defer></script>
+  <script src="js/chapters.js?v=20261116-1" defer></script>
+  <script src="js/data/becados.js?v=20261116-1" defer></script>
+  <script src="js/becados.js?v=20261116-1" defer></script>
+  <script src="js/router.js?v=20261116-1" defer></script>
+  <script src="js/hero.js?v=20261116-1" defer></script>
+  <script src="js/form.js?v=20261116-1" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -105,7 +111,7 @@
           <li><a href="/">Inicio</a></li>
           <li><a href="/capitulos">Capítulos y grupos</a></li>
           <li><a href="/eventos">Eventos</a></li>
-          <li><a href="/directiva">Directiva y becados</a></li>
+          <li><a href="/directiva">Directiva</a></li>
           <li><a href="/contacto">Contacto</a></li>
         </ul>
         <!-- Cambio de tema: js/router.js (sección "Tema") actualiza aria-label, el texto y el ícono -->
@@ -143,7 +149,7 @@
           <div class="visor-media" id="visor-media">
             <img class="visor-slide is-on" id="visor-poster" alt="" width="1600" height="900" fetchpriority="high" decoding="async"
                  src="assets/img/portada/slide-01-1600.webp"
-                 srcset="assets/img/portada/slide-01-960.webp 960w, assets/img/portada/slide-01-1600.webp 1600w" sizes="100vw">
+                 srcset="assets/img/portada/slide-01-640.webp 640w, assets/img/portada/slide-01-960.webp 960w, assets/img/portada/slide-01-1200.webp 1200w, assets/img/portada/slide-01-1600.webp 1600w" sizes="100vw">
           </div>
           <div class="visor-frame"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span></div>
         </div>
@@ -158,35 +164,59 @@
         </div>
         <div class="visor-bar">
           <span class="mono">IEEE SB EPN · Sección Ecuador · Región 9</span>
+          <!-- Pausa de las fotos en bucle (WCAG 2.2.2). js/hero.js lo muestra solo cuando las fotos rotan. -->
+          <button class="visor-toggle mono" id="visor-toggle" type="button" hidden>
+            <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/></svg>
+            <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 2.5v11L13.5 8z" fill="currentColor"/></svg>
+            <span class="visor-toggle-label">Pausar fotos</span>
+          </button>
         </div>
       </div>
 
-      <!-- La rama: el visor "aterriza" en el marco de esta foto -->
+      <!-- Becas IEEE: vitrina de becados (la dibuja js/becados.js desde js/data/becados.js).
+           Línea de tiempo de congresos arriba (pestañas) y el detalle de cada uno debajo; el visor
+           "aterriza" en el marco de su foto. Agregar un programa = agregar un objeto en el archivo de datos. -->
+      <section class="band band-surface becas" id="becados" aria-labelledby="h-becas">
+        <div class="wrap">
+          <div class="becas-head">
+            <div>
+              <span class="section-label mono">01 · Becados</span>
+              <h2 class="section-title" id="h-becas">Becas IEEE: la EPN en congresos internacionales</h2>
+              <p class="lead">Estudiantes de la rama que recibieron becas para participar en congresos y encuentros de IEEE en 2026.</p>
+            </div>
+            <dl class="becas-stats" id="becas-stats" hidden>
+              <div><dt>becas</dt><dd data-stat="becas"></dd></div>
+              <div><dt>estudiantes</dt><dd data-stat="personas"></dd></div>
+              <div><dt>congresos</dt><dd data-stat="programas"></dd></div>
+            </dl>
+          </div>
+          <div class="becas-show">
+            <div class="becas-rail" id="becas-tabs" role="tablist" aria-label="Congresos con becados de la rama"></div>
+            <div class="becas-panels" id="becas-panels"></div>
+          </div>
+          <noscript><p class="lead">Activa JavaScript para ver los congresos y sus becados.</p></noscript>
+        </div>
+      </section>
+
+      <!-- La rama: misión y visión -->
       <section class="band" aria-labelledby="h-rama">
-        <div class="wrap rama has-wide-photo">
-          <figure class="frame-visor is-wide">
-            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-            <picture>
-              <source type="image/webp" srcset="assets/img/rama/equipo-800.webp 800w, assets/img/rama/equipo-1120.webp 1120w" sizes="(max-width: 1200px) 100vw, 1120px">
-              <img src="assets/img/rama/equipo-1120.jpg" width="1120" height="560" alt="Integrantes de la Rama Estudiantil IEEE de la EPN con las banderas de sus capítulos en el auditorio" decoding="async">
-            </picture>
-          </figure>
+        <div class="wrap rama">
           <div>
-            <span class="section-label mono">01 · La rama</span>
+            <span class="section-label mono">02 · La rama</span>
             <h2 class="section-title" id="h-rama">La comunidad IEEE de la Politécnica</h2>
             <p class="lead">Somos la comunidad de estudiantes de la EPN que convierte el conocimiento en proyectos, conexiones y futuro, con el respaldo de IEEE, la mayor organización técnica profesional del mundo.</p>
-            <div class="mv">
-              <article>
-                <h3>Misión</h3>
-                <p class="key">Convertir ideas en soluciones con impacto positivo.</p>
-                <p>Impulsar el talento, la innovación y el liderazgo de los estudiantes de la Escuela Politécnica Nacional, creando espacios de aprendizaje, investigación y colaboración que conecten el conocimiento académico con los desafíos tecnológicos del mundo. A través de IEEE, promovemos el desarrollo de profesionales capaces de transformar ideas en soluciones que generen un impacto positivo en la sociedad.</p>
-              </article>
-              <article>
-                <h3>Visión</h3>
-                <p class="key">Una comunidad referente que trasciende fronteras.</p>
-                <p>Consolidarnos como una comunidad estudiantil referente a nivel nacional e internacional, reconocida por su excelencia técnica, capacidad de innovación y liderazgo. Aspiramos a formar una nueva generación de profesionales que trascienda las fronteras del conocimiento, impulse el avance tecnológico y contribuya a construir un futuro más conectado, sostenible y transformador.</p>
-              </article>
-            </div>
+          </div>
+          <div class="mv">
+            <article>
+              <h3>Misión</h3>
+              <p class="key">Convertir ideas en soluciones con impacto positivo.</p>
+              <p>Impulsar el talento, la innovación y el liderazgo de los estudiantes de la Escuela Politécnica Nacional, creando espacios de aprendizaje, investigación y colaboración que conecten el conocimiento académico con los desafíos tecnológicos del mundo. A través de IEEE, promovemos el desarrollo de profesionales capaces de transformar ideas en soluciones que generen un impacto positivo en la sociedad.</p>
+            </article>
+            <article>
+              <h3>Visión</h3>
+              <p class="key">Una comunidad referente que trasciende fronteras.</p>
+              <p>Consolidarnos como una comunidad estudiantil referente a nivel nacional e internacional, reconocida por su excelencia técnica, capacidad de innovación y liderazgo. Aspiramos a formar una nueva generación de profesionales que trascienda las fronteras del conocimiento, impulse el avance tecnológico y contribuya a construir un futuro más conectado, sostenible y transformador.</p>
+            </article>
           </div>
         </div>
       </section>
@@ -198,7 +228,7 @@
         <div class="wrap">
           <div class="index-head">
             <div>
-              <span class="section-label mono">02 · Capítulos y grupos</span>
+              <span class="section-label mono">03 · Capítulos y grupos</span>
               <h2 class="section-title" id="h-indice"><span data-count="chapters">11</span> capítulos y grupos en <span data-count="areas">4</span> áreas</h2>
             </div>
             <a class="link-arrow" href="/capitulos">Ver el tablero completo <span class="arrow" aria-hidden="true">→</span></a>
@@ -217,7 +247,7 @@
       <section class="band" aria-labelledby="h-historia">
         <div class="wrap story">
           <div>
-            <span class="section-label mono">03 · Historia</span>
+            <span class="section-label mono">04 · Historia</span>
             <h2 class="section-title" id="h-historia">Cómo empezó la rama</h2>
             <p class="lead"><span class="pending">Pendiente</span> año de fundación y reapertura, para fechar esta historia.</p>
           </div>
@@ -232,7 +262,7 @@
       <!-- Tres formas de participar -->
       <section class="band band-surface" aria-labelledby="h-participar">
         <div class="wrap">
-          <span class="section-label mono">04 · Participa</span>
+          <span class="section-label mono">05 · Participa</span>
           <h2 class="section-title" id="h-participar">Tres formas de participar</h2>
           <ol class="ways">
             <li><span class="num" aria-hidden="true">01</span><h3>Aprender</h3><p>Talleres y capacitaciones técnicas para crecer más allá del aula.</p><a class="link-arrow" href="/eventos">Ver eventos <span class="arrow" aria-hidden="true">→</span></a></li>
@@ -322,7 +352,7 @@
               </div>
             </li>
             <li class="event">
-              <img class="event-img" src="assets/img/eventos/aps-mtts-bpc-480.webp" srcset="assets/img/eventos/aps-mtts-bpc-480.webp 480w, assets/img/eventos/aps-mtts-bpc-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Dos estudiantes junto a su póster en el concurso de pósters del MTT-S Broadening Participation Workshop Quito 2026" loading="lazy" decoding="async">
+              <img class="event-img" src="assets/img/eventos/aps-mtts-bpc-480.webp" srcset="assets/img/eventos/aps-mtts-bpc-480.webp 480w, assets/img/eventos/aps-mtts-bpc-960.webp 960w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 46vw, 380px" width="480" height="600" alt="Afiche oficial del IEEE MTT-S Broadening Participation Workshop: 28 y 29 de mayo de 2026 en la Escuela Politécnica Nacional, Quito" loading="lazy" decoding="async">
               <div class="event-body">
                 <p class="event-meta mono"><time datetime="2026-05-28">28–29 may 2026</time><span>Workshop internacional</span></p>
                 <h3>IEEE MTT-S Broadening Participation Workshop Quito 2026</h3>
@@ -395,13 +425,13 @@
 
     <!-- ============ DIRECTIVA ============ -->
     <section class="page" id="directiva" aria-labelledby="h-directiva"
-      data-title="Directiva y becados | IEEE Student Branch EPN"
-      data-description="Directiva de la Rama Estudiantil IEEE de la Escuela Politécnica Nacional y miembros de la rama que han recibido becas IEEE.">
+      data-title="Directiva | IEEE Student Branch EPN"
+      data-description="Directiva de la Rama Estudiantil IEEE de la Escuela Politécnica Nacional: Branch Counselor, Chair, Vice Chair, Secretario, Tesorero y Webmaster.">
       <div class="page-head">
         <div class="wrap">
-          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Directiva y becados</li></ol>
-          <h1 id="h-directiva" tabindex="-1">Directiva y becados</h1>
-          <p class="lead">Las personas que organizan la rama y sus capítulos, y los miembros que han recibido becas IEEE.</p>
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Directiva</li></ol>
+          <h1 id="h-directiva" tabindex="-1">Directiva</h1>
+          <p class="lead">Las personas que organizan la rama y coordinan el trabajo de sus capítulos.</p>
         </div>
       </div>
       <section class="band" aria-labelledby="h-board">
@@ -412,30 +442,13 @@
           <!-- Directiva en pirámide: Counselor arriba, Chair y Vice Chair al medio, el resto abajo.
                Fotos: assets/img/directiva/*.webp (480 × 600, 4:5). -->
           <ul class="people board">
-            <li class="person tier-1"><img class="person-photo" src="assets/img/directiva/counselor.webp" width="480" height="600" alt="Dr. Fabián Perez, Branch Counselor" decoding="async"><span class="role mono">Branch Counselor</span><h3>Dr. Fabián Perez</h3></li>
-            <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/chair.webp" width="480" height="600" alt="Elias Viteri, Chair" decoding="async"><span class="role mono">Chair</span><h3>Elias Viteri</h3></li>
-            <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/vice-chair.webp" width="480" height="600" alt="Andrey Carrillo, Vice Chair" decoding="async"><span class="role mono">Vice Chair</span><h3>Andrey Carrillo</h3></li>
-            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/secretario.webp" width="480" height="600" alt="Erick Alarcón, Secretario" decoding="async"><span class="role mono">Secretario</span><h3>Erick Alarcón</h3></li>
-            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/tesorero.webp" width="480" height="600" alt="Martín Muñoz, Tesorero" decoding="async"><span class="role mono">Tesorero</span><h3>Martín Muñoz</h3></li>
-            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/webmaster.webp" width="480" height="600" alt="Jazmín Zambrano, Webmaster" decoding="async"><span class="role mono">Webmaster</span><h3>Jazmín Zambrano</h3></li>
+            <li class="person tier-1"><img class="person-photo" src="assets/img/directiva/counselor.webp" width="480" height="600" alt="Dr. Fabián Perez, Branch Counselor" loading="lazy" decoding="async"><span class="role mono">Branch Counselor</span><h3>Dr. Fabián Perez</h3></li>
+            <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/chair.webp" width="480" height="600" alt="Elias Viteri, Chair" loading="lazy" decoding="async"><span class="role mono">Chair</span><h3>Elias Viteri</h3></li>
+            <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/vice-chair.webp" width="480" height="600" alt="Andrey Carrillo, Vice Chair" loading="lazy" decoding="async"><span class="role mono">Vice Chair</span><h3>Andrey Carrillo</h3></li>
+            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/secretario.webp" width="480" height="600" alt="Erick Alarcón, Secretario" loading="lazy" decoding="async"><span class="role mono">Secretario</span><h3>Erick Alarcón</h3></li>
+            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/tesorero.webp" width="480" height="600" alt="Martín Muñoz, Tesorero" loading="lazy" decoding="async"><span class="role mono">Tesorero</span><h3>Martín Muñoz</h3></li>
+            <li class="person tier-3"><img class="person-photo" src="assets/img/directiva/webmaster.webp" width="480" height="600" alt="Jazmín Zambrano, Webmaster" loading="lazy" decoding="async"><span class="role mono">Webmaster</span><h3>Jazmín Zambrano</h3></li>
           </ul>
-        </div>
-      </section>
-      <!-- Becados: los dibuja js/becados.js desde js/data/becados.js (agregar un becado = agregar un objeto).
-           Solo se publican registros con autorización (consentimiento.datos) y la foto solo con consentimiento.foto. -->
-      <section class="band band-surface" id="becados" aria-labelledby="h-becados">
-        <div class="wrap">
-          <span class="section-label mono">Becados</span>
-          <h2 class="section-title" id="h-becados">Miembros con becas IEEE</h2>
-          <p class="lead">Estudiantes de la rama que han recibido becas de programas IEEE.</p>
-          <p class="becados-note" id="becados-note" hidden></p>
-          <div class="empty-state" id="becados-empty" hidden>
-            <p class="empty-title">Aún no hay becados publicados.</p>
-            <p>Esta lista se completa a medida que cada becado autoriza la publicación de sus datos.</p>
-            <p><span class="pending">Pendiente</span> nombre, programa o beca IEEE, año, carrera, foto y autorización de cada becado.</p>
-          </div>
-          <ul class="people becados" id="becados-list" role="list" aria-labelledby="h-becados"></ul>
-          <noscript><p>Activa JavaScript para ver la lista de becados.</p></noscript>
         </div>
       </section>
     </section>
@@ -558,7 +571,7 @@
             <li><a href="/contacto">Contacto</a></li>
             <li><a href="https://www.ieee.org/accessibility-statement.html" lang="en">Accessibility</a></li>
             <li><a href="https://www.ieee.org/about/corporate/governance/p9-26.html" lang="en">Nondiscrimination Policy</a></li>
-            <li><a href="https://www.ieee-ethics-reporting.org/" lang="en">IEEE Ethics Reporting</a></li>
+            <li><a href="https://secure.ethicspoint.com/domain/media/en/gui/20410/index.html" lang="en">IEEE Ethics Reporting</a></li>
             <li><a href="https://www.ieee.org/about/help/site-terms-conditions.html" lang="en">Terms &amp; Disclosures</a></li>
             <li><a href="https://privacy.ieee.org/policies" lang="en">IEEE Privacy Policy</a></li>
             <li><a href="https://www.ieee.org/sitemap.html" lang="en">Sitemap</a></li>

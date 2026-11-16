@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Las vistas internas usan # (una sola página), por eso hay una sola URL. -->
+<!-- Solo /: las vistas internas (/capitulos, /eventos…) son rutas de una sola página y GitHub Pages responde 404 en ellas (ver README). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ieee-epn.org/</loc>

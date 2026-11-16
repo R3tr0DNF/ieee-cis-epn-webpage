@@ -10,14 +10,15 @@ window.IEEE_EPN.config = {
   MOSTRAR_PENDIENTES: false,
 
   /* Portada: fotos que rotan en bucle (fundido + acercamiento lento), en lugar de video.
-     Cada foto existe en assets/img/portada/<nombre>-960.webp y -1600.webp, 16:9 (1600 × 900).
+     Cada foto existe en assets/img/portada/<nombre>-640/-960/-1200/-1600.webp, 16:9 (el navegador elige el tamaño).
      La primera también está en index.html (<img id="visor-poster">) porque es el LCP.
-     Agregar una foto = exportarla en 16:9 con esos dos tamaños y sumar su nombre aquí. */
+     Agregar una foto = exportarla en 16:9 con esos cuatro anchos y sumar su nombre aquí. */
   portada: {
     intervalo: 6000,          // ms que se ve cada foto
-    /* slide-15/16/17: CIS en las letras EPN; las dos selfies (16 y 17) van separadas */
-    fotos: ['slide-01', 'slide-02', 'slide-03', 'slide-15', 'slide-04', 'slide-05',
-            'slide-16', 'slide-08', 'slide-09', 'slide-10', 'slide-11', 'slide-12', 'slide-17', 'slide-13', 'slide-14']
+    /* slide-15/16: CIS en las letras EPN. slide-18/19: NASA Space Apps Riobamba (separadas entre sí).
+       Solo nombres cuyos archivos existan: una foto que falte se salta, pero genera un 404. */
+    fotos: ['slide-01', 'slide-02', 'slide-03', 'slide-15', 'slide-04', 'slide-05', 'slide-16', 'slide-08',
+            'slide-09', 'slide-18', 'slide-10', 'slide-11', 'slide-12', 'slide-19', 'slide-13', 'slide-14']
   },
 
   /* Formulario de contacto.
