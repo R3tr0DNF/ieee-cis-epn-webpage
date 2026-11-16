@@ -10,16 +10,19 @@ cd ieee-cis-epn-webpage
 python3 -m http.server 8000        # abrir http://localhost:8000
 ```
 
-Las vistas usan rutas limpias sin `#` (`/capitulos`, `/directiva`…), así que el sitio se abre desde la raíz de un servidor, no con doble clic en `index.html`. En local, recargar una ruta interna da 404 (el servidor de Python no usa `404.html`): entra por `/` y navega.
+Las vistas usan rutas limpias sin `#` (`/capitulos`, `/directiva`…), así que el sitio se abre desde la raíz de un servidor, no con doble clic en `index.html`. En local, recargar una ruta interna da 404 (el servidor de Python no usa `404.html` ni sirve `capitulos.html` en `/capitulos`): entra por `/` y navega.
 
 ## Estructura
 
 ```
 index.html                  todas las vistas: /, /capitulos, /eventos, /directiva, /contacto y /desarrolladores (solo desde el pie) (<base href="/">); CSP en <meta>
+capitulos.html, eventos.html, directiva.html, contacto.html, desarrolladores.html
+                            copias de index.html para buscadores (GENERADAS: no se editan a mano, ver "SEO de las vistas internas")
+scripts/generar-paginas.py  genera esas copias y sitemap.xml a partir de index.html (no se publica)
 404.html                    GitHub Pages: guarda la ruta pedida (/capitulos/cis…) y vuelve a /, donde router.js la restaura
 CNAME                       dominio de GitHub Pages (ieee-epn.org)
-_config.yml                 Jekyll de GitHub Pages: deja fuera de la publicación README.md, el análisis .md y .claude/
-robots.txt, sitemap.xml     SEO (solo / en el sitemap: ver "Seguridad y despliegue")
+_config.yml                 Jekyll de GitHub Pages: deja fuera de la publicación README.md, el análisis .md, .claude/ y scripts/
+robots.txt, sitemap.xml     SEO (el sitemap lo genera scripts/generar-paginas.py)
 css/tokens.css              tokens: color (temas claro y oscuro), tipografía, espaciado, radios, movimiento, fuentes
 css/base.css                reset, tipografía, foco, utilidades, etiqueta PENDIENTE
 css/layout.css              meta-navegación IEEE, encabezado, navegación, páginas, pie
@@ -120,7 +123,17 @@ GitHub Pages no permite cabeceras HTTP propias. Por eso hay dos capas:
    - `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()`
 4. Comprobar con `curl -sI https://ieee-epn.org/` que aparecen las cabeceras.
 
-**SEO de las vistas internas.** `/capitulos`, `/eventos`, `/directiva`… no existen como archivos: GitHub Pages responde **404** y `404.html` las abre con JavaScript. Para las personas funciona igual, pero los buscadores y las vistas previas al compartir un enlace ven un 404; por eso el sitemap solo lista `/`. Para indexarlas haría falta generar un `index.html` por ruta (paso de compilación) o mover el sitio a un generador estático.
+**SEO de las vistas internas.** GitHub Pages sirve `/capitulos` desde `capitulos.html` (estado 200, sin cambiar la URL), y lo mismo para `/eventos`, `/directiva`, `/contacto` y `/desarrolladores`. Esas cinco páginas son copias de `index.html` con el título, la descripción, el canonical y el Open Graph de su sección (salen de `data-title` y `data-description` de cada `<section>`) y esa sección ya activa. Así Google puede indexarlas y están en `sitemap.xml`.
+
+**Después de CADA cambio en `index.html`**, desde la raíz del repositorio ejecuta:
+
+```bash
+python scripts/generar-paginas.py
+```
+
+Eso regenera las cinco páginas y `sitemap.xml`. Haz commit de todo junto. `python scripts/generar-paginas.py --check` solo comprueba que estén al día. Si agregas una vista nueva, súmala a `SECCIONES` en el script. Las rutas de capítulo (`/capitulos/cis`…) y `/iniciativas` siguen pasando por `404.html`.
+
+**Nombre del sitio en Google.** La portada lleva datos `WebSite` (nombre "IEEE Student Branch EPN" y alternativos "IEEE EPN"…) además de `Organization`. Van solo en la portada: el script los quita de las copias. Valídalos en https://validator.schema.org.
 
 ## Elementos obligatorios de IEEE (Brand Experience, Global Page Elements)
 
