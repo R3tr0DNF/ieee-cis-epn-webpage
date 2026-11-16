@@ -31,7 +31,7 @@ js/chapters.js              plantilla única: tablero, índice de Inicio y opcio
 js/data/becados.js          DATOS de las becas IEEE: un objeto por congreso, con sus becados (fuente: LACAP 2026.docx)
 js/becados.js               vitrina "Becados" de Inicio: línea de tiempo (pestañas ARIA) + panel con foto y nombres
 js/router.js                vistas por ruta (History API, sin #; acepta enlaces antiguos con #), título, descripción y canonical, encabezado (sólido / se oculta al bajar), menú móvil, botón de tema
-js/hero.js                  fotos de la portada en bucle (carga de a una, botón Pausar fotos, pausa fuera de pantalla) y respaldo del efecto de scroll
+js/hero.js                  fotos de la portada en bucle (carga de a una, pausa fuera de pantalla) y respaldo del efecto de scroll
 js/form.js                  validación accesible y envío del formulario
 assets/fonts/               Open Sans + IBM Plex Mono (OFL), alojadas en el sitio
 assets/img/brand/           logos optimizados (WebP 1x/2x + PNG), IEEE Master Brand, favicon
@@ -55,13 +55,17 @@ assets/img/portada/         fotos de la portada en bucle (16:9, WebP 640, 960, 1
 
 **Franja de logos de Inicio.** La sección "Capítulos y grupos" de Inicio muestra los logos a lo ancho (la dibuja `js/chapters.js`). Cada logo ocupa la misma área visual (`--s` en `css/pages.css`: 104 px en escritorio, 72 px en celular; alto = `--s ÷ √(ancho/alto)`), así ninguno domina. Si no caben, la franja se recorre acercando el cursor a un extremo, con las flechas o deslizando en celular. En modo oscuro se usa la versión blanca de cada logo: mismo nombre con `-white` (`cis-white-480.webp`, `cis-white-960.webp`).
 
+**Recuadros de capítulos.** En `/capitulos`, todo el recuadro de un capítulo lleva a su Instagram (campo `instagram` de `js/data/chapters.js`, solo `https://`). No hay un segundo enlace: el enlace visible del pie del recuadro se extiende con su `::after` (`.module.is-link` en `css/components.css`), así el destino es el mismo, hay una sola parada de tabulador y no hace falta JavaScript de clic. No agregues otros enlaces o botones dentro del recuadro: quedarían tapados por esa capa.
+
+**Enlaces externos.** Todo enlace a otro sitio abre en pestaña nueva y no puede tocar esta página: `target="_blank" rel="noopener noreferrer" aria-describedby="nueva-pestana"` (el último avisa a los lectores de pantalla con el texto oculto `#nueva-pestana` del final de `index.html`). Los enlaces internos (`/capitulos`, `#contenido`…) y `mailto:` no llevan `target`.
+
 **Logo de un capítulo.** Exporta el logo en WebP a 480 px y 960 px de ancho (y un PNG de 480 px), guárdalo en `assets/img/chapters/` y completa el campo `logo` (mira el de CIS como ejemplo). Usa `formato: 'ancho'` para logos apaisados y `'cuadrado'` para íconos.
 
 **Desarrolladores oficiales.** Página `/desarrolladores` (sección `#desarrolladores` de `index.html`). No aparece en el menú: solo se llega desde el enlace "Desarrolladores oficiales" del pie, junto a Sitemap, y conserva el encabezado y el menú del sitio.
 
 **Agregar un evento destacado.** En `index.html`, sección `#eventos`, copia un `<li class="event">` y cambia fecha (`datetime` y texto), tipo, nombre, descripción corta, lugar, capítulo (enlace a `/capitulos/<id>`) y enlace a vTools o Instagram. Guarda la imagen en `assets/img/eventos/` en 4:5: `<nombre>-480.webp` (480 × 600) y `<nombre>-960.webp` (960 × 1200). El orden lo decide la rama (hoy el MTT-S BPC Workshop va al centro); si queda una tarjeta sola en la última fila, se centra sola. La ruta antigua `/iniciativas` redirige a `/eventos`.
 
-**Fotos de la portada.** La portada muestra fotos que rotan en bucle (fundido y acercamiento lento), en lugar de video. La lista y el tiempo de cada foto están en `js/config.js → portada`. Cada foto va en `assets/img/portada/` en 16:9 y en cuatro tamaños: `<nombre>-640.webp`, `-960.webp`, `-1200.webp` y `-1600.webp` (el navegador elige según la pantalla). La primera también está en `index.html` (`<img id="visor-poster">`, con su `srcset`) porque es el LCP; si cambias la primera, actualiza ahí las rutas. Si falta un archivo, esa foto se salta (con un 404 en la consola). En escritorio la foto llena la portada; en celular o tablet en vertical se ve completa en una franja 16:9 bajo el encabezado, con el texto debajo. Mientras las fotos rotan, la barra inferior de la portada muestra el botón **Pausar fotos** (WCAG 2.2.2). Con "reducir movimiento" o ahorro de datos queda fija la primera foto (y el botón no aparece), y el carrusel se pausa fuera de pantalla o con la pestaña oculta.
+**Fotos de la portada.** La portada muestra fotos que rotan en bucle (fundido y acercamiento lento), en lugar de video. La lista y el tiempo de cada foto están en `js/config.js → portada`. Cada foto va en `assets/img/portada/` en 16:9 y en cuatro tamaños: `<nombre>-640.webp`, `-960.webp`, `-1200.webp` y `-1600.webp` (el navegador elige según la pantalla). La primera también está en `index.html` (`<img id="visor-poster">`, con su `srcset`) porque es el LCP; si cambias la primera, actualiza ahí las rutas. Si falta un archivo, esa foto se salta (con un 404 en la consola). En escritorio la foto llena la portada; en celular o tablet en vertical se ve completa en una franja 16:9 bajo el encabezado, con el texto debajo. No hay botón de pausa (decisión de diseño de la rama). Con "reducir movimiento" o ahorro de datos queda fija la primera foto, y el carrusel se pausa fuera de pantalla o con la pestaña oculta.
 
 Para preparar una foto nueva en 16:9 (ajusta el recorte `crop=ancho:alto:x:y` a la composición):
 
@@ -80,7 +84,7 @@ Las fotos verticales se adaptan solo con recorte, encuadre o escala, sin alterar
 
 **Formulario.** Crea un formulario en un servicio que acepte `POST` con `FormData` (Formspree, Getform, Basin…) y pega su URL en `js/config.js → form.endpoint`. Sin endpoint, el envío abre el correo del visitante.
 
-**Versión de CSS y JS.** Cloudflare indica a los navegadores guardar CSS, JS e imágenes durante 4 horas. Cada vez que publiques cambios en `css/` o `js/`, cambia el valor `?v=` de los enlaces en `index.html` (por ejemplo `?v=20261116-1`) para que todos reciban la versión nueva al instante. Si reemplazas una imagen con el mismo nombre, purga esa URL en Cloudflare (Caching → Configuration → Custom Purge) o cámbiale el nombre.
+**Versión de CSS y JS.** Cloudflare indica a los navegadores guardar CSS, JS e imágenes durante 4 horas. Cada vez que publiques cambios en `css/` o `js/`, cambia el valor `?v=` de los enlaces en `index.html` (por ejemplo `?v=20261116-2`) para que todos reciban la versión nueva al instante. Si reemplazas una imagen con el mismo nombre, purga esa URL en Cloudflare (Caching → Configuration → Custom Purge) o cámbiale el nombre.
 
 **Publicar.** Revisa que `MOSTRAR_PENDIENTES` siga en `false` en `js/config.js` y que el `?v=` haya cambiado.
 

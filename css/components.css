@@ -82,17 +82,6 @@
   display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap;
   color: var(--c-on-dark-muted);
 }
-/* Pausar / reanudar las fotos (js/hero.js lo muestra solo si rotan). Objetivo de 32 px (WCAG 2.5.8). */
-.visor-toggle {
-  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 32px; padding: 0 var(--sp-3);
-  border: 1px solid var(--c-line-dark); border-radius: var(--r-round); background: rgba(0, 20, 46, .45);
-  color: var(--c-on-dark); cursor: pointer; transition: border-color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease);
-}
-.visor-toggle[hidden] { display: none; }
-.visor-toggle:hover { border-color: rgba(255, 255, 255, .7); background: rgba(0, 20, 46, .7); }
-.visor-toggle svg { width: 12px; height: 12px; flex: none; }
-.visor-toggle .i-play, .visor-toggle.is-held .i-pause { display: none; }
-.visor-toggle.is-held .i-play { display: block; }
 
 /* Scroll-driven: el visor se reduce y el video se desvanece al bajar.
    El texto del hero no tiene efecto propio: se desplaza con el scroll normal. */
@@ -147,10 +136,33 @@
 .ig-link { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: 700; font-size: var(--fs-sm); color: var(--c-link); text-decoration: none; }
 .ig-link svg { width: 20px; height: 20px; flex: none; }
 .ig-link:hover span { text-decoration: underline; }
+.ig-link .ext-arrow { width: 14px; height: 14px; opacity: .75; transition: transform var(--dur-2) var(--ease); }   /* indica destino externo */
+
+/* Recuadro completo como enlace (patrón "enlace extendido"): el ::after del enlace de Instagram
+   cubre todo el módulo, así cualquier punto del recuadro lleva al mismo destino que el enlace visible.
+   Un solo <a> en el DOM y sin JS. Levanta con `translate` (no `transform`, que usa la entrada escalonada). */
+.module.is-link { cursor: pointer; transition: transform var(--dur-2) var(--ease), translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
+.module.is-link .ig-link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.module.is-link:hover, .module.is-link:focus-within { box-shadow: 0 10px 28px -14px var(--c-menu-shadow); }
+.module.is-link:hover .ig-link span { text-decoration: underline; }
+.module.is-link:hover .ext-arrow, .module.is-link:focus-within .ext-arrow { transform: translate(2px, -2px); opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .module.is-link:hover, .module.is-link:focus-within { translate: 0 -3px; }
+}
+/* Foco de teclado: se dibuja en todo el recuadro (con :has); sin :has queda el foco normal del enlace */
+@supports selector(:has(*)) {
+  .module.is-link .ig-link:focus-visible { outline: none; }
+  .module.is-link:has(.ig-link:focus-visible) { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+}
 
 /* Entrada escalonada de los módulos: patrón 1 de 2 */
 .js .module.will-enter { opacity: 0; transform: translateY(12px); }
 .js .module.will-enter.is-in { opacity: 1; transform: none; transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease); transition-delay: calc(var(--i, 0) * 60ms); }
+/* módulos-enlace: la demora escalonada solo para la entrada; el hover (translate y sombra) responde al instante */
+.js .module.is-link.will-enter.is-in {
+  transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease), translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+  transition-delay: calc(var(--i, 0) * 60ms), calc(var(--i, 0) * 60ms), 0s, 0s;
+}
 
 /* Formulario --------------------------------------------------------------- */
 .form { display: grid; gap: var(--sp-5); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-panel); padding: var(--sp-6); }
