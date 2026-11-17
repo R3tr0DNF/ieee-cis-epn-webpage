@@ -165,16 +165,28 @@
 }
 
 /* Formulario --------------------------------------------------------------- */
-.form { display: grid; gap: var(--sp-5); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-panel); padding: var(--sp-6); }
+.form { display: grid; gap: var(--sp-5); }   /* la tarjeta que lo contiene (.contact-card) pone fondo, borde y relleno */
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
 .field label { display: block; font-weight: 600; font-size: var(--fs-sm); color: var(--c-ink); margin-bottom: var(--sp-1); }
 .field .hint { display: block; font-size: var(--fs-xs); color: var(--c-muted); margin-bottom: var(--sp-2); }
 .field input, .field textarea, .field select {
-  width: 100%; min-height: 48px; padding: var(--sp-3); background: var(--c-card); color: var(--c-ink);
-  border: 1px solid var(--c-field-border); border-radius: var(--r-ctl);
+  width: 100%; min-height: 52px; padding: var(--sp-3) var(--sp-4); background: var(--c-field-bg); color: var(--c-ink);
+  border: 1px solid var(--c-field-border); border-radius: var(--r-field);
+  transition: border-color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--c-muted); opacity: 1; }
+.field input:hover, .field textarea:hover, .field select:hover { border-color: var(--c-link); }
+.field .req { color: var(--c-orange-text); font-weight: 700; }
+.field .opt { color: var(--c-muted); font-weight: 400; }
+/* Lista desplegable con flecha propia (sin imágenes: la CSP no admite data:) */
+.select-wrap { position: relative; display: block; }
+.select-wrap select { appearance: none; -webkit-appearance: none; padding-right: calc(var(--sp-4) * 2.5); cursor: pointer; }
+.select-wrap::after {
+  content: ""; position: absolute; right: var(--sp-4); top: 50%; width: 8px; height: 8px; margin-top: -6px; pointer-events: none;
+  border: solid var(--c-muted); border-width: 0 2px 2px 0; transform: rotate(45deg);
 }
 .field textarea { min-height: 150px; resize: vertical; }
-.field input:focus, .field textarea:focus, .field select:focus { outline: 3px solid var(--c-field-ring); outline-offset: 0; border-color: var(--c-link); }
+.field input:focus, .field textarea:focus, .field select:focus { outline: 3px solid var(--c-field-ring); outline-offset: 0; border-color: var(--c-link); background: var(--c-card); }
 .field [aria-invalid="true"] { border-color: var(--c-error); border-width: 2px; }
 .field-error { display: flex; gap: var(--sp-1); margin-top: var(--sp-1); color: var(--c-error); font-size: var(--fs-sm); font-weight: 600; }
 .field-error::before { content: "✕" / ""; font-weight: 700; }

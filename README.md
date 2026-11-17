@@ -19,9 +19,10 @@ index.html                  todas las vistas: /, /capitulos, /eventos, /directiv
 capitulos.html, eventos.html, directiva.html, contacto.html, desarrolladores.html
                             copias de index.html para buscadores (GENERADAS: no se editan a mano, ver "SEO de las vistas internas")
 scripts/generar-paginas.py  genera esas copias y sitemap.xml a partir de index.html (no se publica)
+entregables/                memoria técnica en PDF (no se publica)
 404.html                    GitHub Pages: guarda la ruta pedida (/capitulos/cis…) y vuelve a /, donde router.js la restaura
 CNAME                       dominio de GitHub Pages (ieee-epn.org)
-_config.yml                 Jekyll de GitHub Pages: deja fuera de la publicación README.md, el análisis .md, .claude/ y scripts/
+_config.yml                 Jekyll de GitHub Pages: deja fuera de la publicación README.md, el análisis .md, .claude/, scripts/ y entregables/
 robots.txt, sitemap.xml     SEO (el sitemap lo genera scripts/generar-paginas.py)
 css/tokens.css              tokens: color (temas claro y oscuro), tipografía, espaciado, radios, movimiento, fuentes
 css/base.css                reset, tipografía, foco, utilidades, etiqueta PENDIENTE
@@ -52,7 +53,7 @@ assets/img/portada/         fotos de la portada en bucle (16:9, WebP 640, 960, 1
 
 ## Tareas frecuentes
 
-**Agregar o editar un capítulo.** En `js/data/chapters.js`, copia un objeto del arreglo `chapters` y cambia sus valores. El tablero, el índice de Inicio y el formulario se actualizan solos.
+**Agregar o editar un capítulo.** En `js/data/chapters.js`, copia un objeto del arreglo `chapters` y cambia sus valores. El tablero, el índice de Inicio y el formulario se actualizan solos. El conteo oficial (12 capítulos técnicos, 2 councils y 2 grupos de afinidad) también sale de ahí: cada sociedad de un capítulo cuenta como capítulo técnico, salvo las que llevan «Council» en el nombre (RFID, TEC), y los recuadros de tipo `afinidad` o `sight` (WIE, SIGHT) cuentan como grupos de afinidad. No uses el término «grupos técnicos».
 
 **Becados (Inicio).** La sección "01 · Becados" de Inicio la dibuja `js/becados.js` desde `js/data/becados.js`. Cada objeto es un congreso: `id`, `siglas`, `nombre`, `inicio` (AAAA-MM-DD, ordena del más reciente al más antiguo), `fechas` (texto), `lugar`, `organiza`, `capitulo` (id de `js/data/chapters.js`, opcional), `nota` (opcional), `foto` (`src` sin sufijo + `alt`) y `becados` (lista de nombres). Para agregar uno, copia un objeto y pon `publicar: true`. Un nombre incompleto se escribe como `{ nombre: 'Carlos', pendiente: 'apellido' }` y no se publica mientras `MOSTRAR_PENDIENTES` sea `false`. Las cifras de la cabecera (becas, estudiantes distintos y congresos) se calculan solas. La foto va en `assets/img/becados/<id>-640.webp` y `-960.webp`, en 16:10. Publica solo nombres de personas que aceptaron aparecer en el sitio; la rama guarda esa autorización.
 

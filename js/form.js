@@ -15,11 +15,13 @@
   var submit = form.querySelector('[type="submit"]');
 
   var RULES = {
-    'f-nombre':  function (v) { return v.trim().length >= 3 ? '' : 'Escribe tu nombre completo.'; },
-    'f-correo':  function (v, el) { return el.validity.valid && v.trim() ? '' : 'Escribe un correo válido, por ejemplo nombre@epn.edu.ec.'; },
-    'f-mensaje': function (v) { return v.trim().length >= 10 ? '' : 'Escribe un mensaje de al menos 10 caracteres.'; }
+    'f-nombre':   function (v) { return v.trim().length >= 2 ? '' : 'Escribe tu nombre.'; },
+    'f-apellido': function (v) { return v.trim().length >= 2 ? '' : 'Escribe tu apellido.'; },
+    'f-correo':   function (v, el) { return el.validity.valid && v.trim() ? '' : 'Escribe un correo válido, por ejemplo nombre@epn.edu.ec.'; },
+    'f-asunto':   function (v) { return v ? '' : 'Elige el asunto de tu mensaje.'; },
+    'f-mensaje':  function (v) { return v.trim().length >= 10 ? '' : 'Escribe un mensaje de al menos 10 caracteres.'; }
   };
-  var LABELS = { 'f-nombre': 'Nombre completo', 'f-correo': 'Correo electrónico', 'f-mensaje': 'Mensaje' };
+  var LABELS = { 'f-nombre': 'Nombre', 'f-apellido': 'Apellido', 'f-correo': 'Correo electrónico', 'f-asunto': 'Asunto', 'f-mensaje': 'Mensaje' };
 
   function check(id) {
     var el = document.getElementById(id);
@@ -28,10 +30,12 @@
     document.getElementById(id + '-err').textContent = msg;
     return msg;
   }
-  /* Revalida en vivo solo los campos que ya tienen error */
+  /* Revalida en vivo solo los campos que ya tienen error ('change' para las listas desplegables) */
   Object.keys(RULES).forEach(function (id) {
-    document.getElementById(id).addEventListener('input', function () {
-      if (this.getAttribute('aria-invalid') === 'true') check(id);
+    ['input', 'change'].forEach(function (ev) {
+      document.getElementById(id).addEventListener(ev, function () {
+        if (this.getAttribute('aria-invalid') === 'true') check(id);
+      });
     });
   });
 
@@ -80,9 +84,10 @@
         })
         .then(function () { submit.disabled = false; });
     } else {
-      var body = 'Nombre: ' + data.get('nombre') + '\nCorreo: ' + data.get('correo') +
+      var body = 'Nombre: ' + data.get('nombre') + ' ' + data.get('apellido') + '\nCorreo: ' + data.get('correo') +
+                 '\nAsunto: ' + data.get('asunto') +
                  (data.get('capitulo') ? '\nCapítulo de interés: ' + data.get('capitulo') : '') + '\n\n' + data.get('mensaje');
-      location.href = 'mailto:' + cfg.email + '?subject=' + encodeURIComponent('Contacto desde el sitio de la rama') + '&body=' + encodeURIComponent(body);
+      location.href = 'mailto:' + cfg.email + '?subject=' + encodeURIComponent(data.get('asunto') + ' · Contacto desde el sitio de la rama') + '&body=' + encodeURIComponent(body);
       setStatus('Abrimos tu aplicación de correo con el mensaje listo. Si no se abrió, escribe a ' + cfg.email + '.');
     }
   });

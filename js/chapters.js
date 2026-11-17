@@ -48,9 +48,21 @@
   function byArea(id) { return chapters.filter(function (c) { return c.area === id; }); }
   function isWide(c) { return c.tipo === 'conjunto' || (c.logo && c.logo.formato === 'ancho'); }
 
-  /* Conteos que se muestran en la página (siempre salen de la data) */
+  /* Conteos que se muestran en la página (siempre salen de la data)
+     · societies: capítulos técnicos = cada sociedad IEEE de los capítulos (12)
+     · councils:  councils IEEE dentro de los capítulos conjuntos (RFID, TEC)
+     · affinity:  grupos de afinidad (WIE y SIGHT) */
+  function esAfinidad(c) { return c.tipo === 'afinidad' || c.tipo === 'sight'; }
+  function unidades(fn) {
+    return chapters.filter(function (c) { return !esAfinidad(c); })
+      .reduce(function (n, c) { return n + c.sociedades.filter(fn).length; }, 0);
+  }
+  function esCouncil(s) { return /\bCouncil\b/.test(s); }
   var counts = {
     chapters: chapters.length,
+    societies: unidades(function (s) { return !esCouncil(s); }),
+    councils: unidades(esCouncil),
+    affinity: chapters.filter(esAfinidad).length,
     areas: areas.filter(function (a) { return byArea(a.id).length; }).length,
     joint: chapters.filter(function (c) { return c.tipo === 'conjunto'; }).length
   };

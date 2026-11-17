@@ -9,6 +9,8 @@
      siglas      siglas en el orden en que se muestran
      sociedades  nombre oficial de cada sociedad o grupo IEEE que forma el capítulo
      tipo        'capitulo' | 'conjunto' | 'afinidad' | 'sight'
+                 Conteo oficial (lo calcula js/chapters.js): 12 capítulos técnicos (sociedades),
+                 2 councils (RFID, TEC: "Council" en el nombre) y 2 grupos de afinidad (WIE, SIGHT).
      area        'ondas' | 'computo' | 'energia' | 'comunidad'  (agrupación de la página)
      alcance     ámbito general de la sociedad IEEE en el mundo (texto de A; NO es la
                  descripción del capítulo EPN)
@@ -32,7 +34,7 @@ window.IEEE_EPN.tipos = {
   capitulo: 'Capítulo técnico',
   conjunto: 'Capítulo conjunto',
   afinidad: 'Grupo de afinidad',
-  sight:    'Grupo SIGHT'
+  sight:    'Grupo de afinidad'
 };
 
 window.IEEE_EPN.chapters = [
@@ -74,7 +76,7 @@ window.IEEE_EPN.chapters = [
     siglas: ['VTS', 'ITSS', 'TEC'],
     sociedades: ['IEEE Vehicular Technology Society', 'IEEE Intelligent Transportation Systems Society', 'IEEE Transportation Electrification Council'],
     tipo: 'conjunto',
-    area: 'ondas',
+    area: 'energia',
     alcance: 'Comunicaciones móviles, tecnologías vehiculares, sistemas inteligentes de transporte y electrificación del transporte.',
     descripcion: null,
     logo: { src: 'assets/img/chapters/vts-itss-tec-480.webp', src2x: 'assets/img/chapters/vts-itss-tec-960.webp', png: 'assets/img/chapters/vts-itss-tec-480.png', width: 480, height: 246, formato: 'ancho' },
