@@ -54,7 +54,8 @@
   --section-y: clamp(var(--sp-8), 5vw + var(--sp-5), var(--sp-9));
 
   /* Radios: distintos por función, no uno para todo --------------------- */
-  --r-ctl:   2px;     /* botones y campos */
+  --r-ctl:   2px;     /* botones */
+  --r-field: 10px;    /* campos del formulario de contacto */
   --r-panel: 12px;    /* módulos y paneles */
   --r-media: 0;       /* fotos y video: esquinas rectas */
   --r-round: 999px;   /* solo marcadores */
@@ -91,9 +92,13 @@
   --c-heading:      #002855;   /* títulos (IEEE navy) */
   --c-link:         #00629B;   /* enlaces y acentos lineales (6.5:1) */
   --c-orange-text:  #A84E00;   /* naranja como texto (5.5:1) */
+  --c-gold:         #B8902C;   /* dorado del hito de fundación: filetes y marcas */
+  --c-gold-text:    #7A5A00;   /* dorado como texto sobre --c-gold-tint */
+  --c-gold-tint:    #FBF4E2;   /* fondo suave dorado */
   --c-tint:         #E6EFF6;   /* fondo suave azul */
   --c-primary-hover:#002855;
   --c-field-border: #7C8897;   /* 3.5:1 sobre blanco */
+  --c-field-bg:     #F7F9FC;   /* relleno de los campos (el borde mantiene 3.3:1) */
   --c-field-ring:   rgba(0, 98, 155, .35);
   --c-focus:        #C4600F;   /* anillo de foco: 4.2:1 sobre blanco, 4.4:1 sobre --c-deep */
   --c-error:        #B42318;
@@ -121,9 +126,13 @@
   --c-heading:      #EEF4FA;
   --c-link:         #7DC1EE;   /* 8.8:1 sobre --c-bg, 7.1:1 sobre --c-card */
   --c-orange-text:  #F6A868;   /* 8.8:1 sobre --c-bg, 7.1:1 sobre --c-card */
+  --c-gold:         #D4AF37;
+  --c-gold-text:    #F0CF6E;
+  --c-gold-tint:    #1E2A33;
   --c-tint:         #183B61;
   --c-primary-hover:#0077BB;   /* texto blanco 4.8:1 */
   --c-field-border: #7F96B2;   /* 4.6:1 sobre --c-card */
+  --c-field-bg:     #10243F;
   --c-field-ring:   rgba(125, 193, 238, .45);
   --c-focus:        #F08A3E;   /* 6.9:1 sobre --c-bg, 5.6:1 sobre --c-card */
   --c-error:        #FF9C92;   /* 6.9:1 sobre --c-card */
