@@ -240,7 +240,7 @@
     var foot = el('div', 'opp-foot');
     var link = safeUrl(it.link);
     if (link) foot.appendChild(extLink(link, 'Ir a la convocatoria', 'btn btn-gold btn-sm opp-go'));
-    else foot.appendChild(el('span', 'opp-nolink', 'Sin enlace de postulación en la hoja'));
+    else foot.appendChild(el('span', 'opp-nolink', 'Próximamente se habilitarán las postulaciones'));
     if (cap) {
       var ca = el('a', 'event-chapter', 'Capítulo ' + (cap.siglas || []).join('/'));
       ca.href = '/capitulos/' + cap.id;
