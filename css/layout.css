@@ -58,7 +58,28 @@
 .is-solid .main-nav a[aria-current="page"] { color: var(--c-link); }
 .header-cta { flex: none; }
 
-/* Botón de tema: ícono de 44 × 44 px junto al botón principal; dentro del menú móvil, fila con texto */
+/* Ítem dorado "Oportunidades": píldora dorada detrás del texto (el área táctil sigue siendo de 44 px).
+   Sobre el visor oscuro el texto es dorado claro; con el encabezado sólido, --c-gold-text (≥ 4.5:1 en ambos temas). */
+.main-nav .nav-gold { gap: 6px; color: #F0CF6E; isolation: isolate; }
+.main-nav .nav-gold::before {
+  content: ""; position: absolute; inset: 6px 0; z-index: -1; border-radius: var(--r-round);
+  border: 1px solid color-mix(in srgb, #D4AF37 65%, transparent); background: color-mix(in srgb, #D4AF37 14%, transparent);
+  transition: background-color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+.main-nav .nav-gold::after { display: none; }
+.main-nav .nav-gold:hover::before, .main-nav .nav-gold[aria-current="page"]::before { background: color-mix(in srgb, #D4AF37 28%, transparent); border-color: #D4AF37; }
+.is-solid .main-nav .nav-gold, .is-solid .main-nav .nav-gold[aria-current="page"] { color: var(--c-gold-text); }
+.is-solid .main-nav .nav-gold::before { background: var(--c-gold-tint); border-color: color-mix(in srgb, var(--c-gold) 70%, transparent); }
+.is-solid .main-nav .nav-gold:hover::before, .is-solid .main-nav .nav-gold[aria-current="page"]::before { border-color: var(--c-gold); box-shadow: inset 0 0 0 1px var(--c-gold); }
+.nav-spark { width: 14px; height: 14px; flex: none; color: #D4AF37; }
+.is-solid .nav-spark { color: var(--c-gold); }
+@media (prefers-reduced-motion: no-preference) {
+  .nav-spark { animation: nav-spark 3.6s var(--ease) 1s 3; }   /* tres destellos al cargar y se detiene */
+}
+@keyframes nav-spark { 0%, 72%, 100% { transform: none; } 82% { transform: scale(1.3) rotate(45deg); } }
+
+/* Botón de tema: ícono de 44 × 44 px en la esquina, junto al IEEE Master Brand.
+   La copia del menú (.menu-theme) solo aparece en celulares angostos, como fila con texto (css/pages.css). */
 .theme-toggle {
   position: relative; display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0;
   background: transparent; color: inherit; border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
@@ -70,6 +91,7 @@
 [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 .theme-toggle .theme-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 html:not(.js) .theme-toggle { display: none; }   /* sin JS no puede funcionar */
+.main-nav .menu-theme { display: none; }
 .main-nav .menu-cta { display: none; }
 
 .menu-toggle {

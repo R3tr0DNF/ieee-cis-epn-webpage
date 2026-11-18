@@ -19,7 +19,7 @@ import re
 import sys
 
 SITE = 'https://ieee-epn.org'
-SECCIONES = ['capitulos', 'eventos', 'directiva', 'contacto', 'desarrolladores']
+SECCIONES = ['capitulos', 'eventos', 'oportunidades', 'directiva', 'contacto', 'desarrolladores']
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AVISO = ('<!-- GENERADO por scripts/generar-paginas.py a partir de index.html. No lo edites a mano:\n'
          '     cambia index.html y vuelve a ejecutar el script. -->\n')

@@ -1,7 +1,7 @@
 /* ==========================================================
    IEEE Student Branch EPN — Navegación
    · Vistas por ruta limpia (History API, sin #): /, /capitulos,
-     /capitulos/<id>, /eventos, /directiva, /contacto (/iniciativas → /eventos). El botón
+     /capitulos/<id>, /eventos, /oportunidades, /directiva, /contacto (/iniciativas → /eventos). El botón
      "atrás" funciona. Los enlaces antiguos con # (#capitulos…) se
      convierten a la ruta nueva. En GitHub Pages, 404.html guarda la
      ruta pedida y vuelve a "/", donde se restaura (ver al final).
@@ -188,9 +188,10 @@
   var KEY = 'ieee-epn-tema';
   var COLOR = { light: '#00142E', dark: '#020B1F' };   // = --c-meta de cada tema
   var root = document.documentElement;
-  var btn = document.getElementById('theme-toggle');
-  if (!btn) return;
-  var label = btn.querySelector('.theme-label');
+  /* Dos botones con la misma función: el de la esquina (junto al IEEE Master Brand)
+     y la fila del menú móvil (en celulares angostos, donde la esquina no tiene espacio). */
+  var btns = [].slice.call(document.querySelectorAll('[data-theme-toggle]'));
+  if (!btns.length) return;
   var meta = document.querySelector('meta[name="theme-color"]');
   var timer = null;
 
@@ -200,8 +201,11 @@
      El texto visible (menú móvil) está contenido en el nombre accesible. */
   function sync(theme) {
     var next = theme === 'dark' ? 'claro' : 'oscuro';
-    btn.setAttribute('aria-label', 'Cambiar a modo ' + next);
-    if (label) label.textContent = 'Modo ' + next;
+    btns.forEach(function (btn) {
+      btn.setAttribute('aria-label', 'Cambiar a modo ' + next);
+      var label = btn.querySelector('.theme-label');
+      if (label) label.textContent = 'Modo ' + next;
+    });
     if (meta) meta.setAttribute('content', COLOR[theme]);
   }
 
@@ -215,5 +219,7 @@
   }
 
   sync(current());
-  btn.addEventListener('click', function () { apply(current() === 'dark' ? 'light' : 'dark'); });
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () { apply(current() === 'dark' ? 'light' : 'dark'); });
+  });
 })();
