@@ -291,8 +291,9 @@ a.social:hover::after { transform: translate(3px, 3px); }
   .event:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - var(--sp-5) / 2); }
 }
 
-/* Desarrolladores oficiales: tres tarjetas centradas (misma foto recortada que la directiva) */
-.people.devs { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 960px; margin-inline: auto; text-align: center; }
+/* Desarrolladores oficiales: cuatro tarjetas centradas (misma foto recortada que la directiva); 2 × 2 en tableta */
+.people.devs { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1120px; margin-inline: auto; text-align: center; }
+@media (max-width: 1100px) { .people.devs { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 640px; } }
 .people.devs .person p { margin-top: var(--sp-1); font-size: .9375rem; color: var(--c-muted); }
 .devs-chapter { margin-top: var(--sp-7); text-align: center; }
 @media (max-width: 760px) { .people.devs { grid-template-columns: minmax(0, 1fr); max-width: 320px; } }

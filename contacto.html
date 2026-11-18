@@ -46,11 +46,11 @@
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
        cambia el valor en cada publicación para que todos reciban la versión nueva. -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261116-5">
-  <link rel="stylesheet" href="css/base.css?v=20261116-5">
-  <link rel="stylesheet" href="css/layout.css?v=20261116-5">
-  <link rel="stylesheet" href="css/components.css?v=20261116-5">
-  <link rel="stylesheet" href="css/pages.css?v=20261116-5">
+  <link rel="stylesheet" href="css/tokens.css?v=20261117-1">
+  <link rel="stylesheet" href="css/base.css?v=20261117-1">
+  <link rel="stylesheet" href="css/layout.css?v=20261117-1">
+  <link rel="stylesheet" href="css/components.css?v=20261117-1">
+  <link rel="stylesheet" href="css/pages.css?v=20261117-1">
 
   <script type="application/ld+json">
   {
@@ -69,14 +69,16 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261116-5" defer></script>
-  <script src="js/data/chapters.js?v=20261116-5" defer></script>
-  <script src="js/chapters.js?v=20261116-5" defer></script>
-  <script src="js/data/becados.js?v=20261116-5" defer></script>
-  <script src="js/becados.js?v=20261116-5" defer></script>
-  <script src="js/router.js?v=20261116-5" defer></script>
-  <script src="js/hero.js?v=20261116-5" defer></script>
-  <script src="js/form.js?v=20261116-5" defer></script>
+  <script src="js/config.js?v=20261117-1" defer></script>
+  <script src="js/data/chapters.js?v=20261117-1" defer></script>
+  <script src="js/chapters.js?v=20261117-1" defer></script>
+  <script src="js/data/becados.js?v=20261117-1" defer></script>
+  <script src="js/becados.js?v=20261117-1" defer></script>
+  <script src="js/data/oportunidades.js?v=20261117-1" defer></script>
+  <script src="js/oportunidades.js?v=20261117-1" defer></script>
+  <script src="js/router.js?v=20261117-1" defer></script>
+  <script src="js/hero.js?v=20261117-1" defer></script>
+  <script src="js/form.js?v=20261117-1" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -114,11 +116,12 @@
           <li><a href="/">Inicio</a></li>
           <li><a href="/capitulos">Capítulos y grupos</a></li>
           <li><a href="/eventos">Eventos</a></li>
+          <li><a class="nav-gold" href="/oportunidades"><svg class="nav-spark" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.5l2.3 6.6a2.4 2.4 0 0 0 1.5 1.5l6.7 2.4-6.7 2.4a2.4 2.4 0 0 0-1.5 1.5L12 22.5l-2.3-6.6a2.4 2.4 0 0 0-1.5-1.5L1.5 12l6.7-2.4a2.4 2.4 0 0 0 1.5-1.5z"/></svg>Oportunidades</a></li>
           <li><a href="/directiva">Directiva</a></li>
           <li><a href="/contacto">Contacto</a></li>
         </ul>
-        <!-- Cambio de tema: js/router.js (sección "Tema") actualiza aria-label, el texto y el ícono -->
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro">
+        <!-- Cambio de tema en el menú móvil (solo en pantallas angostas, donde no cabe en la esquina) -->
+        <button class="theme-toggle menu-theme" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro">
           <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
           <span class="theme-label">Modo oscuro</span>
@@ -130,6 +133,12 @@
         <picture class="mb-dark"><source type="image/webp" srcset="assets/img/brand/ieee-mb-white.webp 1x, assets/img/brand/ieee-mb-white@2x.webp 2x"><img src="assets/img/brand/ieee-mb-white.png" alt="IEEE" width="113" height="33" decoding="async"></picture>
         <picture class="mb-light"><source type="image/webp" srcset="assets/img/brand/ieee-mb-black.webp 1x, assets/img/brand/ieee-mb-black@2x.webp 2x"><img src="assets/img/brand/ieee-mb-black.png" alt="" width="113" height="33" decoding="async"></picture>
       </a>
+      <!-- Cambio de tema en la esquina, junto al IEEE Master Brand: js/router.js (sección "Tema") actualiza aria-label, el texto y el ícono -->
+      <button class="theme-toggle corner-theme" id="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        <span class="theme-label">Modo oscuro</span>
+      </button>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
         <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="label">Menú</span>
         <span class="sr-only">de navegación</span>
@@ -398,6 +407,57 @@
       </div>
     </section>
 
+    <!-- ============ OPORTUNIDADES ============ -->
+    <!-- Tarjetas y filtros: js/oportunidades.js. Datos: js/data/oportunidades.js
+         (hoja "IEEE Opportunities Hub Ecuador 2026"). Las cifras de abajo son el respaldo sin JS; el script las recalcula. -->
+    <section class="page" id="oportunidades" aria-labelledby="h-oportunidades"
+      data-title="Oportunidades IEEE 2026: becas, premios y fondos | IEEE Student Branch EPN"
+      data-description="Becas de viaje, premios, fondos para proyectos, mentorías y congresos de CS, RAS, WIE, GRSS, MTT-S, AESS, SIGHT y ComSoc, reunidos por la Rama Estudiantil IEEE de la EPN.">
+      <div class="page-head page-head-gold">
+        <div class="wrap">
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Oportunidades</li></ol>
+          <p class="gold-kicker mono"><svg class="nav-spark" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.5l2.3 6.6a2.4 2.4 0 0 0 1.5 1.5l6.7 2.4-6.7 2.4a2.4 2.4 0 0 0-1.5 1.5L12 22.5l-2.3-6.6a2.4 2.4 0 0 0-1.5-1.5L1.5 12l6.7-2.4a2.4 2.4 0 0 0 1.5-1.5z"/></svg>IEEE Opportunities Hub Ecuador 2026</p>
+          <h1 id="h-oportunidades" tabindex="-1">Oportunidades <span class="gold-word">IEEE 2026</span></h1>
+          <p class="lead">Becas de viaje, premios, fondos para proyectos, mentorías y congresos de las sociedades IEEE, reunidos en un solo lugar. Filtra por sociedad, estado o tipo, revisa requisitos y recomendaciones, y abre cada convocatoria en su sitio oficial.</p>
+          <p class="head-readout mono" id="opp-readout"><span><b data-opp="total">32</b> oportunidades</span><span><b data-opp="socs">8</b> sociedades IEEE</span><span><b data-opp="activas">11</b> activas</span><span><b data-opp="permanentes">4</b> permanentes o continuas</span></p>
+        </div>
+      </div>
+      <div class="band opp-band">
+        <div class="wrap">
+          <form class="opp-tools" id="opp-form" role="search" aria-label="Filtrar oportunidades">
+            <div id="opp-tools" class="opp-tools-in" hidden>
+              <div class="opp-fields">
+                <div class="field opp-q">
+                  <label for="opp-q">Buscar</label>
+                  <input type="search" id="opp-q" name="q" placeholder="Nombre, sociedad, beneficio…" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="field">
+                  <label for="opp-estado">Estado</label>
+                  <span class="select-wrap"><select id="opp-estado" name="estado"></select></span>
+                </div>
+                <div class="field">
+                  <label for="opp-cat">Tipo</label>
+                  <span class="select-wrap"><select id="opp-cat" name="tipo"></select></span>
+                </div>
+              </div>
+              <div class="opp-socs" id="opp-socs" role="group" aria-label="Sociedad"></div>
+              <div class="opp-status">
+                <p id="opp-count" class="mono" role="status"></p>
+                <button type="button" class="opp-clear" data-opp-clear hidden>Limpiar filtros</button>
+              </div>
+            </div>
+          </form>
+          <ul class="opps" id="opp-grid" aria-label="Oportunidades"></ul>
+          <div class="opp-empty" id="opp-empty" hidden>
+            <p>No hay oportunidades con esos filtros.</p>
+            <button type="button" class="btn btn-ghost btn-sm" data-opp-clear>Limpiar filtros</button>
+          </div>
+          <noscript><p class="opp-empty">El listado y los filtros necesitan JavaScript. Actívalo para ver las oportunidades.</p></noscript>
+          <p class="opp-source">Fuente: hoja de cálculo <b>IEEE Opportunities Hub Ecuador 2026</b>. Los estados y las fechas son los de la hoja: antes de postular, confírmalos en el enlace oficial de cada convocatoria.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ DESARROLLADORES ============ -->
     <!-- Página sin entrada en el menú: solo se llega desde "Desarrolladores oficiales" en el pie.
          Fotos: assets/img/desarrolladores/*.webp (4:5, fondo transparente, 480 y 720 px). -->
@@ -408,7 +468,7 @@
         <div class="wrap">
           <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Desarrolladores oficiales</li></ol>
           <h1 id="h-desarrolladores" tabindex="-1">Desarrolladores oficiales</h1>
-          <p class="lead">El equipo de IEEE CIS EPN que diseñó y desarrolló este sitio web para la Rama Estudiantil IEEE de la Escuela Politécnica Nacional.</p>
+          <p class="lead">El equipo de IEEE CIS EPN y la webmaster de la rama, que diseñaron y desarrollaron este sitio web para la Rama Estudiantil IEEE de la Escuela Politécnica Nacional.</p>
         </div>
       </div>
       <section class="band" aria-labelledby="h-devs">
@@ -419,6 +479,7 @@
             <li class="person"><img class="person-photo" src="assets/img/desarrolladores/anndy-rengifo-480.webp" srcset="assets/img/desarrolladores/anndy-rengifo-480.webp 480w, assets/img/desarrolladores/anndy-rengifo-720.webp 720w" sizes="300px" width="480" height="600" alt="Anndy Rengifo" loading="lazy" decoding="async"><span class="role mono">Chair · IEEE CIS EPN</span><h3>Anndy Rengifo</h3><p>Estudiante de Ingeniería en Ciencias de la Computación</p></li>
             <li class="person"><img class="person-photo" src="assets/img/desarrolladores/frank-jumbo-480.webp" srcset="assets/img/desarrolladores/frank-jumbo-480.webp 480w, assets/img/desarrolladores/frank-jumbo-720.webp 720w" sizes="300px" width="480" height="600" alt="Frank Jumbo" loading="lazy" decoding="async"><span class="role mono">Webmaster · IEEE CIS EPN</span><h3>Frank Jumbo</h3><p>Estudiante de Ingeniería en Ciencias de la Computación</p></li>
             <li class="person"><img class="person-photo" src="assets/img/desarrolladores/josue-calvopina-480.webp" srcset="assets/img/desarrolladores/josue-calvopina-480.webp 480w, assets/img/desarrolladores/josue-calvopina-720.webp 720w" sizes="300px" width="480" height="600" alt="Josue Calvopiña" loading="lazy" decoding="async"><span class="role mono">Voluntario · IEEE CIS EPN</span><h3>Josue Calvopiña</h3><p>Estudiante de Ingeniería en Ciencias de la Computación</p></li>
+            <li class="person"><img class="person-photo" src="assets/img/directiva/webmaster.webp" width="480" height="600" alt="Jazmín Zambrano" loading="lazy" decoding="async"><span class="role mono">Webmaster · IEEE Student Branch EPN</span><h3>Jazmín Zambrano</h3></li>
           </ul>
           <p class="devs-chapter"><a class="link-arrow" href="/capitulos/cis">Conoce el capítulo IEEE CIS EPN <span class="arrow" aria-hidden="true">→</span></a></p>
         </div>
