@@ -70,7 +70,7 @@ window.IEEE_EPN.becas = [
     becados: [
       'Edwin Lidioma', 'Jordan Guillen', 'Michael Yanez', 'Harry Guajan', 'Boris Gárces',
       'Alexis Vasco', 'Gabriel Palma', { nombre: 'Carlos', pendiente: 'apellido' }, 'Sherly Vizcaino',
-      'Alisson Almachi', 'Alejandra Santamaría', 'María José Encalada', 'Martín Perez', 'Andrey Carrillo'
+      'Alisson Almachi', 'Alejandra Santamaría', 'María José Encalada', 'Martín Muñoz', 'Andrey Carrillo'
     ],
     publicar: true
   },
