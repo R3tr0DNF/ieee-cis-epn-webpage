@@ -40,6 +40,7 @@
 [data-theme="dark"] .is-solid .logo-light, [data-theme="dark"] .is-solid .mb-light { opacity: 0; }
 
 .ieee-mb { position: relative; display: block; flex: none; padding: var(--sp-2) 0; }   /* IEEE Master Brand: ≥ 100 × 33 px */
+.ieee-mb .mb-light { top: var(--sp-2); bottom: auto; }   /* la versión clara (absoluta) respeta el relleno: mismo alto que la blanca */
 .ieee-mb img { height: 33px; width: auto; }
 
 .main-nav { margin-left: auto; display: flex; align-items: center; gap: var(--sp-2); }
@@ -58,35 +59,58 @@
 .is-solid .main-nav a[aria-current="page"] { color: var(--c-link); }
 .header-cta { flex: none; }
 
-/* Ítem dorado "Oportunidades": píldora dorada detrás del texto (el área táctil sigue siendo de 44 px).
-   Sobre el visor oscuro el texto es dorado claro; con el encabezado sólido, --c-gold-text (≥ 4.5:1 en ambos temas). */
+/* Ítem dorado "Oportunidades": sin caja, como los demás ítems. Letras en oro metálico (.nav-gold-t)
+   y, al pasar el cursor o con foco, un resplandor dorado difuminado detrás; la estrella gira y brilla.
+   Sobre el visor oscuro, oro claro; con el encabezado sólido claro, oro oscuro (≥ 5:1 sobre blanco). */
 .main-nav .nav-gold { gap: 6px; color: #F0CF6E; isolation: isolate; }
-.main-nav .nav-gold::before {
-  content: ""; position: absolute; inset: 6px 0; z-index: -1; border-radius: var(--r-round);
-  border: 1px solid color-mix(in srgb, #D4AF37 65%, transparent); background: color-mix(in srgb, #D4AF37 14%, transparent);
-  transition: background-color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+.is-solid .main-nav .nav-gold { color: var(--c-gold-text); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .nav-gold-t { background: var(--g-text-light); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .is-solid .nav-gold-t { background-image: var(--g-text); }
 }
-.main-nav .nav-gold::after { display: none; }
-.main-nav .nav-gold:hover::before, .main-nav .nav-gold[aria-current="page"]::before { background: color-mix(in srgb, #D4AF37 28%, transparent); border-color: #D4AF37; }
-.is-solid .main-nav .nav-gold, .is-solid .main-nav .nav-gold[aria-current="page"] { color: var(--c-gold-text); }
-.is-solid .main-nav .nav-gold::before { background: var(--c-gold-tint); border-color: color-mix(in srgb, var(--c-gold) 70%, transparent); }
-.is-solid .main-nav .nav-gold:hover::before, .is-solid .main-nav .nav-gold[aria-current="page"]::before { border-color: var(--c-gold); box-shadow: inset 0 0 0 1px var(--c-gold); }
-.nav-spark { width: 14px; height: 14px; flex: none; color: #D4AF37; }
+.main-nav .nav-gold::before {                 /* resplandor: sin forma definida (degradado radial + desenfoque) */
+  content: ""; position: absolute; inset: 2px -10px; z-index: -1; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(var(--g-glow), .55), rgba(var(--g-glow), .18) 60%, transparent);
+  filter: blur(7px); opacity: 0; transform: scale(.6);
+  transition: opacity .35s var(--ease), transform .45s var(--ease);
+}
+.is-solid .main-nav .nav-gold::before { background: radial-gradient(closest-side, rgba(var(--g-glow), .38), rgba(var(--g-glow), .12) 60%, transparent); }
+.main-nav .nav-gold:hover::before, .main-nav .nav-gold:focus-visible::before { opacity: 1; transform: none; }
+.main-nav .nav-gold[aria-current="page"]::before { opacity: .55; transform: scale(.85); }
+.main-nav .nav-gold::after { background: linear-gradient(90deg, var(--g-hi), var(--g-mid)); }   /* subrayado como los demás, en oro */
+.main-nav .nav-gold[aria-current="page"]::after { background: linear-gradient(90deg, var(--g-hi), var(--g-mid)); }
+.nav-spark { width: 14px; height: 14px; flex: none; color: var(--g-mid); transition: rotate .6s var(--ease), scale .6s var(--ease), filter .35s var(--ease); }
 .is-solid .nav-spark { color: var(--c-gold); }
+/* rotate/scale individuales: se suman al destello de carga (transform) sin interrumpirlo */
+.main-nav .nav-gold:hover .nav-spark, .main-nav .nav-gold:focus-visible .nav-spark { rotate: 90deg; scale: 1.25; filter: drop-shadow(0 0 4px rgba(var(--g-glow), .9)); }
 @media (prefers-reduced-motion: no-preference) {
   .nav-spark { animation: nav-spark 3.6s var(--ease) 1s 3; }   /* tres destellos al cargar y se detiene */
 }
 @keyframes nav-spark { 0%, 72%, 100% { transform: none; } 82% { transform: scale(1.3) rotate(45deg); } }
 
-/* Botón de tema: ícono de 44 × 44 px en la esquina, junto al IEEE Master Brand.
-   La copia del menú (.menu-theme) solo aparece en celulares angostos, como fila con texto (css/pages.css). */
+/* Botón de tema: solo el ícono (sol / luna), sin borde; área táctil de 44 × 44 px.
+   Luna (tema claro): halo oscuro sutil. Sol (tema oscuro): resplandor blanco. Al pasar el cursor,
+   el halo crece y el ícono gira un poco. La copia del menú (.menu-theme) solo aparece en celulares
+   angostos, como fila con texto (css/pages.css). */
 .theme-toggle {
   position: relative; display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0;
-  background: transparent; color: inherit; border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
-  border-radius: var(--r-ctl); cursor: pointer;
+  background: transparent; color: inherit; border: 0; border-radius: 50%; cursor: pointer; isolation: isolate;
+  --halo: 0, 20, 46;   /* luna: azul casi negro */
 }
-.theme-toggle:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
-.theme-toggle svg { width: 20px; height: 20px; }
+[data-theme="dark"] .theme-toggle { --halo: 255, 255, 255; }   /* sol: blanco */
+.theme-toggle::before {
+  content: ""; position: absolute; inset: 4px; z-index: -1; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(var(--halo), .16), transparent);
+  filter: blur(4px); opacity: .7; transition: opacity .3s var(--ease), transform .4s var(--ease);
+}
+.theme-toggle:hover::before, .theme-toggle:focus-visible::before { opacity: 1; transform: scale(1.35); }
+.theme-toggle svg {
+  width: 22px; height: 22px; filter: drop-shadow(0 0 2px rgba(var(--halo), .35));
+  transition: rotate .5s var(--ease), filter .3s var(--ease);
+}
+[data-theme="dark"] .theme-toggle svg { filter: drop-shadow(0 0 4px rgba(255, 255, 255, .55)); }
+.theme-toggle:hover svg, .theme-toggle:focus-visible svg { rotate: -15deg; filter: drop-shadow(0 0 4px rgba(var(--halo), .5)); }
+[data-theme="dark"] .theme-toggle:hover svg, [data-theme="dark"] .theme-toggle:focus-visible svg { rotate: 45deg; filter: drop-shadow(0 0 7px rgba(255, 255, 255, .85)); }
 .theme-toggle .icon-sun, [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 .theme-toggle .theme-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
