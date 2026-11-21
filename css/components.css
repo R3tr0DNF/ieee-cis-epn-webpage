@@ -83,6 +83,47 @@
   color: var(--c-on-dark-muted);
 }
 
+/* Zona invisible en el borde derecho del visor: un clic (o toque) pasa a la siguiente foto (js/hero.js).
+   No se dibuja nada; solo el aviso (una mano que toca) aparece ~1 s al abrir la portada o volver a Inicio.
+   Va sobre el texto del hero (z-index 1), pero en el borde derecho, lejos de sus botones. */
+.visor-next {
+  position: absolute; z-index: 1; right: 0; top: calc(var(--header-h) + var(--sp-2)); bottom: calc(var(--sp-5) + var(--sp-8));
+  width: clamp(64px, 14vw, 200px);
+  display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.visor-next[hidden] { display: none; }
+.visor-next:focus-visible { outline: 2px solid var(--c-focus); outline-offset: -8px; border-radius: var(--r-panel); }
+.visor-hint {                                 /* mano blanca con contorno oscuro: se distingue sobre fotos claras y oscuras */
+  position: relative; display: block; width: 46px; height: 46px; opacity: 0; pointer-events: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .55));
+}
+.visor-hint svg { position: relative; z-index: 1; display: block; width: 100%; height: 100%; overflow: visible; }
+.visor-hint .hand { fill: #fff; stroke: #0B1D33; stroke-width: 1.3; stroke-linejoin: round; }
+.visor-hint .hand-lines { fill: none; stroke: #0B1D33; stroke-width: 1.1; stroke-linecap: round; }
+.visor-hint::before {                         /* onda del toque, en la punta del dedo */
+  content: ""; position: absolute; left: 40.6%; top: 8%; width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 1px rgba(11, 29, 51, .55), inset 0 0 0 1px rgba(11, 29, 51, .55);
+  opacity: 0; transform: scale(.3);
+}
+.visor-next.is-hinting .visor-hint { animation: visor-tap 1.1s var(--ease) both; }
+.visor-next.is-hinting .visor-hint::before { animation: visor-tap-ring 1.1s ease-out both; }
+.visor-next:focus-visible .visor-hint { opacity: 1; }      /* con teclado, la mano indica qué hace el control */
+@keyframes visor-tap {                        /* entra, presiona una vez y se va: ~1 s */
+  0%   { opacity: 0; transform: translate(10px, 12px); }
+  22%  { opacity: 1; transform: none; }
+  40%  { transform: scale(.84); }
+  54%  { transform: none; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: none; }
+}
+@keyframes visor-tap-ring { 0%, 38% { opacity: 0; transform: scale(.3); } 44% { opacity: .95; } 100% { opacity: 0; transform: scale(1.9); } }
+@keyframes visor-hint-fade { 0%, 100% { opacity: 0; } 20%, 78% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .visor-next.is-hinting .visor-hint { animation-name: visor-hint-fade; }
+  .visor-next.is-hinting .visor-hint::before { animation: none; }
+}
+
 /* Scroll-driven: el visor se reduce y el video se desvanece al bajar.
    El texto del hero no tiene efecto propio: se desplaza con el scroll normal. */
 @supports (animation-timeline: scroll()) {
@@ -109,11 +150,13 @@
 .area-head .mono { color: var(--c-orange-text); }
 .area-head h2 { font-size: var(--fs-lg); color: var(--c-heading); margin: var(--sp-2) 0; }
 .area-head p { color: var(--c-muted); font-size: var(--fs-sm); }
-.modules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); align-content: start; }
+/* 2 por fila en todos los anchos: recuadros compactos que llenan la fila (sin hueco a la derecha) */
+.modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); align-content: start; }
 
 .module {
   position: relative; display: flex; flex-direction: column; min-height: 100%;
-  background: var(--c-card); border: 1px solid var(--c-line); border-radius: var(--r-panel); padding: var(--sp-5);
+  background: var(--c-card); border: 1px solid var(--c-line); border-radius: var(--r-panel); padding: var(--sp-4) var(--sp-5);
+  overflow-wrap: break-word;
   transition: transform var(--dur-2) var(--ease);
 }
 .module::after {                              /* borde de acento: aparece con opacidad */
@@ -122,20 +165,24 @@
 }
 .module:hover, .module:focus-within { transform: translateY(-2px); }
 .module:hover::after, .module:focus-within::after { opacity: 1; }
-.module.is-wide { grid-column: span 2; }
-.module-top { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); color: var(--c-muted); }
-.module-logo { display: grid; place-items: center; height: 104px; margin-bottom: var(--sp-4); background: var(--c-logo-plate); border-radius: calc(var(--r-panel) - 4px); }
-.module-logo img { max-height: 88px; width: auto; max-width: 92%; object-fit: contain; }
+.module.is-wide { grid-column: auto; }   /* logo ancho: mismo tamaño de recuadro que los demás */
+/* número impar: el último recuadro queda centrado en su fila, con el mismo ancho que los demás */
+.module:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc((100% - var(--sp-4)) / 2); }
+.module-top { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-3); color: var(--c-muted); }
+.module-logo { display: grid; place-items: center; height: 88px; margin-bottom: var(--sp-3); background: var(--c-logo-plate); border-radius: calc(var(--r-panel) - 4px); }
+.module-logo img { max-height: 72px; width: auto; max-width: 92%; object-fit: contain; }
 .module-logo.is-missing { flex-direction: column; gap: var(--sp-2); place-content: center; background: var(--c-surface); color: var(--c-heading); font-family: var(--f-mono); font-weight: 500; }
-.module h3 { font-size: var(--fs-lg); letter-spacing: -.01em; color: var(--c-heading); margin-bottom: var(--sp-2); }
+.module h3 { font-size: var(--fs-md); letter-spacing: -.01em; color: var(--c-heading); margin-bottom: var(--sp-2); }
 .module h3 .sep { color: var(--c-link); font-weight: 400; margin: 0 .2em; }
+.module h3 .sep::after { content: "\200B"; }   /* las siglas pueden pasar de línea después de "/", no a mitad de palabra */
 .module .societies { list-style: none; font-size: var(--fs-sm); font-weight: 600; color: var(--c-ink); margin-bottom: var(--sp-3); }
-.module .scope { font-size: var(--fs-sm); color: var(--c-muted); margin-bottom: var(--sp-4); flex: 1; }
+.module .scope { font-size: var(--fs-sm); color: var(--c-muted); margin-bottom: var(--sp-3); flex: 1; }
 .module .scope b { color: var(--c-text); font-weight: 600; }
-.module-port { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding-top: var(--sp-4); border-top: 1px dashed var(--c-line); }
+.module-port { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding-top: var(--sp-2); border-top: 1px dashed var(--c-line); }
 .ig-link { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: 700; font-size: var(--fs-sm); color: var(--c-link); text-decoration: none; }
 .ig-link svg { width: 20px; height: 20px; flex: none; }
 .ig-link:hover span { text-decoration: underline; }
+.ig-link span { overflow-wrap: anywhere; }   /* usuarios largos en recuadros angostos */
 .ig-link .ext-arrow { width: 14px; height: 14px; opacity: .75; transition: transform var(--dur-2) var(--ease); }   /* indica destino externo */
 
 /* Recuadro completo como enlace (patrón "enlace extendido"): el ::after del enlace de Instagram
@@ -237,8 +284,8 @@ a.social:hover::after { transform: translate(3px, 3px); }
 }
 .person .role { color: var(--c-orange-text); display: block; margin-bottom: var(--sp-1); }
 .person h3 { font-size: var(--fs-md); color: var(--c-heading); }
-.module.is-wide .module-logo { height: 140px; }
-.module.is-wide .module-logo img { max-height: 120px; }
+.module.is-wide .module-logo { height: 88px; }
+.module.is-wide .module-logo img { max-height: 76px; }
 @media (min-width: 1101px) { .area-head { position: sticky; top: calc(var(--header-h) + var(--sp-5)); align-self: start; } }
 /* el texto del hero queda siempre dentro del marco del visor */
 .hero-content { width: min(100% - 2 * (var(--sp-5) + var(--sp-5)), var(--wrap)); }
@@ -266,6 +313,14 @@ a.social:hover::after { transform: translate(3px, 3px); }
 .event { position: relative; transition: translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
 .event .link-arrow::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
 .event .event-chapter { position: relative; z-index: 2; }
+/* Oportunidades: junto a "Ir a la convocatoria", el enlace al capítulo es un botón secundario del mismo alto y forma */
+.opp-foot .event-chapter {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--sp-4);
+  border: 1.5px solid var(--c-line); border-radius: var(--r-ctl);
+  font-family: var(--f-sans); font-size: var(--fs-sm); font-weight: 700;
+  transition: border-color var(--dur-2) var(--ease), background-color var(--dur-2) var(--ease);
+}
+.opp-foot .event-chapter:hover { border-color: var(--c-link); background: var(--c-tint); }
 .event::before {                              /* borde de acento al pasar o enfocar (como en los capítulos) */
   content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; border: 2px solid var(--c-link);
   opacity: 0; pointer-events: none; transition: opacity var(--dur-2) var(--ease);
