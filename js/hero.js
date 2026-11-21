@@ -108,6 +108,24 @@
   }
   document.addEventListener('visibilitychange', sync);
 
+  /* 3. Tarjeta de fundación: el foco dorado sigue al cursor (--mx/--my, css/pages.css).
+        Solo con ratón; un rAF por cuadro como máximo. Sin JS el foco queda en la esquina. */
+  var founding = document.querySelector('.founding');
+  if (founding && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var fx = 0, fy = 0, fq = false;
+    founding.addEventListener('pointermove', function (e) {
+      var b = founding.getBoundingClientRect();
+      fx = e.clientX - b.left; fy = e.clientY - b.top;
+      if (fq) return;
+      fq = true;
+      requestAnimationFrame(function () {
+        fq = false;
+        founding.style.setProperty('--mx', fx + 'px');
+        founding.style.setProperty('--my', fy + 'px');
+      });
+    }, { passive: true });
+  }
+
   /* 2. Respaldo del efecto de scroll */
   var supportsSDA = window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()');
   if (!supportsSDA) {
