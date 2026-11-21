@@ -54,7 +54,7 @@
   --section-y: clamp(var(--sp-8), 5vw + var(--sp-5), var(--sp-9));
 
   /* Radios: distintos por función, no uno para todo --------------------- */
-  --r-ctl:   2px;     /* botones */
+  --r-ctl:   10px;    /* botones y controles: igual que los campos del formulario */
   --r-field: 10px;    /* campos del formulario de contacto */
   --r-panel: 12px;    /* módulos y paneles */
   --r-media: 0;       /* fotos y video: esquinas rectas */

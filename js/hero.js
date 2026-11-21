@@ -6,6 +6,9 @@
    · La primera foto ya está en el HTML (es el LCP). Las demás se
      crean después del evento load y se descargan de a una: siempre
      solo la siguiente, para no gastar datos de golpe.
+   · Zona invisible en el borde derecho (#visor-next): un clic pasa a la
+     siguiente foto y reinicia la cuenta del intervalo. El aviso (una mano
+     que toca) se ve ~1 s al abrir la portada o al volver a Inicio.
    · Sin botón de pausa (decisión de diseño de la rama). Para compensarlo:
        - con prefers-reduced-motion queda fija la primera foto
          (si la preferencia cambia, se aplica al vuelo);
@@ -68,10 +71,38 @@
       img.addEventListener('error', function () { drop(img); schedule(); }, { once: true });
       return;
     }
+    show(next, img);
+    schedule();
+  }
+  function show(i, img) {                 // cambia a la foto i (ya descargada)
     slides[current].classList.remove('is-on');
     img.classList.add('is-on');
-    current = next;
-    make((current + 1) % names.length);   // descarga la siguiente mientras se ve esta
+    current = i;
+    if (!saveData) make((current + 1) % names.length);   // descarga la siguiente mientras se ve esta
+  }
+  /* Clic en la zona del borde derecho: la siguiente foto ya, y la cuenta del intervalo empieza de nuevo */
+  var wanted = null;                      // foto pedida con clic que aún se descarga
+  function go() {
+    if (names.length < 2) return;
+    clearTimeout(timer); timer = null;
+    var next = (current + 1) % names.length;
+    var img = make(next);
+    if (img.dataset.failed) { drop(img); go(); return; }
+    if (!ready(img)) {
+      if (wanted === img) return;
+      wanted = img;
+      img.addEventListener('load', function () {
+        if (wanted !== img) return;
+        wanted = null;
+        var i = slides.indexOf(img);
+        if (i > -1 && i !== current) show(i, img);
+        schedule();
+      }, { once: true });
+      img.addEventListener('error', function () { if (wanted === img) { wanted = null; drop(img); schedule(); } }, { once: true });
+      return;
+    }
+    wanted = null;
+    show(next, img);
     schedule();
   }
   function schedule() {
@@ -91,6 +122,27 @@
     sync();
   }
   if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
+
+  /* Zona de clic y aviso de la mano (solo si hay más de una foto) */
+  var nextBtn = document.getElementById('visor-next');
+  var hintAt = 0;
+  function hint() {                       // muestra el aviso una vez (~1 s) si la portada está a la vista
+    if (!nextBtn || nextBtn.hidden || !hero.offsetParent || document.hidden) return;
+    if (Date.now() - hintAt < 1500) return;
+    hintAt = Date.now();
+    nextBtn.classList.remove('is-hinting');
+    void nextBtn.offsetWidth;             // reinicia la animación
+    nextBtn.classList.add('is-hinting');
+  }
+  if (nextBtn && names.length > 1) {
+    nextBtn.hidden = false;
+    nextBtn.addEventListener('click', function () { nextBtn.classList.remove('is-hinting'); go(); });
+    nextBtn.addEventListener('animationend', function () { nextBtn.classList.remove('is-hinting'); });
+    setTimeout(hint, 700);                // al abrir la página
+    document.addEventListener('ieee:view', function (e) {   // al volver a Inicio desde otra vista
+      if (e.detail === 'inicio') setTimeout(hint, 350);
+    });
+  }
 
   /* La preferencia de movimiento puede cambiar con la página abierta: con "reducir", vuelve a la primera foto */
   var onReduce = function () {
