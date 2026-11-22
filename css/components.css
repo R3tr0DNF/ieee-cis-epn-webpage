@@ -1,10 +1,3 @@
-/* ==========================================================
-   Componentes: botones, visor (firma), marco de foto, módulos de
-   capítulo, formulario, redes, personas
-   Movimiento: solo transform y opacity, una curva (--ease).
-   ========================================================== */
-
-/* Botones ---------------------------------------------------------------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
   min-height: 48px; padding: 0 var(--sp-5); border: 2px solid transparent; border-radius: var(--r-ctl);
@@ -27,11 +20,6 @@
 .link-arrow .arrow { transition: transform var(--dur-1) var(--ease); }
 .link-arrow:hover .arrow { transform: translateX(3px); }
 
-/* VISOR: la firma del sitio ------------------------------------------------
-   El video ocupa todo el ancho y sube detrás del encabezado transparente.
-   Un marco fino (1 px, esquinas pequeñas) delimita el contenido. Al bajar,
-   el visor se reduce y el video se desvanece (scroll-driven en CSS;
-   respaldo con rAF en js/hero.js). */
 .hero {
   position: relative; isolation: isolate; color: #fff; background: var(--c-deep);
   margin-top: calc(-1 * var(--header-h));
@@ -41,8 +29,6 @@
 }
 .visor { position: absolute; z-index: -1; inset: 0; transform-origin: 20% 100%; }
 .visor-media { position: absolute; inset: 0; overflow: hidden; background: var(--c-deep-2); }
-/* Fotos en bucle (js/hero.js): todas ocupan el mismo lugar; la visible lleva .is-on.
-   Fundido cruzado de 1,4 s y un acercamiento lento mientras se ve, como un video. */
 .visor-slide {
   position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: var(--r-media);
   opacity: 0; transition: opacity 1.4s var(--ease);
@@ -54,14 +40,13 @@
   .visor-slide { transition: none; }
   .visor-slide.is-on { animation: none; }
 }
-.visor-media::after {                         /* velo para el contraste del texto y del encabezado, con cualquier video */
+.visor-media::after {                         
   content: ""; position: absolute; inset: 0;
   background:
     linear-gradient(180deg, rgba(0, 20, 46, .78) 0, rgba(0, 20, 46, 0) calc(var(--header-h) + var(--sp-8))),
     linear-gradient(90deg, rgba(0, 20, 46, .86) 0%, rgba(0, 20, 46, .66) 42%, rgba(0, 20, 46, .3) 75%, rgba(0, 20, 46, .22) 100%),
     linear-gradient(0deg, rgba(0, 20, 46, .72) 0%, rgba(0, 20, 46, 0) 50%);
 }
-/* El marco: una línea de 1 px a baja opacidad, con esquinas pequeñas. Estático, sin brillo. */
 .visor-frame {
   position: absolute; inset: calc(var(--header-h) + var(--sp-2)) var(--sp-5) var(--sp-5);
   pointer-events: none; border: 1px solid var(--c-line-dark);
@@ -83,9 +68,6 @@
   color: var(--c-on-dark-muted);
 }
 
-/* Zona invisible en el borde derecho del visor: un clic (o toque) pasa a la siguiente foto (js/hero.js).
-   No se dibuja nada; solo el aviso (una mano que toca) aparece ~1 s al abrir la portada o volver a Inicio.
-   Va sobre el texto del hero (z-index 1), pero en el borde derecho, lejos de sus botones. */
 .visor-next {
   position: absolute; z-index: 1; right: 0; top: calc(var(--header-h) + var(--sp-2)); bottom: calc(var(--sp-5) + var(--sp-8));
   width: clamp(64px, 14vw, 200px);
@@ -124,8 +106,6 @@
   .visor-next.is-hinting .visor-hint::before { animation: none; }
 }
 
-/* Scroll-driven: el visor se reduce y el video se desvanece al bajar.
-   El texto del hero no tiene efecto propio: se desplaza con el scroll normal. */
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
     .visor { animation: visor-close linear both; animation-timeline: scroll(root block); animation-range: 0 85vh; }
@@ -134,23 +114,21 @@
 }
 @keyframes visor-close { to { transform: scale(.86); } }
 @keyframes media-fade { to { opacity: 0; } }
-/* respaldo JS (navegadores sin animation-timeline): js/hero.js fija --p entre 0 y 1 */
+
 .no-sda .visor { transform: scale(calc(1 - var(--p, 0) * .14)); }
 .no-sda .visor-media, .no-sda .visor-bar { opacity: calc(1 - var(--p, 0) * 1.25); }
 
-/* Marco de foto con el lenguaje del visor (donde "aterriza" el hero) ------- */
 .frame-visor { position: relative; border: 1px solid var(--c-line); padding: var(--sp-3); background: var(--c-card); }
 .frame-visor .corner { border-color: var(--c-heading); }
 .frame-visor .ph, .frame-visor img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 .frame-visor figcaption { margin-top: var(--sp-3); color: var(--c-muted); }
 
-/* Módulos de capítulo (tablero) -------------------------------------------- */
 .area { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: var(--sp-6); padding-block: var(--sp-7); border-top: 1px solid var(--c-line); }
 .area:first-of-type { border-top: 0; padding-top: 0; }
 .area-head .mono { color: var(--c-orange-text); }
 .area-head h2 { font-size: var(--fs-lg); color: var(--c-heading); margin: var(--sp-2) 0; }
 .area-head p { color: var(--c-muted); font-size: var(--fs-sm); }
-/* 2 por fila en todos los anchos: recuadros compactos que llenan la fila (sin hueco a la derecha) */
+
 .modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); align-content: start; }
 
 .module {
@@ -165,8 +143,7 @@
 }
 .module:hover, .module:focus-within { transform: translateY(-2px); }
 .module:hover::after, .module:focus-within::after { opacity: 1; }
-.module.is-wide { grid-column: auto; }   /* logo ancho: mismo tamaño de recuadro que los demás */
-/* número impar: el último recuadro queda centrado en su fila, con el mismo ancho que los demás */
+.module.is-wide { grid-column: auto; }
 .module:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc((100% - var(--sp-4)) / 2); }
 .module-top { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-3); color: var(--c-muted); }
 .module-logo { display: grid; place-items: center; height: 88px; margin-bottom: var(--sp-3); background: var(--c-logo-plate); border-radius: calc(var(--r-panel) - 4px); }
@@ -174,7 +151,7 @@
 .module-logo.is-missing { flex-direction: column; gap: var(--sp-2); place-content: center; background: var(--c-surface); color: var(--c-heading); font-family: var(--f-mono); font-weight: 500; }
 .module h3 { font-size: var(--fs-md); letter-spacing: -.01em; color: var(--c-heading); margin-bottom: var(--sp-2); }
 .module h3 .sep { color: var(--c-link); font-weight: 400; margin: 0 .2em; }
-.module h3 .sep::after { content: "\200B"; }   /* las siglas pueden pasar de línea después de "/", no a mitad de palabra */
+.module h3 .sep::after { content: "\200B"; }  
 .module .societies { list-style: none; font-size: var(--fs-sm); font-weight: 600; color: var(--c-ink); margin-bottom: var(--sp-3); }
 .module .scope { font-size: var(--fs-sm); color: var(--c-muted); margin-bottom: var(--sp-3); flex: 1; }
 .module .scope b { color: var(--c-text); font-weight: 600; }
@@ -182,12 +159,9 @@
 .ig-link { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: 700; font-size: var(--fs-sm); color: var(--c-link); text-decoration: none; }
 .ig-link svg { width: 20px; height: 20px; flex: none; }
 .ig-link:hover span { text-decoration: underline; }
-.ig-link span { overflow-wrap: anywhere; }   /* usuarios largos en recuadros angostos */
+.ig-link span { overflow-wrap: anywhere; }   
 .ig-link .ext-arrow { width: 14px; height: 14px; opacity: .75; transition: transform var(--dur-2) var(--ease); }   /* indica destino externo */
 
-/* Recuadro completo como enlace (patrón "enlace extendido"): el ::after del enlace de Instagram
-   cubre todo el módulo, así cualquier punto del recuadro lleva al mismo destino que el enlace visible.
-   Un solo <a> en el DOM y sin JS. Levanta con `translate` (no `transform`, que usa la entrada escalonada). */
 .module.is-link { cursor: pointer; transition: transform var(--dur-2) var(--ease), translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
 .module.is-link .ig-link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
 .module.is-link:hover, .module.is-link:focus-within { box-shadow: 0 10px 28px -14px var(--c-menu-shadow); }
@@ -196,22 +170,19 @@
 @media (prefers-reduced-motion: no-preference) {
   .module.is-link:hover, .module.is-link:focus-within { translate: 0 -3px; }
 }
-/* Foco de teclado: se dibuja en todo el recuadro (con :has); sin :has queda el foco normal del enlace */
+
 @supports selector(:has(*)) {
   .module.is-link .ig-link:focus-visible { outline: none; }
   .module.is-link:has(.ig-link:focus-visible) { outline: 3px solid var(--c-focus); outline-offset: 3px; }
 }
 
-/* Entrada escalonada de los módulos: patrón 1 de 2 */
 .js .module.will-enter { opacity: 0; transform: translateY(12px); }
 .js .module.will-enter.is-in { opacity: 1; transform: none; transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease); transition-delay: calc(var(--i, 0) * 60ms); }
-/* módulos-enlace: la demora escalonada solo para la entrada; el hover (translate y sombra) responde al instante */
 .js .module.is-link.will-enter.is-in {
   transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease), translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
   transition-delay: calc(var(--i, 0) * 60ms), calc(var(--i, 0) * 60ms), 0s, 0s;
 }
 
-/* Formulario --------------------------------------------------------------- */
 .form { display: grid; gap: var(--sp-5); }   /* la tarjeta que lo contiene (.contact-card) pone fondo, borde y relleno */
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
 .field label { display: block; font-weight: 600; font-size: var(--fs-sm); color: var(--c-ink); margin-bottom: var(--sp-1); }
@@ -225,7 +196,7 @@
 .field input:hover, .field textarea:hover, .field select:hover { border-color: var(--c-link); }
 .field .req { color: var(--c-orange-text); font-weight: 700; }
 .field .opt { color: var(--c-muted); font-weight: 400; }
-/* Lista desplegable con flecha propia (sin imágenes: la CSP no admite data:) */
+
 .select-wrap { position: relative; display: block; }
 .select-wrap select { appearance: none; -webkit-appearance: none; padding-right: calc(var(--sp-4) * 2.5); cursor: pointer; }
 .select-wrap::after {
@@ -245,7 +216,6 @@
 .form-status.is-error { color: var(--c-error); }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 
-/* Redes: botón cuadrado con esquinas del visor ----------------------------- */
 .socials { display: flex; flex-wrap: wrap; gap: var(--sp-3); list-style: none; }
 .social {
   position: relative; display: grid; place-items: center; width: 48px; height: 48px;
@@ -260,12 +230,9 @@ a.social:hover::after { transform: translate(3px, 3px); }
 .social.is-pending { color: #5D6D82; border-style: dashed; }
 .social-handle { margin-top: var(--sp-3); color: #8EA3BA; }
 
-/* Personas ---------------------------------------------------------------- */
 .people { margin-top: var(--sp-6); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); list-style: none; }
 .person .ph { aspect-ratio: 4 / 5; margin-bottom: var(--sp-3); }
-/* Directiva: recortes sobre fondo transparente, apoyados en un fondo de tinte */
 .person-photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; margin-bottom: var(--sp-3); border-radius: var(--r-media); background: var(--c-tint); }
-/* Directiva en pirámide (6 columnas): Counselor | Chair + Vice Chair | resto */
 .people.board { grid-template-columns: repeat(6, minmax(0, 1fr)); max-width: 960px; margin-inline: auto; text-align: center; }
 .people.board .person { grid-column: span 2; }
 .people.board .tier-1 { grid-row: 1; grid-column: 3 / span 2; }
@@ -287,11 +254,10 @@ a.social:hover::after { transform: translate(3px, 3px); }
 .module.is-wide .module-logo { height: 88px; }
 .module.is-wide .module-logo img { max-height: 76px; }
 @media (min-width: 1101px) { .area-head { position: sticky; top: calc(var(--header-h) + var(--sp-5)); align-self: start; } }
-/* el texto del hero queda siempre dentro del marco del visor */
+
 .hero-content { width: min(100% - 2 * (var(--sp-5) + var(--sp-5)), var(--wrap)); }
 @media (max-width: 600px) { .hero-content { width: calc(100% - 2 * (var(--sp-2) + var(--sp-4))); } }
 
-/* Eventos destacados: tarjetas con imagen 4:5 (formato de los afiches de Instagram y vTools) */
 .events { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-6); }
 .event {
   display: flex; flex-direction: column; overflow: hidden;
@@ -307,13 +273,10 @@ a.social:hover::after { transform: translate(3px, 3px); }
 .event-chapter { font-family: var(--f-mono); font-size: var(--fs-xs); font-weight: 500; padding: .2rem .6rem; border: 1px solid var(--c-line); border-radius: var(--r-round); color: var(--c-link); text-decoration: none; }
 .event-chapter:hover { border-color: var(--c-link); }
 
-/* Tarjeta completa como enlace (mismo patrón que .module.is-link): el ::after del enlace del evento
-   ("Ver en vTools / Instagram") cubre toda la tarjeta, imagen incluida. Un solo enlace por destino y sin JS.
-   La píldora del capítulo queda POR ENCIMA de esa capa: sigue llevando a /capitulos/<id> en la misma pestaña. */
 .event { position: relative; transition: translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
 .event .link-arrow::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
 .event .event-chapter { position: relative; z-index: 2; }
-/* Oportunidades: junto a "Ir a la convocatoria", el enlace al capítulo es un botón secundario del mismo alto y forma */
+
 .opp-foot .event-chapter {
   display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--sp-4);
   border: 1.5px solid var(--c-line); border-radius: var(--r-ctl);
@@ -333,20 +296,19 @@ a.social:hover::after { transform: translate(3px, 3px); }
 @media (prefers-reduced-motion: no-preference) {
   .event:hover, .event:focus-within { translate: 0 -3px; }
 }
-/* Foco de teclado del enlace del evento: se dibuja en toda la tarjeta (con :has); sin :has queda el foco normal */
+
 @supports selector(:has(*)) {
   .event .link-arrow:focus-visible { outline: none; }
   .event:has(.link-arrow:focus-visible) { outline: 3px solid var(--c-focus); outline-offset: 3px; }
 }
 @media (max-width: 1100px) { .events { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5); } }
 @media (max-width: 760px)  { .events { grid-template-columns: minmax(0, 1fr); max-width: 520px; margin-inline: auto; } }
-/* Eventos: con 7 tarjetas la última queda sola; se centra en su fila */
+
 @media (min-width: 1101px) { .event:last-child:nth-child(3n + 1) { grid-column: 2; } }
 @media (min-width: 761px) and (max-width: 1100px) {
   .event:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - var(--sp-5) / 2); }
 }
 
-/* Desarrolladores oficiales: cuatro tarjetas centradas (misma foto recortada que la directiva); 2 × 2 en tableta */
 .people.devs { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1120px; margin-inline: auto; text-align: center; }
 @media (max-width: 1100px) { .people.devs { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 640px; } }
 .people.devs .person p { margin-top: var(--sp-1); font-size: .9375rem; color: var(--c-muted); }

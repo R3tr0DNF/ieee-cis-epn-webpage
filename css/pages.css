@@ -1,21 +1,14 @@
-/* ==========================================================
-   Secciones de cada página y responsive
-   ========================================================== */
 
-/* Inicio · Becas IEEE ------------------------------------------------------
-   Vitrina de becados (js/becados.js): cabecera con cifras, línea de tiempo de congresos
-   (pestañas) y el panel del congreso elegido. Solo tokens de tema: claro y oscuro iguales de legibles.
-   Movimiento: barra de selección y entrada del panel (transform/opacity), quietos con movimiento reducido. */
 .becas-head { display: flex; justify-content: space-between; align-items: end; gap: var(--sp-5) var(--sp-7); flex-wrap: wrap; margin-bottom: var(--sp-6); }
 .becas-head .section-title { max-width: 24ch; }
 .becas-stats { display: flex; gap: clamp(var(--sp-5), 3vw, var(--sp-7)); }
-.becas-stats div { display: flex; flex-direction: column-reverse; }           /* en el DOM: etiqueta y cifra; a la vista: cifra arriba */
+.becas-stats div { display: flex; flex-direction: column-reverse; }           
 .becas-stats dd { font-size: var(--fs-xl); font-weight: 700; line-height: 1; color: var(--c-heading); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
 .becas-stats dt { margin-top: var(--sp-2); font-family: var(--f-mono); font-size: var(--fs-xs); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--c-muted); }
 
 .becas-show { background: var(--c-card); border: 1px solid var(--c-line); border-radius: var(--r-panel); overflow: hidden; }
 .becas-rail {
-  position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(136px, 1fr);   /* 5 × 136 caben desde una tableta (768 px); en celular se desliza */
+  position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(136px, 1fr);  
   background: var(--c-surface); border-bottom: 1px solid var(--c-line);
   overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none;
 }
@@ -26,13 +19,13 @@
   border: 0; border-left: 1px solid var(--c-line); cursor: pointer;
 }
 .beca-tab:first-child { border-left: 0; }
-.beca-tab::before {                            /* barra de selección: crece desde la izquierda */
+.beca-tab::before {                            
   content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--c-link);
   transform: scaleX(0); transform-origin: left; transition: transform var(--dur-3) var(--ease);
 }
 .beca-tab[aria-selected="true"] { background: var(--c-card); }
 .beca-tab[aria-selected="true"]::before { transform: scaleX(1); }
-.beca-tab[aria-selected="true"]::after {       /* la pestaña elegida se funde con el panel */
+.beca-tab[aria-selected="true"]::after {     
   content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--c-card);
 }
 .beca-tab:focus-visible { outline-offset: -4px; }
@@ -84,11 +77,7 @@
 .mv h3 { font-size: var(--fs-md); color: var(--c-heading); }
 .mv .key { font-weight: 700; color: var(--c-link); margin: var(--sp-1) 0 var(--sp-2); }
 
-/* Inicio · Franja de logos de capítulos ------------------------------------
-   Banda más baja que el resto. Cada logo mide por ÁREA VISUAL EQUIVALENTE:
-   alto = --s / √r, ancho = --s · √r (r = ancho/alto del logo, lo pone js/chapters.js),
-   así todos pesan lo mismo a la vista. La franja ocupa todo el ancho; el primer logo
-   se alinea con el contenido (--edge) y, si no caben, se recorre (ver js/chapters.js). */
+
 .index-head { display: flex; justify-content: space-between; align-items: end; gap: var(--sp-5); flex-wrap: wrap; margin-bottom: var(--sp-6); }
 .band-logos { padding-block: clamp(var(--sp-6), 3vw + var(--sp-4), var(--sp-8)); }
 .band-logos .index-head { margin-bottom: var(--sp-4); }
@@ -120,7 +109,7 @@
 .logo-link:hover { transform: translateY(-3px); }
 .logo-link img {
   display: block; max-width: none; width: auto;
-  height: 56px;                                  /* respaldo sin sqrt() */
+  height: 56px;                                  
   height: calc(var(--s) / sqrt(var(--r)));
 }
 .logo-link.is-text { font-weight: 700; color: var(--c-heading); border: 1px solid var(--c-line); padding: var(--sp-2) var(--sp-4); }
@@ -130,11 +119,11 @@
 [data-theme="dark"] .logo-link { opacity: .9; }
 [data-theme="dark"] .logo-link:hover { opacity: 1; }
 
-/* "Se van mostrando": aparición escalonada la primera vez que la franja entra en pantalla */
+
 .logo-strip.will-reveal .logo-item { opacity: 0; transform: translateY(10px); transition: opacity .55s var(--ease), transform .55s var(--ease); transition-delay: calc(var(--i) * 70ms); }
 .logo-strip.is-revealed .logo-item { opacity: 1; transform: none; }
 
-/* Flechas: solo si hay más logos hacia ese lado y con mouse (en táctil se desliza) */
+
 .strip-nav {
   position: absolute; z-index: 1; top: 50%; translate: 0 -50%;
   display: none; place-items: center; width: 40px; height: 40px;
@@ -150,7 +139,7 @@
 @media (max-width: 760px) { .logo-strip { --s: 72px; --gap: 36px; } .logo-viewport { --fade-l: 32px; --fade-r: 32px; } }
 @media (prefers-reduced-motion: reduce) { .logo-link, .logo-strip.will-reveal .logo-item { transition: none; } }
 
-/* Inicio · Historia ------------------------------------------------------- */
+
 .story { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--sp-7); }
 .steps { list-style: none; position: relative; display: grid; gap: var(--sp-6); padding-left: var(--sp-6); border-left: 1px solid var(--c-line); }
 .steps li { position: relative; }
@@ -165,10 +154,7 @@
 }
 .steps li.is-founding .mono { color: var(--c-gold-text); font-weight: 500; }
 
-/* Hito de fundación (dorado): primera Rama Estudiantil, 25 de agosto de 1970.
-   Tarjeta redondeada con aurora dorada; un haz de luz recorre el borde (como "Border Beam")
-   y, al pasar el cursor, un foco dorado lo sigue (--mx/--my, js/hero.js). El haz solo se anima
-   con la banda en pantalla (content-visibility) y queda quieto con movimiento reducido. */
+
 @property --beam { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 .founding {
   position: relative; isolation: isolate; margin-top: var(--sp-5); padding: var(--sp-6) var(--sp-6) var(--sp-5);
@@ -180,7 +166,7 @@
   box-shadow: var(--g-card-shadow);
 }
 [data-theme="dark"] .founding { border-color: rgba(var(--g-glow), .22); }
-.founding::before {                               /* haz de luz que recorre el borde */
+.founding::before {                              
   content: ""; position: absolute; inset: -1px; z-index: 1; padding: 1.5px; border-radius: inherit; pointer-events: none;
   background: conic-gradient(from var(--beam), transparent 0 62%, var(--g-hi) 78%, var(--g-mid) 84%, transparent 92%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
@@ -191,7 +177,7 @@
   .founding::before { animation: founding-beam 7s linear infinite; }
 }
 @keyframes founding-beam { from { --beam: 0deg; } to { --beam: 360deg; } }
-.founding::after {                                /* foco que sigue al cursor */
+.founding::after {                              
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
   background: radial-gradient(260px circle at var(--mx, 85%) var(--my, 10%), rgba(var(--g-glow), .26), transparent 65%);
   opacity: 0; transition: opacity .4s var(--ease);
@@ -201,7 +187,7 @@
 .founding-kicker::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--g-mid); box-shadow: 0 0 0 4px rgba(var(--g-glow), .18), 0 0 12px rgba(var(--g-glow), .8); }
 .founding-date { margin-top: var(--sp-2); font-size: clamp(2rem, 3.2vw, 2.6rem); font-weight: 700; line-height: 1.12; letter-spacing: -.015em; color: var(--c-gold-text); }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .founding-date time {                           /* oro metálico; al pasar el cursor, un brillo lo recorre */
+  .founding-date time {                           
     background: var(--g-text-lg); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
     transition: background-position 1.2s var(--ease);
   }
@@ -209,7 +195,6 @@
 }
 .founding-note { margin-top: var(--sp-2); color: var(--c-muted); font-size: var(--fs-sm); }
 
-/* Inicio · Tres formas de participar (lista, no tarjetas) ------------------ */
 .ways { list-style: none; border-top: 2px solid var(--c-heading); }
 .ways li { display: grid; grid-template-columns: 96px minmax(0, 4fr) minmax(0, 6fr) 180px; gap: var(--sp-5); align-items: center; padding: var(--sp-5) 0; border-bottom: 1px solid var(--c-line); }
 .ways .num { font-family: var(--f-mono); font-size: var(--fs-xl); font-weight: 500; color: var(--c-link); line-height: 1; }
@@ -217,17 +202,14 @@
 .ways p { color: var(--c-muted); }
 .ways .link-arrow { justify-self: end; }
 
-/* Inicio · Franja de afiliación ------------------------------------------- */
 .join { --c-focus: #fff; background: var(--c-blue); color: #fff; padding-block: var(--sp-7) calc(var(--sp-7) + var(--foot-fade)); }   /* foco blanco sobre azul: 6.5:1; abajo, espacio para el degradado del pie */
 .join .wrap { display: grid; grid-template-columns: minmax(0, 7fr) auto; gap: var(--sp-6); align-items: center; }
 .join h2 { color: #fff; font-size: var(--fs-xl); letter-spacing: -.015em; }
 .join p { color: #E3EEF6; margin-top: var(--sp-2); max-width: 56ch; }
 
-/* Capítulos: lectura del encabezado --------------------------------------- */
 .head-readout { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin-top: var(--sp-5); color: var(--c-on-dark-muted); }
 .head-readout b { color: #fff; font-weight: 500; }
 
-/* Contacto: dos tarjetas (formulario y redes) ------------------------------ */
 .contact { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--sp-6); align-items: start; }
 .contact-card {
   background: var(--c-card); border: 1px solid var(--c-line); border-radius: 16px;
@@ -238,7 +220,7 @@
 .contact-sub { margin: var(--sp-2) 0 var(--sp-6); color: var(--c-muted); max-width: 52ch; }
 .contact-sub .req { color: var(--c-orange-text); font-weight: 700; }
 .contact-form-card .hint { font-size: var(--fs-sm); color: var(--c-muted); text-align: center; }
-.contact-form-card .form-status:empty { min-height: 0; margin-top: calc(-1 * var(--sp-5)); }   /* sin aviso, la nota queda junto al botón (la región role="status" sigue en el DOM) */
+.contact-form-card .form-status:empty { min-height: 0; margin-top: calc(-1 * var(--sp-5)); }   
 .btn-send {
   width: 100%; min-height: 56px; border-radius: var(--r-ctl); background: var(--c-blue); color: #fff; font-size: 1rem;
   transition: background-color var(--dur-2) var(--ease), translate var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
@@ -276,21 +258,19 @@
   .btn-send:hover { translate: 0 -1px; }
 }
 
-/* Oportunidades IEEE (/oportunidades, js/oportunidades.js) -------------------
-   Acento dorado (mismo dorado del hito de fundación). Tarjetas con estado, datos clave y
-   un <details> nativo. Filtrar solo cambia [hidden]: nada se anima al filtrar. */
-.page-head-gold::before {                       /* resplandor dorado, decorativo */
+
+.page-head-gold::before {                     
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(55% 120% at 100% 0%, rgba(212, 175, 55, .22), transparent 62%),
               radial-gradient(40% 90% at 0% 100%, rgba(212, 175, 55, .08), transparent 70%);
 }
-.page-head-gold::after {                        /* filete dorado al pie del encabezado */
+.page-head-gold::after {                        
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; pointer-events: none;
   background: linear-gradient(90deg, transparent, #D4AF37 18%, #F3DC8B 50%, #D4AF37 82%, transparent);
 }
 .page-head-gold .wrap { position: relative; }
 .page-head-gold .wrap { isolation: isolate; }
-.gold-kicker {                                  /* sin borde: texto dorado con un resplandor difuminado detrás */
+.gold-kicker {                                  
   position: relative; display: inline-flex; align-items: center; gap: var(--sp-2); margin-top: var(--sp-4); padding: .3rem 0;
   color: #F0CF6E; font-size: var(--fs-xs); font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
 }
@@ -417,33 +397,23 @@
   .opp-facts div { grid-template-columns: 80px minmax(0, 1fr); }
 }
 
-/* Inicio: las bandas bajo Becas se maquetan y pintan solo al acercarse a la pantalla
-   (menos trabajo en la primera carga). Siguen en el árbol de accesibilidad y en la búsqueda
-   del navegador. El alto estimado (sin el relleno de la banda) vale hasta la primera vez que se
-   dibujan; después el navegador recuerda el real ("auto"). La franja "Únete" es corta y no se difiere. */
 #inicio > .band:not(.becas) { content-visibility: auto; contain-intrinsic-size: auto 460px; }
 @media (max-width: 760px) { #inicio > .band:not(.becas) { contain-intrinsic-size: auto 820px; } }
 
-/* Responsive --------------------------------------------------------------- */
-/* Encabezado completo (≥ 1241 px): más ancho que el contenido (hasta 1440 px) para que respire.
-   Logo a la izquierda, menú centrado en el espacio libre y, a la derecha, el botón principal y,
-   tras un filete, el IEEE Master Brand con el tema. El espacio entre ítems crece con la pantalla
-   (--nav-pad: 6 px a 1241 px → 14 px desde ~1750 px), así nada se sale en ningún ancho. */
 @media (min-width: 1241px) {
   .meta-nav .wrap, .header-bar { width: min(100% - 2 * var(--gutter), 1440px); }
   .header-bar { --nav-pad: clamp(6px, 1.6vw - 14px, 14px); --hgap: clamp(12px, 2.4vw - 18px, 24px); gap: var(--hgap); }
   .main-nav { margin-inline: auto; }
   .main-nav a { padding: 0 var(--nav-pad); }
   .main-nav a::after { left: var(--nav-pad); right: var(--nav-pad); }
-  /* Filete entre el botón principal y el IEEE Master Brand, centrado en el hueco.
-     Margen (no relleno): el logo de la versión clara va en position:absolute y taparía el relleno. */
+
   .ieee-mb { margin-left: var(--hgap); }
   .ieee-mb::before {
     content: ""; position: absolute; top: 6px; bottom: 6px; left: calc(-1 * var(--hgap) - .5px);
     border-left: 1px solid color-mix(in srgb, currentColor 28%, transparent);
   }
 }
-/* Menú móvil hasta 1240 px: el encabezado completo necesita ~1190 px */
+
 @media (max-width: 1240px) {
   .main-nav {
     position: absolute; left: 0; right: 0; top: 100%; margin: 0; flex-direction: column; align-items: stretch; gap: 0;
@@ -478,7 +448,7 @@
 }
 @media (max-width: 760px) {
   .meta-sso { display: none; }
-  .modules { grid-template-columns: repeat(2, minmax(0, 1fr)); }   /* columnas iguales aunque haya palabras largas */
+  .modules { grid-template-columns: repeat(2, minmax(0, 1fr)); }  
   .ways li { grid-template-columns: 56px minmax(0, 1fr); }
   .ways li p, .ways li .link-arrow { grid-column: 2; }
   .join .wrap { grid-template-columns: 1fr; }
@@ -491,8 +461,7 @@
   .header-bar { gap: var(--sp-3); }
   .menu-toggle .label { display: none; }
 }
-/* Celulares angostos: logo de la rama + IEEE Master Brand + tema + menú no caben en 1 fila;
-   el tema pasa a una fila dentro del menú (misma función, mismo estado). */
+
 @media (max-width: 479px) {
   .corner-theme { display: none; }
   .main-nav .menu-theme { display: flex; }
@@ -503,14 +472,14 @@
   .visor-bar { left: var(--sp-5); right: var(--sp-5); bottom: var(--sp-4); }
   .hero-content { padding-bottom: calc(var(--sp-9) + var(--sp-4)); }
   .hero .btn-row .btn { flex: 1 1 100%; }
-  /* celular: siguen 2 por fila, más compactos */
+
   .modules { gap: var(--sp-3); }
   .module { padding: var(--sp-3); }
   .module-top { margin-bottom: var(--sp-2); }
   .module-top .mono { font-size: .6875rem; letter-spacing: .04em; }
   .module:last-child:nth-child(odd) { width: calc((100% - var(--sp-3)) / 2); }
 }
-/* teléfonos muy angostos (< 360 px): una columna, para que el texto no quede en tiras */
+
 @media (max-width: 359px) {
   .modules { grid-template-columns: 1fr; }
   .module:last-child:nth-child(odd) { grid-column: auto; width: auto; }
@@ -526,19 +495,18 @@
   .people { grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
 }
 
-/* Pie apilado (< 960 px): enlaces en dos columnas bajo la presentación ---- */
 @media (max-width: 959px) {
   .site-footer { --pt: 32px; }
   .foot-intro, .foot-legal { max-width: 520px; }
   .foot-arc { position: static; width: auto; max-width: 520px; margin-top: var(--sp-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4) var(--sp-6); pointer-events: auto; }
   .arc-group { position: static; text-align: left; pointer-events: auto; }
   .arc-shape, .arc-pad { display: none; }
-  .foot-globe { --gx: 48px; opacity: .55; }     /* el planeta queda detrás, a la derecha; la etiqueta de Quito entra completa */
+  .foot-globe { --gx: 48px; opacity: .55; }   
 }
 @media (max-width: 760px) {
   .foot-main { padding-bottom: var(--sp-4); }
   .foot-hero { display: flex; flex-direction: column; }
-  .foot-globe {                                   /* franja con el planeta al final, Quito a la vista */
+  .foot-globe {                                 
     position: relative; order: 2; top: auto; right: auto; transform: none; opacity: 1;
     width: 100%; aspect-ratio: auto; height: 180px; overflow: hidden; overflow: clip;
     -webkit-mask-image: linear-gradient(transparent, #000 45%); mask-image: linear-gradient(transparent, #000 45%);
@@ -551,7 +519,6 @@
   .foot-intro .site-id img { height: 48px; }
 }
 
-/* Movimiento reducido: todo queda quieto y visible ------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
   .js .module.will-enter { opacity: 1; transform: none; }
@@ -562,9 +529,6 @@
   .menu-toggle { padding: 0 var(--sp-2); }
 }
 
-/* Portada en celular o tablet en vertical: la foto 16:9 se ve COMPLETA en una franja bajo
-   el encabezado (sin recortar a los lados) y el texto va debajo, sobre el azul del visor.
-   La franja se funde con el fondo por abajo; el encabezado sigue legible por arriba. */
 @media (orientation: portrait) and (max-width: 1024px) {
   .hero { --band: calc(100vw * 9 / 16); min-height: 0; align-items: flex-start; padding-top: calc(var(--header-h) + var(--band) - var(--sp-5)); }
   .visor-media { inset: var(--header-h) 0 auto; height: auto; aspect-ratio: 16 / 9; background: transparent; }   /* 16:9 exacto, también con barra de desplazamiento */

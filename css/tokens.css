@@ -1,10 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Tokens del sistema de diseño
-   Color: paleta IEEE (IEEE Blue PMS 3015 C, azules oscuros de la
-   paleta ampliada y PMS 158 C naranja como único acento).
-   Tipografía: Open Sans (fuente web de IEEE) + IBM Plex Mono para
-   etiquetas técnicas. Contrastes medidos para WCAG 2.2 AA.
-   ========================================================== */
+
 
 @font-face { font-family: "Open Sans"; font-style: normal; font-weight: 300 800; font-display: swap;
   src: url(../assets/fonts/open-sans-latin-wght-normal.woff2) format("woff2");
