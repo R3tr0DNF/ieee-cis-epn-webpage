@@ -1,8 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Plantilla única de capítulos
-   Lee js/data/chapters.js y dibuja: el tablero (página Capítulos),
-   el índice de Inicio y las opciones del formulario. No contiene datos.
-   ========================================================== */
+/* Capítulos: tablero, franja de Inicio y opciones del formulario (lee js/data/chapters.js) */
 (function () {
   var D = window.IEEE_EPN || {};
   var chapters = D.chapters || [];

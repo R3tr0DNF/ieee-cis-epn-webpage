@@ -1,20 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Navegación
-   · Vistas por ruta limpia (History API, sin #): /, /capitulos,
-     /capitulos/<id>, /eventos, /oportunidades, /directiva, /contacto (/iniciativas → /eventos). El botón
-     "atrás" funciona. Los enlaces antiguos con # (#capitulos…) se
-     convierten a la ruta nueva. En GitHub Pages, 404.html guarda la
-     ruta pedida y vuelve a "/", donde se restaura (ver al final).
-   · Título y descripción por vista.
-   · Encabezado: transparente sobre la portada, sólido al bajar.
-     Se oculta al bajar y reaparece al subir (translateY), con umbral
-     anti-parpadeo. Siempre visible en la portada o el encabezado de
-     página, con el menú abierto, con foco de teclado dentro y al
-     navegar a una ancla.
-   · Botón de tema claro/oscuro (al final de este archivo; va aquí y
-     no en un archivo propio para no sumar una petición antes del LCP).
-   · Menú móvil accesible (Esc, clic fuera, aria-expanded).
-   ========================================================== */
+/* Navegación por rutas, encabezado, menú móvil y tema claro/oscuro */
 (function () {
   var pages = [].slice.call(document.querySelectorAll('main > .page'));
   var ids = pages.map(function (p) { return p.id; });

@@ -1,26 +1,8 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Datos de capítulos y grupos
-   Fuente: versión A (zip de datos, js/data/capitulos.js).
-   Es el ÚNICO archivo que hay que editar para esta sección:
-   agregar un capítulo = agregar un objeto al arreglo `chapters`.
-
-   Campos
-     id          identificador único (minúsculas, sin espacios): ruta /capitulos/<id>
-     siglas      siglas en el orden en que se muestran
-     sociedades  nombre oficial de cada sociedad o grupo IEEE que forma el capítulo
-     tipo        'capitulo' | 'conjunto' | 'afinidad' | 'sight'
-                 Conteo oficial (lo calcula js/chapters.js): 12 capítulos técnicos (sociedades),
-                 2 councils (RFID, TEC: "Council" en el nombre) y 2 grupos de afinidad (WIE, SIGHT).
-     area        'ondas' | 'computo' | 'energia' | 'comunidad'  (agrupación de la página)
-     alcance     ámbito general de la sociedad IEEE en el mundo (texto de A; NO es la
-                 descripción del capítulo EPN)
-     descripcion propósito y actividades del capítulo EPN. null = PENDIENTE
-     logo        { src, src2x, png, width, height, formato: 'ancho' | 'cuadrado' } o null = PENDIENTE
-                 Versión blanca (modo oscuro, franja de Inicio): mismo nombre con "-white"
-                 (cis-480.webp → cis-white-480.webp, cis-960.webp → cis-white-960.webp),
-                 o logo.blanco / logo.blanco2x con otra ruta.
-     instagram   URL del perfil. null = PENDIENTE
-   ========================================================== */
+/* Datos de capítulos y grupos.
+   Campos: id, siglas, sociedades, tipo ('capitulo' | 'conjunto' | 'afinidad' | 'sight'),
+   area ('ondas' | 'computo' | 'energia' | 'comunidad'), alcance, descripcion,
+   logo { src, src2x, png, width, height, formato } (versión "-white" para modo oscuro), instagram.
+   null = pendiente. */
 window.IEEE_EPN = window.IEEE_EPN || {};
 
 window.IEEE_EPN.areas = [

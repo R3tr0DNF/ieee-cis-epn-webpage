@@ -1,15 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Becas IEEE (Inicio)
-   Lee js/data/becados.js y dibuja la vitrina de becas:
-   · Línea de tiempo arriba (pestañas ARIA: flechas ←/→, Inicio, Fin),
-     del congreso más reciente al más antiguo.
-   · Panel debajo: foto, fechas, lugar, organizador y becados.
-   · Lo esencial primero (programa, mes y número de becas); el detalle
-     al elegir un programa. Sin reproducción automática.
-   · Solo publica programas con publicar === true y nombres completos;
-     un nombre con `pendiente` solo se ve con MOSTRAR_PENDIENTES.
-   · Todo el texto entra con textContent (nunca innerHTML).
-   ========================================================== */
+/* Vitrina de becas IEEE (Inicio): lee js/data/becados.js */
 (function () {
   var D = window.IEEE_EPN || {};
   var rail = document.getElementById('becas-tabs');

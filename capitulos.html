@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-
+<!-- GENERADO por scripts/generar-paginas.py a partir de index.html. No lo edites a mano:
+     cambia index.html y vuelve a ejecutar el script. -->
 <html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8">
@@ -38,8 +39,7 @@
     })();
   </script>
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
-       cambia el valor en cada publicación para que todos reciban la versión nueva. -->
+  <!-- ?v=: cambiar en cada publicación -->
   <link rel="stylesheet" href="css/tokens.css?v=20261120-2">
   <link rel="stylesheet" href="css/base.css?v=20261117-1">
   <link rel="stylesheet" href="css/layout.css?v=20261120-1">
@@ -77,6 +77,7 @@
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
 
+  <!-- Meta-navegación IEEE -->
   <div class="meta-nav" lang="en">
     <div class="wrap">
       <nav aria-label="Sitios de IEEE">
@@ -97,7 +98,7 @@
     </div>
   </div>
 
-  <!-- Encabezado: identificador del sitio a la izquierda, IEEE Master Brand a la derecha -->
+  <!-- Encabezado -->
   <header class="site-header" id="site-header">
     <div class="wrap header-bar">
       <a class="site-id" href="/" aria-label="IEEE Student Branch, Escuela Politécnica Nacional: inicio">
@@ -113,7 +114,7 @@
           <li><a href="/directiva">Directiva</a></li>
           <li><a href="/contacto">Contacto</a></li>
         </ul>
-        <!-- Cambio de tema en el menú móvil (solo en pantallas angostas, donde no cabe en la esquina) -->
+        <!-- Cambio de tema (móvil) -->
         <button class="theme-toggle menu-theme" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro">
           <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
@@ -126,7 +127,7 @@
         <picture class="mb-dark"><source type="image/webp" srcset="assets/img/brand/ieee-mb-white.webp 1x, assets/img/brand/ieee-mb-white@2x.webp 2x"><img src="assets/img/brand/ieee-mb-white.png" alt="IEEE" width="113" height="33" decoding="async"></picture>
         <picture class="mb-light"><source type="image/webp" srcset="assets/img/brand/ieee-mb-black.webp 1x, assets/img/brand/ieee-mb-black@2x.webp 2x"><img src="assets/img/brand/ieee-mb-black.png" alt="" width="113" height="33" decoding="async"></picture>
       </a>
-      <!-- Cambio de tema en la esquina, junto al IEEE Master Brand: js/router.js (sección "Tema") actualiza aria-label, el texto y el ícono -->
+      <!-- Cambio de tema (escritorio) -->
       <button class="theme-toggle corner-theme" id="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro">
         <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
@@ -196,6 +197,7 @@
         </div>
       </section>
 
+      <!-- La rama: misión y visión -->
       <section class="band" aria-labelledby="h-rama">
         <div class="wrap rama">
           <div>
@@ -237,12 +239,13 @@
         </div>
       </section>
 
+      <!-- Historia -->
       <section class="band" aria-labelledby="h-historia">
         <div class="wrap story">
           <div>
             <span class="section-label mono">04 · Historia</span>
             <h2 class="section-title" id="h-historia">Cómo empezó la rama</h2>
-
+            <!-- Hito de fundación -->
             <div class="founding">
               <span class="founding-kicker mono">Primera Rama Estudiantil</span>
               <p class="founding-date"><time datetime="1970-08-25">25 de agosto de 1970</time></p>
@@ -392,7 +395,8 @@
       </div>
     </section>
 
-
+    <!-- ============ OPORTUNIDADES ============ -->
+    <!-- Tarjetas y filtros: js/oportunidades.js -->
     <section class="page" id="oportunidades" aria-labelledby="h-oportunidades"
       data-title="Oportunidades IEEE 2026: becas, premios y fondos | IEEE Student Branch EPN"
       data-description="Becas de viaje, premios, fondos para proyectos, mentorías y congresos de CS, RAS, WIE, GRSS, MTT-S, AESS, SIGHT y ComSoc, reunidos por la Rama Estudiantil IEEE de la EPN.">
@@ -441,6 +445,8 @@
       </div>
     </section>
 
+    <!-- ============ DESARROLLADORES ============ -->
+
     <section class="page" id="desarrolladores" aria-labelledby="h-desarrolladores"
       data-title="Desarrolladores oficiales | IEEE Student Branch EPN"
       data-description="Equipo que diseñó y desarrolló el sitio web de la Rama Estudiantil IEEE de la Escuela Politécnica Nacional.">
@@ -482,7 +488,7 @@
           <span class="section-label mono">Directiva</span>
           <h2 class="section-title" id="h-board">Equipo directivo</h2>
           <p class="lead">Directiva del periodo vigente. IEEE pide registrar Chair, Counselor y Webmaster en vTools.</p>
-
+          <!-- Directiva en pirámide -->
           <ul class="people board">
             <li class="person tier-1"><img class="person-photo" src="assets/img/directiva/counselor.webp" width="480" height="600" alt="Dr. Fabián Perez, Branch Counselor" loading="lazy" decoding="async"><span class="role mono">Branch Counselor</span><h3>Dr. Fabián Perez</h3></li>
             <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/chair.webp" width="480" height="600" alt="Elias Viteri, Chair" loading="lazy" decoding="async"><span class="role mono">Chair</span><h3>Elias Viteri</h3></li>
@@ -506,7 +512,7 @@
           <p class="lead">¿Quieres unirte a un capítulo o proponer una actividad? Escríbenos.</p>
         </div>
       </div>
-
+      <!-- Contacto: formulario (js/form.js) y redes -->
       <div class="band band-surface">
         <div class="wrap contact">
           <div class="contact-card contact-form-card">
@@ -581,7 +587,7 @@
     </section>
   </main>
 
-
+  <!-- ============ PIE DE PÁGINA ============-->
   <footer class="site-footer">
     <div class="foot-hero">
       <div class="wrap foot-main">
@@ -621,7 +627,7 @@
           </div>
         </nav>
 
-
+        <!-- Aviso legal requerido por IEEE -->
         <div class="foot-legal">
           <p lang="en">© Copyright <span id="year">2026</span> IEEE EPN – All rights reserved. A public charity, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.</p>
           <ul class="admin-links" aria-label="Avisos legales de IEEE">
@@ -637,14 +643,14 @@
           </ul>
         </div>
       </div>
-
+      <!-- Globo con enlace a la ubicación de la EPN -->
       <div class="foot-globe">
         <img src="assets/img/globe-ecuador.svg" alt="" width="900" height="900" loading="lazy" decoding="async">
         <a class="globe-pin" href="https://maps.app.goo.gl/S6yPkwnSJmmtby6cA" target="_blank" rel="noopener noreferrer" aria-label="Escuela Politécnica Nacional · Quito: ver la ubicación en Google Maps" aria-describedby="nueva-pestana"><span class="globe-pin-label">Escuela Politécnica Nacional · Quito</span></a>
       </div>
     </div>
   </footer>
-
+  <!-- Aviso de enlaces externos para lectores de pantalla -->
   <span id="nueva-pestana" hidden>Se abre en una pestaña nueva</span>
 </body>
 </html>

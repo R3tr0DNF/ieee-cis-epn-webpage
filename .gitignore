@@ -5,8 +5,8 @@ desktop.ini
 ~$*
 *.tmp
 
-# Configuración local de cada persona (Claude Code); .claude/launch.json sí se versiona
-.claude/settings.local.json
+# Configuración local del editor
+.claude/
 
 # Credenciales: nunca en el repositorio
 .env

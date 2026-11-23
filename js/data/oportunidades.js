@@ -1,36 +1,8 @@
-/* ==========================================================
-   IEEE Student Branch EPN — DATOS de Oportunidades IEEE
-   js/oportunidades.js las dibuja en la vista /oportunidades
-   (tarjetas con filtros). No hay otro lugar que editar.
-
-   Fuente: hoja de cálculo "IEEE OPPORTUNITIES HUB ECUADOR 2026.xlsx",
-   hoja "Oportunidades IEEE" (SharePoint de la rama), leída el 17 nov 2026.
-   Se copió el contenido de cada fila sin agregar datos. Cambios hechos:
-     · ortografía y tildes (Proxima → Próxima, Schoolarships → Scholarships,
-       Distingushed → Distinguished, coumintario → comunitario, etc.);
-     · las filas de IMS 2027 y AESS estaban en inglés: se tradujeron al español;
-     · "ene-26", "feb-26"… → "enero 2026", "febrero 2026"…;
-     · enlaces de GRSS sin "https://" → con "https://"; espacios dentro de la URL de ComSoc → quitados.
-   Los estados y las fechas son los de la hoja: la vista pide confirmarlos en el enlace oficial.
-
-   AGREGAR UNA OPORTUNIDAD = copiar un objeto y completar sus campos.
-     soc          Clave de la sociedad (ver "sociedades" abajo).
-     nombre       Nombre de la oportunidad.
-     tipo         Texto del tipo, tal como figura en la hoja.
-     cat          Categoría para el filtro: beca | premio | fondos | mentoria | evento | programa | formacion
-     alcance      Alcance (Local, Global, Región 9…).
-     dirigido     A quién va dirigida.
-     desc         Descripción breve ('' si la hoja no la tiene).
-     beneficios   Texto o lista de textos.
-     requisitos   Texto ('' si solo hay enlace).
-     requisitosUrl Enlace a los requisitos (opcional).
-     estado       Estado 2026 tal como figura en la hoja.
-     apertura / cierre / frecuencia / modalidad   Textos de la hoja ('' si no constan).
-     link         Enlace de aplicación (opcional, solo https://).
-     contacto     Lista: { url, label } | { email, label } | { text }.
-     recomendacion Texto ('' si no consta).
-     img          Opcional: { src: ruta sin sufijo (-640.webp / -960.webp, 16:10), alt, nota }.
-   ========================================================== */
+/* Datos de oportunidades IEEE.
+   Campos: soc, nombre, tipo, cat (beca | premio | fondos | mentoria | evento | programa | formacion),
+   alcance, dirigido, desc, beneficios, requisitos, requisitosUrl, estado, apertura, cierre,
+   frecuencia, modalidad, link (https), contacto [{ url|email|text, label }], recomendacion,
+   img { src, alt, nota } (opcional). */
 window.IEEE_EPN = window.IEEE_EPN || {};
 
 window.IEEE_EPN.oportunidades = {

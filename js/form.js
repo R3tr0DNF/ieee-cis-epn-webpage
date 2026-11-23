@@ -1,11 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Formulario de contacto
-   · Valida al enviar: cada error bajo su campo (aria-invalid +
-     aria-describedby) y un resumen con enlaces a los campos.
-   · Con config.form.endpoint envía por fetch (FormData) y solo
-     confirma si el servicio responde 2xx. Sin endpoint, abre el
-     correo del visitante y lo dice tal cual.
-   ========================================================== */
+/* Formulario de contacto: validación y envío (fetch o mailto) */
 (function () {
   var form = document.getElementById('contact-form');
   if (!form) return;

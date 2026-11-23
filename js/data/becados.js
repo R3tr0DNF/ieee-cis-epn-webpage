@@ -1,33 +1,7 @@
-/* ==========================================================
-   IEEE Student Branch EPN — DATOS de becas
-   Programas IEEE (congresos y encuentros) para los que miembros de la
-   rama recibieron beca. js/becados.js los dibuja en Inicio → "Becas IEEE"
-   (línea de tiempo + panel). No hay otro lugar que editar.
-
-   Fuente: documento "LACAP 2026.docx" entregado por la directiva
-   (16 nov 2026). Nombres tal como figuran en el documento, salvo:
-     · "Andrey Carillo" → "Andrey Carrillo" (así figura en el mismo documento
-       y en la directiva).
-     · "Sherly Vizacaino" → "Sherly Vizcaino" (así figura en el mismo documento).
-   PENDIENTE de confirmar con cada persona: tildes de apellidos (Gárces/Garcés,
-   Yanez/Yánez, Guillen/Guillén, Perez/Pérez, Guajan/Guaján) y el tipo de beca
-   (el documento no dice si cubre viaje, inscripción u otro rubro).
-
-   AGREGAR UN PROGRAMA = copiar un objeto y completar sus campos.
-     id          Identificador único (minúsculas y guiones).
-     siglas      Nombre corto que va en la línea de tiempo (p. ej. 'IPC 2026').
-     nombre      Nombre oficial completo.
-     inicio      Fecha de inicio AAAA-MM-DD (ordena la línea de tiempo: el más reciente primero).
-     fechas      Texto visible de las fechas.
-     lugar       Ciudad y país, SOLO si consta en la fuente; si no, ''.
-     organiza    Sociedad o unidad IEEE organizadora, SOLO si consta en la fuente.
-     capitulo    Opcional: id del capítulo de la rama relacionado (js/data/chapters.js).
-     foto        { src: ruta sin sufijo (se usan -640.webp y -960.webp, 16:10), alt: descripción }
-     becados     Lista de nombres. Un nombre incompleto va como
-                 { nombre: 'Carlos', pendiente: 'apellido' }: NO se publica
-                 (solo se ve como PENDIENTE con MOSTRAR_PENDIENTES = true).
-     publicar    true cuando la directiva aprobó publicar ese programa con sus nombres.
-   ========================================================== */
+/* Datos de becas IEEE.
+   Campos: id, siglas, nombre, inicio (AAAA-MM-DD), fechas, lugar, organiza,
+   capitulo (opcional), foto { src, alt }, becados, publicar.
+   Nombre incompleto: { nombre: 'Carlos', pendiente: 'apellido' } (no se publica). */
 window.IEEE_EPN = window.IEEE_EPN || {};
 
 window.IEEE_EPN.becas = [

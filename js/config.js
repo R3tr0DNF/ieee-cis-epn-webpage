@@ -1,8 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Configuración del sitio
-   Los valores vacíos ('') son PENDIENTES: el sitio funciona sin
-   ellos y los marca como tales mientras MOSTRAR_PENDIENTES = true.
-   ========================================================== */
+/* Configuración del sitio */
 window.IEEE_EPN = window.IEEE_EPN || {};
 
 window.IEEE_EPN.config = {

@@ -1,18 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Oportunidades IEEE (/oportunidades)
-   Lee js/data/oportunidades.js y dibuja:
-   · Cifras de la cabecera (total, sociedades, activas, permanentes).
-   · Filtros: búsqueda (sin tildes ni mayúsculas), estado, tipo y
-     sociedad (botones con aria-pressed). El total visible se anuncia
-     en una región en vivo. Filtrar solo cambia `hidden`: sin recargas
-     ni animaciones de diseño, así no hay saltos ni retrasos.
-   · Tarjetas: logo de la sociedad (o foto de la edición anterior),
-     estado, datos clave y un <details> nativo con beneficios,
-     requisitos, recomendación y contacto.
-   · Enlaces externos: solo https://, en pestaña nueva, con
-     rel="noopener noreferrer" y aviso para lectores de pantalla.
-   · Todo el texto entra con textContent (nunca innerHTML).
-   ========================================================== */
+/* Oportunidades IEEE: tarjetas y filtros (lee js/data/oportunidades.js) */
 (function () {
   var D = window.IEEE_EPN || {};
   var data = D.oportunidades;

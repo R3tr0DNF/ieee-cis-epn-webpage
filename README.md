@@ -22,7 +22,7 @@ scripts/generar-paginas.py  genera esas copias y sitemap.xml a partir de index.h
 entregables/                memoria técnica en PDF (no se publica)
 404.html                    GitHub Pages: guarda la ruta pedida (/capitulos/cis…) y vuelve a /, donde router.js la restaura
 CNAME                       dominio de GitHub Pages (ieee-epn.org)
-_config.yml                 Jekyll de GitHub Pages: deja fuera de la publicación README.md, el análisis .md, .claude/, scripts/ y entregables/
+_config.yml                 Jekyll de GitHub Pages: deja fuera de la publicación README.md, el análisis .md, scripts/ y entregables/
 robots.txt, sitemap.xml     SEO (el sitemap lo genera scripts/generar-paginas.py)
 css/tokens.css              tokens: color (temas claro y oscuro), tipografía, espaciado, radios, movimiento, fuentes
 css/base.css                reset, tipografía, foco, utilidades, etiqueta PENDIENTE

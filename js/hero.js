@@ -1,23 +1,4 @@
-/* ==========================================================
-   IEEE Student Branch EPN — Portada (visor)
-   · Fotos en bucle (js/config.js → portada): cada una se ve
-     `intervalo` ms, con fundido cruzado y un acercamiento lento
-     (CSS), para que la portada se sienta como un video.
-   · La primera foto ya está en el HTML (es el LCP). Las demás se
-     crean después del evento load y se descargan de a una: siempre
-     solo la siguiente, para no gastar datos de golpe.
-   · Zona invisible en el borde derecho (#visor-next): un clic pasa a la
-     siguiente foto y reinicia la cuenta del intervalo. El aviso (una mano
-     que toca) se ve ~1 s al abrir la portada o al volver a Inicio.
-   · Sin botón de pausa (decisión de diseño de la rama). Para compensarlo:
-       - con prefers-reduced-motion queda fija la primera foto
-         (si la preferencia cambia, se aplica al vuelo);
-       - se pausa cuando la portada casi no se ve, en otra vista o
-         con la pestaña oculta;
-       - con ahorro de datos (Save-Data) no se cargan más fotos.
-   · Respaldo del efecto de scroll para navegadores sin CSS
-     scroll-driven animations: fija --p (0 → 1) con rAF pasivo.
-   ========================================================== */
+/* Portada: fotos en bucle y respaldo del efecto de scroll */
 (function () {
   var D = window.IEEE_EPN || {};
   var cfg = (D.config && D.config.portada) || {};

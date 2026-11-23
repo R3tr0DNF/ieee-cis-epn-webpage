@@ -5,14 +5,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Seguridad (GitHub Pages no permite cabeceras propias; lo demás va en Cloudflare, ver README).
-       CSP: solo recursos de este mismo sitio. Los dos <script> en línea de este <head> se autorizan
-       por su hash SHA-256: si cambias una sola letra de ellos, recalcula su hash y reemplázalo aquí
-       (README → "Seguridad"). Si configuras form.endpoint (js/config.js), agrega su dominio a connect-src. -->
+
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-s9rZjzDObFVyEHb8ROTKuzJLZfDMzyDefhr2pzPPoic=' 'sha256-ER0MyvsUfibrnPhQopAc5t2PPBEOSij6MJYfX3/faNY='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <!-- Rutas limpias (/capitulos, /directiva…): en un servidor, las rutas relativas se resuelven
-       desde la raíz. Abierto como archivo (file://) no se usa <base> y la navegación usa #. -->
+
   <script>
     if (location.protocol !== 'file:') { var b = document.createElement('base'); b.href = '/'; document.head.appendChild(b); }
   </script>
@@ -33,8 +29,7 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Tema antes de pintar (sin parpadeo). Siempre empieza en claro; solo usa "dark" si el
-       usuario lo eligió antes. No consulta prefers-color-scheme a propósito. -->
+
   <script>
     (function () {
       var d = document.documentElement, t = 'light';
@@ -44,8 +39,7 @@
     })();
   </script>
   <link rel="preload" href="assets/fonts/open-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <!-- ?v=: versión de CSS y JS. Cloudflare indica al navegador guardar estos archivos 4 h;
-       cambia el valor en cada publicación para que todos reciban la versión nueva. -->
+  <!-- ?v=: cambiar en cada publicación -->
   <link rel="stylesheet" href="css/tokens.css?v=20261120-2">
   <link rel="stylesheet" href="css/base.css?v=20261117-1">
   <link rel="stylesheet" href="css/layout.css?v=20261120-1">
@@ -83,7 +77,7 @@
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
 
-  <!-- Meta-navegación IEEE (obligatoria: IEEE Brand Experience, Global Page Elements) -->
+  <!-- Meta-navegación IEEE -->
   <div class="meta-nav" lang="en">
     <div class="wrap">
       <nav aria-label="Sitios de IEEE">
@@ -104,7 +98,7 @@
     </div>
   </div>
 
-  <!-- Encabezado: identificador del sitio a la izquierda, IEEE Master Brand a la derecha -->
+  <!-- Encabezado -->
   <header class="site-header" id="site-header">
     <div class="wrap header-bar">
       <a class="site-id" href="/" aria-label="IEEE Student Branch, Escuela Politécnica Nacional: inicio">
@@ -120,7 +114,7 @@
           <li><a href="/directiva">Directiva</a></li>
           <li><a href="/contacto">Contacto</a></li>
         </ul>
-        <!-- Cambio de tema en el menú móvil (solo en pantallas angostas, donde no cabe en la esquina) -->
+        <!-- Cambio de tema (móvil) -->
         <button class="theme-toggle menu-theme" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro">
           <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
@@ -133,7 +127,7 @@
         <picture class="mb-dark"><source type="image/webp" srcset="assets/img/brand/ieee-mb-white.webp 1x, assets/img/brand/ieee-mb-white@2x.webp 2x"><img src="assets/img/brand/ieee-mb-white.png" alt="IEEE" width="113" height="33" decoding="async"></picture>
         <picture class="mb-light"><source type="image/webp" srcset="assets/img/brand/ieee-mb-black.webp 1x, assets/img/brand/ieee-mb-black@2x.webp 2x"><img src="assets/img/brand/ieee-mb-black.png" alt="" width="113" height="33" decoding="async"></picture>
       </a>
-      <!-- Cambio de tema en la esquina, junto al IEEE Master Brand: js/router.js (sección "Tema") actualiza aria-label, el texto y el ícono -->
+      <!-- Cambio de tema (escritorio) -->
       <button class="theme-toggle corner-theme" id="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro">
         <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
@@ -154,9 +148,7 @@
       data-description="Rama Estudiantil IEEE de la Escuela Politécnica Nacional, Quito: 12 capítulos técnicos, 2 councils y 2 grupos de afinidad para estudiantes de ingeniería. Conoce los capítulos y únete.">
 
       <div class="hero" id="hero">
-        <!-- VISOR: fotos de la portada que rotan en bucle (js/hero.js, lista en js/config.js → portada).
-             · La primera foto se pinta de inmediato y es el LCP; las demás se cargan después, una por una.
-             · Escritorio: a pantalla completa. Celular en vertical: franja 16:9 completa bajo el encabezado. -->
+
         <div class="visor" id="visor" aria-hidden="true">
           <div class="visor-media" id="visor-media">
             <img class="visor-slide is-on" id="visor-poster" alt="" width="1600" height="900" fetchpriority="high" decoding="async"
@@ -174,8 +166,7 @@
             <a class="btn btn-ghost-light" href="/capitulos">Ver capítulos y grupos</a>
           </div>
         </div>
-        <!-- Zona invisible en el borde derecho del visor: un clic pasa a la siguiente foto (js/hero.js la activa).
-             Sin JS queda oculta. El aviso (una mano que toca) se ve ~1 s al abrir la portada o al volver a Inicio. -->
+
         <button class="visor-next" id="visor-next" type="button" aria-label="Siguiente foto de la portada" hidden>
           <span class="visor-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" focusable="false"><path class="hand" d="M8 13.2V3.75a1.75 1.75 0 0 1 3.5 0V9.25a1.5 1.5 0 0 1 3 0V10a1.5 1.5 0 0 1 3 0v.75a1.5 1.5 0 0 1 3 0V16c0 3.5-2.5 6-6 6h-1.5c-2.4 0-3.8-.8-5.1-2.1l-3.7-3.7a1.5 1.5 0 0 1 2.1-2.1L8 15.6Z"/><path class="hand-lines" d="M11.5 9.5V13M14.5 10v3M17.5 10.75V13"/></svg></span>
         </button>
@@ -184,9 +175,6 @@
         </div>
       </div>
 
-      <!-- Becas IEEE: vitrina de becados (la dibuja js/becados.js desde js/data/becados.js).
-           Línea de tiempo de congresos arriba (pestañas) y el detalle de cada uno debajo; el visor
-           "aterriza" en el marco de su foto. Agregar un programa = agregar un objeto en el archivo de datos. -->
       <section class="band band-surface becas" id="becados" aria-labelledby="h-becas">
         <div class="wrap">
           <div class="becas-head">
@@ -232,9 +220,6 @@
         </div>
       </section>
 
-      <!-- Franja de logos de capítulos (la dibuja js/chapters.js desde js/data/chapters.js).
-           Logos a color en modo claro y en blanco en modo oscuro; tamaño por área visual equivalente.
-           Si no caben a lo ancho, se recorre acercando el cursor a un extremo, con las flechas o deslizando. -->
       <section class="band band-surface band-logos" aria-labelledby="h-indice">
         <div class="wrap">
           <div class="index-head">
@@ -260,7 +245,7 @@
           <div>
             <span class="section-label mono">04 · Historia</span>
             <h2 class="section-title" id="h-historia">Cómo empezó la rama</h2>
-            <!-- Hito institucional (dorado): primera Rama Estudiantil y fecha oficial de fundación -->
+            <!-- Hito de fundación -->
             <div class="founding">
               <span class="founding-kicker mono">Primera Rama Estudiantil</span>
               <p class="founding-date"><time datetime="1970-08-25">25 de agosto de 1970</time></p>
@@ -321,9 +306,7 @@
     </section>
 
     <!-- ============ EVENTOS ============ -->
-    <!-- Eventos destacados, en el orden que decide la rama (el MTT-S BPC Workshop va al centro).
-         Agregar uno = copiar un <li class="event">,
-         cambiar sus datos y poner su imagen en assets/img/eventos/ en 4:5 (480 × 600 y 960 × 1200, WebP). -->
+
     <section class="page" id="eventos" aria-labelledby="h-eventos"
       data-title="Eventos destacados | IEEE Student Branch EPN"
       data-description="Eventos destacados de la Rama Estudiantil IEEE de la EPN: talleres, competencias, escuelas de verano, charlas y alianzas de sus capítulos.">
@@ -413,8 +396,7 @@
     </section>
 
     <!-- ============ OPORTUNIDADES ============ -->
-    <!-- Tarjetas y filtros: js/oportunidades.js. Datos: js/data/oportunidades.js
-         (hoja "IEEE Opportunities Hub Ecuador 2026"). Las cifras de abajo son el respaldo sin JS; el script las recalcula. -->
+    <!-- Tarjetas y filtros: js/oportunidades.js -->
     <section class="page active" id="oportunidades" aria-labelledby="h-oportunidades"
       data-title="Oportunidades IEEE 2026: becas, premios y fondos | IEEE Student Branch EPN"
       data-description="Becas de viaje, premios, fondos para proyectos, mentorías y congresos de CS, RAS, WIE, GRSS, MTT-S, AESS, SIGHT y ComSoc, reunidos por la Rama Estudiantil IEEE de la EPN.">
@@ -464,8 +446,7 @@
     </section>
 
     <!-- ============ DESARROLLADORES ============ -->
-    <!-- Página sin entrada en el menú: solo se llega desde "Desarrolladores oficiales" en el pie.
-         Fotos: assets/img/desarrolladores/*.webp (4:5, fondo transparente, 480 y 720 px). -->
+
     <section class="page" id="desarrolladores" aria-labelledby="h-desarrolladores"
       data-title="Desarrolladores oficiales | IEEE Student Branch EPN"
       data-description="Equipo que diseñó y desarrolló el sitio web de la Rama Estudiantil IEEE de la Escuela Politécnica Nacional.">
@@ -507,8 +488,7 @@
           <span class="section-label mono">Directiva</span>
           <h2 class="section-title" id="h-board">Equipo directivo</h2>
           <p class="lead">Directiva del periodo vigente. IEEE pide registrar Chair, Counselor y Webmaster en vTools.</p>
-          <!-- Directiva en pirámide: Counselor arriba, Chair y Vice Chair al medio, el resto abajo.
-               Fotos: assets/img/directiva/*.webp (480 × 600, 4:5). -->
+          <!-- Directiva en pirámide -->
           <ul class="people board">
             <li class="person tier-1"><img class="person-photo" src="assets/img/directiva/counselor.webp" width="480" height="600" alt="Dr. Fabián Perez, Branch Counselor" loading="lazy" decoding="async"><span class="role mono">Branch Counselor</span><h3>Dr. Fabián Perez</h3></li>
             <li class="person tier-2"><img class="person-photo" src="assets/img/directiva/chair.webp" width="480" height="600" alt="Elias Viteri, Chair" loading="lazy" decoding="async"><span class="role mono">Chair</span><h3>Elias Viteri</h3></li>
@@ -532,8 +512,7 @@
           <p class="lead">¿Quieres unirte a un capítulo o proponer una actividad? Escríbenos.</p>
         </div>
       </div>
-      <!-- Contacto: formulario (izquierda) y redes de la rama (derecha), en tarjetas.
-           La validación y el envío los hace js/form.js; las opciones de "Capítulo de interés" las agrega js/chapters.js. -->
+      <!-- Contacto: formulario (js/form.js) y redes -->
       <div class="band band-surface">
         <div class="wrap contact">
           <div class="contact-card contact-form-card">
@@ -608,11 +587,7 @@
     </section>
   </main>
 
-  <!-- ============ PIE DE PÁGINA ============
-       Compacto (≈ 400–440 px de alto en escritorio): presentación a la izquierda y medio planeta a la derecha.
-       Desde 960 px: "Red IEEE" sigue el borde superior del planeta y "Contacto" el inferior
-       (cada grupo tiene un float con shape-outside: circle, sin JS). Pantallas menores: todo apilado en el orden del HTML.
-       El degradado de transición con la sección anterior es el ::before de .site-footer (CSS). -->
+  <!-- ============ PIE DE PÁGINA ============-->
   <footer class="site-footer">
     <div class="foot-hero">
       <div class="wrap foot-main">
@@ -652,8 +627,7 @@
           </div>
         </nav>
 
-        <!-- Aviso legal mínimo, sin franja propia. El copyright y estos enlaces los pide IEEE
-             (Brand Experience, Global Page Elements); para quitarlos, borra este bloque. -->
+        <!-- Aviso legal requerido por IEEE -->
         <div class="foot-legal">
           <p lang="en">© Copyright <span id="year">2026</span> IEEE EPN – All rights reserved. A public charity, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.</p>
           <ul class="admin-links" aria-label="Avisos legales de IEEE">
@@ -669,16 +643,14 @@
           </ul>
         </div>
       </div>
-      <!-- Globo de puntos (imagen estática, datos Natural Earth de dominio público): Ecuador en celeste, marcador en el centro de Ecuador (--px/--py en css/layout.css).
-           El marcador (punto + etiqueta) es un enlace a la ubicación de la EPN en Google Maps. Va después del contenido del pie
-           para que sea la última parada del tabulador, igual que su lugar visual en móvil (franja al final). -->
+      <!-- Globo con enlace a la ubicación de la EPN -->
       <div class="foot-globe">
         <img src="assets/img/globe-ecuador.svg" alt="" width="900" height="900" loading="lazy" decoding="async">
         <a class="globe-pin" href="https://maps.app.goo.gl/S6yPkwnSJmmtby6cA" target="_blank" rel="noopener noreferrer" aria-label="Escuela Politécnica Nacional · Quito: ver la ubicación en Google Maps" aria-describedby="nueva-pestana"><span class="globe-pin-label">Escuela Politécnica Nacional · Quito</span></a>
       </div>
     </div>
   </footer>
-  <!-- Descripción para lectores de pantalla de los enlaces externos (aria-describedby="nueva-pestana") -->
+  <!-- Aviso de enlaces externos para lectores de pantalla -->
   <span id="nueva-pestana" hidden>Se abre en una pestaña nueva</span>
 </body>
 </html>
