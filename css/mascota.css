@@ -14,9 +14,11 @@
 
 /* ---------- Búho del borde ---------- */
 .mascot {
-  position: fixed; z-index: 45; right: 0; bottom: 110px;   /* bajo el encabezado (50) y su menú */
-  width: 118px; padding: 0; border: 0; background: none; cursor: pointer;
-  transform: translateX(52%) rotate(-28deg); transform-origin: 100% 100%;
+  /* Esquina inferior derecha: asoma el globo y los dos ojos, con la cabeza inclinada hacia la esquina
+     (bajo el encabezado, z 50, y su menú; respeta la barra inferior de los iPhone) */
+  position: fixed; z-index: 45; right: 0; bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+  width: 156px; padding: 0; border: 0; background: none; cursor: pointer;
+  transform: translate(22%, 0) rotate(8deg); transform-origin: 100% 100%;
   transition: transform .55s var(--m-bounce);
   -webkit-tap-highlight-color: transparent;
 }
@@ -26,10 +28,10 @@
   filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)
           drop-shadow(0 6px 10px rgba(0, 20, 46, .28));
 }
-.mascot:hover, .mascot:focus-visible { transform: translateX(-14px) rotate(0); }
+.mascot:hover, .mascot:focus-visible { transform: translate(-14px, -14px) rotate(0); }
 .mascot:hover .mascot-img, .mascot:focus-visible .mascot-img { animation: mascot-wiggle .9s ease-in-out .5s 1; }
 .mascot:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 4px; }
-.mascot.is-away { transform: translateX(130%) rotate(0); transition-duration: .35s; transition-timing-function: ease-in; }
+.mascot.is-away { transform: translate(130%, 0) rotate(0); transition-duration: .35s; transition-timing-function: ease-in; }
 
 /* Globo "¡Hola!" a la izquierda, con su pico */
 .mascot-hi {
@@ -47,7 +49,7 @@
 .mascot:hover .mascot-hi, .mascot:focus-visible .mascot-hi { opacity: 1; transform: none; transition-delay: .35s; }
 @keyframes mascot-wiggle { 0%, 100% { transform: none; } 20% { transform: rotate(-7deg); } 45% { transform: rotate(6deg); } 70% { transform: rotate(-3deg); } }
 
-@media (min-width: 761px) { .mascot { width: 150px; bottom: 130px; } }
+@media (min-width: 761px) { .mascot { width: 200px; } }
 
 /* ---------- Viaje: fondo, avión y globo ---------- */
 .trip { position: fixed; inset: 0; z-index: 200; font-family: var(--f-sans); }
