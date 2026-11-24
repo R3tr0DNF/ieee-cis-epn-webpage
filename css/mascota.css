@@ -1,0 +1,146 @@
+/* ==========================================================
+   Mascota de la rama (js/mascota.js)
+   · Reposo: botón fijo en el borde derecho; solo asoma media cabeza.
+   · Al apuntar o enfocar: sale con rebote, se mueve un poco y saluda.
+   · Al pulsar: llega en avión con un globo de destinos (role="dialog").
+   Paleta IEEE fija (no cambia con el tema): el globo es un "cómic" blanco
+   que se lee igual sobre la página clara u oscura. Esquinas rectas.
+   ========================================================== */
+.mascot, .trip {
+  --m-navy: #002855; --m-blue: #00629B; --m-light: #E8F1F8; --m-gold: #C9A227;
+  --m-text: #3A4756;           /* 9.4:1 sobre blanco */
+  --m-bounce: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* ---------- Búho del borde ---------- */
+.mascot {
+  position: fixed; z-index: 45; right: 0; bottom: 110px;   /* bajo el encabezado (50) y su menú */
+  width: 118px; padding: 0; border: 0; background: none; cursor: pointer;
+  transform: translateX(52%) rotate(-28deg); transform-origin: 100% 100%;
+  transition: transform .55s var(--m-bounce);
+  -webkit-tap-highlight-color: transparent;
+}
+.mascot[hidden] { display: none; }
+.mascot-img {
+  display: block; width: 100%; height: auto;
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)
+          drop-shadow(0 6px 10px rgba(0, 20, 46, .28));
+}
+.mascot:hover, .mascot:focus-visible { transform: translateX(-14px) rotate(0); }
+.mascot:hover .mascot-img, .mascot:focus-visible .mascot-img { animation: mascot-wiggle .9s ease-in-out .5s 1; }
+.mascot:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 4px; }
+.mascot.is-away { transform: translateX(130%) rotate(0); transition-duration: .35s; transition-timing-function: ease-in; }
+
+/* Globo "¡Hola!" a la izquierda, con su pico */
+.mascot-hi {
+  position: absolute; right: calc(100% + 12px); top: 18%;
+  padding: 6px 12px; background: var(--m-navy); color: #fff; white-space: nowrap;
+  font-family: var(--f-sans); font-size: .875rem; font-weight: 700; line-height: 1.3;
+  box-shadow: 0 6px 16px -6px rgba(0, 20, 46, .5);
+  opacity: 0; transform: translateX(8px); pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.mascot-hi::after {
+  content: ""; position: absolute; left: 100%; top: 50%; margin-top: -6px;
+  border: 6px solid transparent; border-left-color: var(--m-navy);
+}
+.mascot:hover .mascot-hi, .mascot:focus-visible .mascot-hi { opacity: 1; transform: none; transition-delay: .35s; }
+@keyframes mascot-wiggle { 0%, 100% { transform: none; } 20% { transform: rotate(-7deg); } 45% { transform: rotate(6deg); } 70% { transform: rotate(-3deg); } }
+
+@media (min-width: 761px) { .mascot { width: 150px; bottom: 130px; } }
+
+/* ---------- Viaje: fondo, avión y globo ---------- */
+.trip { position: fixed; inset: 0; z-index: 200; font-family: var(--f-sans); }
+.trip[hidden] { display: none; }
+.trip-backdrop { position: absolute; inset: 0; background: rgba(0, 20, 45, .35); animation: trip-fade .3s ease both; }
+.trip.is-leaving .trip-backdrop { animation: trip-fade .35s ease .55s reverse both; }
+@keyframes trip-fade { from { opacity: 0; } }
+
+.trip-fly {
+  position: absolute; right: 12px; bottom: 12px; width: min(360px, 100vw - 24px);
+  display: flex; flex-direction: column;
+  animation: trip-in 1.4s cubic-bezier(.22, .9, .3, 1.12) both;
+}
+.trip.is-leaving .trip-fly { animation: trip-out 1s cubic-bezier(.5, 0, .9, .4) both; }
+@keyframes trip-in {
+  0%   { transform: translate(70vw, -90vh) rotate(-10deg); }
+  78%  { transform: translate(-8px, 6px) rotate(2deg); }
+  90%  { transform: translate(3px, -3px) rotate(-1deg); }
+  100% { transform: none; }
+}
+@keyframes trip-out { to { transform: translate(-110vw, -95vh) rotate(-14deg); } }
+
+/* Globo de diálogo */
+.trip-bubble {
+  position: relative; margin-bottom: 46px; padding: 16px 16px 14px;   /* espacio para el pico sobre la cabeza del búho */
+  background: #fff; color: var(--m-text); border: 2px solid var(--m-navy);
+  box-shadow: 0 16px 36px -14px rgba(0, 20, 46, .55);
+}
+.trip-bubble::before, .trip-bubble::after {      /* pico hacia el búho */
+  content: ""; position: absolute; left: calc(51% - 12px); top: 100%; border: solid transparent;   /* 51 % = centro del búho */
+}
+.trip-bubble::before { border-width: 14px 12px 0; border-top-color: var(--m-navy); }
+.trip-bubble::after { border-width: 11px 9px 0; border-top-color: #fff; margin-left: 3px; }
+.trip-title { padding-right: 36px; color: var(--m-navy); font-size: 1.0625rem; font-weight: 800; line-height: 1.25; letter-spacing: -.01em; }
+.trip-sub { margin: 4px 0 12px; font-size: .9375rem; }
+.trip-close {
+  --c-focus: var(--m-blue);
+  position: absolute; top: 6px; right: 6px; display: grid; place-items: center; width: 40px; height: 40px;
+  padding: 0; border: 0; background: none; color: var(--m-navy); font-size: 1.75rem; line-height: 1; cursor: pointer;
+}
+.trip-close:hover { background: var(--m-light); }
+
+.trip-dests { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.trip-dest {
+  --c-focus: var(--m-gold);
+  display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 6px; align-content: start;
+  width: 100%; min-height: 56px; padding: 8px 10px; text-align: left;
+  border: 1px solid #B9CCDD; background: var(--m-light); color: var(--m-navy); cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.trip-dest-ic { grid-row: span 2; font-size: 1rem; line-height: 1.35; }
+.trip-dest-place { font-weight: 700; font-size: .9375rem; line-height: 1.3; overflow-wrap: anywhere; }
+.trip-dest-detail { font-size: .75rem; line-height: 1.35; color: var(--m-text); overflow-wrap: anywhere; }
+.trip-dest:hover, .trip-dest:focus-visible { background: var(--m-navy); border-color: var(--m-navy); color: #fff; }
+.trip-dest:hover .trip-dest-detail, .trip-dest:focus-visible .trip-dest-detail { color: #D5E3EF; }
+.trip-dest:focus-visible { outline: 3px solid var(--m-gold); outline-offset: 2px; }
+
+/* Avión con el búho encima: el avión sube y baja, el búho se balancea */
+.trip-ride { position: relative; animation: trip-bob 2.6s ease-in-out 1.4s infinite alternate; }
+.trip-plane { display: block; width: 100%; height: auto; overflow: visible; }
+.trip-owl {
+  position: absolute; left: 36%; bottom: 53%; width: 30%; height: auto; transform-origin: 50% 100%;
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff);
+  animation: trip-sway 1.8s ease-in-out infinite alternate;
+}
+@keyframes trip-bob { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+@keyframes trip-sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+
+.trip-plane .pl-body, .trip-plane .pl-tail, .trip-plane .pl-wing, .trip-plane .pl-stab, .trip-plane .pl-engine {
+  fill: #fff; stroke: #002855; stroke-width: 3; stroke-linejoin: round;
+}
+.trip-plane .pl-far { fill: #E3ECF4; }
+.trip-plane .pl-engine { fill: #E8F1F8; }
+.trip-plane .pl-stripe { fill: none; stroke: #00629B; stroke-width: 6; }
+.trip-plane .pl-cockpit { fill: #00629B; stroke: #002855; stroke-width: 2; }
+.trip-plane .pl-windows rect { fill: #9CC3E0; stroke: #002855; stroke-width: 1.5; }
+.trip-plane .pl-tailtext { fill: #002855; font-family: var(--f-sans); font-size: 11px; font-weight: 800; letter-spacing: .02em; }
+.trip-plane .trip-trail path { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 10 8; animation: trip-trail .6s linear infinite; filter: drop-shadow(0 0 1px rgba(0, 40, 85, .5)); }
+.trip-plane .trip-trail path:nth-child(2) { animation-duration: .45s; }
+@keyframes trip-trail { to { stroke-dashoffset: -18; } }
+
+/* Destino elegido: borde dorado que se apaga en ~2 s */
+.mascot-target { outline: 3px solid var(--m-gold, #C9A227); outline-offset: 6px; animation: mascot-target 2.2s ease-out .3s both; }
+@keyframes mascot-target {
+  from { outline-color: #C9A227; box-shadow: 0 0 0 10px rgba(201, 162, 39, .22); }
+  to   { outline-color: rgba(201, 162, 39, 0); box-shadow: 0 0 0 10px rgba(201, 162, 39, 0); }
+}
+
+html.trip-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot, .mascot-hi { transition: none; }
+  .mascot-img, .trip-backdrop, .trip-fly, .trip-ride, .trip-owl, .trip-plane .trip-trail path, .mascot-target { animation: none !important; }
+  .mascot-target { outline-color: #C9A227; }
+}
+@media print { .mascot, .trip { display: none !important; } }

@@ -24,5 +24,23 @@ window.IEEE_EPN.config = {
   form: {
     endpoint: '',
     email: 'rama.ieee@epn.edu.ec'   // PENDIENTE confirmar: tomado de la versión A, sin fuente oficial
+  },
+
+  /* Mascota (búho del borde derecho, js/mascota.js): destinos del avión.
+     place: ciudad · detail: "País · texto corto" · target, uno de estos:
+       '#id'               elemento de la vista actual
+       '/ruta' o '/ruta/id' vista del sitio y elemento dentro de ella ('/historia/rnr-2024')
+       '/#id'              elemento de Inicio ('/#beca-tab-ims-2026' abre esa pestaña de Becados)
+       'https://…'         sitio externo, en una pestaña nueva
+     Sin banderas emoji: en Windows se ven como letras. 2 columnas: mejor un número par. */
+  mascota: {
+    destinos: [
+      { place: 'Boston',  detail: 'EE. UU. · Beca IMS 2026',          target: '/#beca-tab-ims-2026' },
+      { place: 'Denver',  detail: 'EE. UU. · Beca IPC 2026',          target: '/#beca-tab-ipc-2026' },
+      { place: 'Natal',   detail: 'Brasil · Beca LACAP 2026',         target: '/#beca-tab-lacap-2026' },
+      { place: 'La Paz',  detail: 'Bolivia · 1.er lugar, 2010',       target: '/historia/casos-exito-2010' },
+      { place: 'Cuenca',  detail: 'Ecuador · Feria de Ramas 2024',    target: '/historia/rnr-2024' },
+      { place: 'Quito',   detail: 'Ecuador · Nuestra casa, la EPN',   target: 'https://maps.app.goo.gl/S6yPkwnSJmmtby6cA' }
+    ]
   }
 };

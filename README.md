@@ -29,6 +29,7 @@ css/base.css                reset, tipografía, foco, utilidades, etiqueta PENDI
 css/layout.css              meta-navegación IEEE, encabezado, navegación, páginas, pie
 css/components.css          botones, visor (firma), módulos de capítulo, formulario, redes
 css/pages.css               secciones de cada vista y responsive
+css/mascota.css             mascota del borde derecho y su viaje en avión
 js/config.js                configuración: pendientes visibles, fotos de la portada, formulario
 js/data/chapters.js         DATOS de capítulos y grupos (único archivo a editar para esa sección)
 js/chapters.js              plantilla única: tablero, índice de Inicio y opciones del formulario
@@ -41,6 +42,7 @@ js/oportunidades.js         vista /oportunidades: tarjetas, búsqueda y filtros
 js/router.js                vistas por ruta (History API, sin #; acepta enlaces antiguos con #), título, descripción y canonical, encabezado (sólido / se oculta al bajar), menú móvil, botón de tema
 js/hero.js                  fotos de la portada en bucle (carga de a una, pausa fuera de pantalla) y respaldo del efecto de scroll
 js/form.js                  validación accesible y envío del formulario
+js/mascota.js               mascota: diálogo del avión, destinos (de js/config.js), foco, Esc y resaltado del destino
 assets/fonts/               Open Sans + IBM Plex Mono (OFL), alojadas en el sitio
 assets/img/brand/           logos optimizados (WebP 1x/2x + PNG), IEEE Master Brand, favicon
 assets/img/brand/source/    archivos originales de marca (PNG y SVG), no se cargan en la página
@@ -53,12 +55,15 @@ assets/img/og-image.jpg     imagen al compartir el enlace
 assets/img/desarrolladores/ fotos de los desarrolladores del sitio (4:5, fondo transparente, WebP 480 y 720 px)
 assets/img/eventos/         imágenes de los eventos destacados (4:5, WebP 480 y 960 px)
 assets/img/historia/        fotos de placas, certificados y trofeos de la línea de tiempo (WebP, proporción original; se muestran completas)
+assets/img/mascota/         búho de la mascota (WebP 320 px, fondo transparente, ojos blancos)
 assets/img/portada/         fotos de la portada en bucle (16:9, WebP 640, 960, 1200 y 1600 px)
 ```
 
 ## Tareas frecuentes
 
 **Historia y reconocimientos (`/historia`).** La línea de tiempo la dibuja `js/historia.js` desde `js/data/historia.js`; el orden del arreglo es el orden en pantalla (del más antiguo al más reciente). Para agregar un momento, copia un objeto y cambia sus valores: `tipo: 'reconocimiento'` lleva punto dorado y `'hito'` (participación, evento, homenaje) cuadrado azul; `ambito` (`regional`, `nacional`, `rama`) alimenta los filtros; `premios` y `primeros` suman las cifras de la cabecera. Guarda las fotos en `assets/img/historia/` en WebP sin recortar (son documentos: se muestran completas) y anota su `w` y `h` reales. Si una fecha o un dato no está confirmado, dilo en `nota`. Inicio enlaza a esta vista desde "04 · Historia".
+
+**Mascota (búho del borde derecho).** Botón fijo que asoma media cabeza; al apuntarlo sale y saluda, y al pulsarlo llega en avión con un globo de destinos. Marcado al final de `index.html` (avión SVG dibujado a mano), estilos en `css/mascota.css`, comportamiento en `js/mascota.js`. Los destinos están en `js/config.js → mascota.destinos` (`place`, `detail`, `target`); `target` puede ser `#id` de la vista actual, una ruta del sitio (`/historia/rnr-2024`, `/#beca-tab-ims-2026` abre esa pestaña de Becados) o un `https://` que se abre en pestaña nueva. Al llegar, el destino se resalta con un borde dorado que se apaga en ~2 s. Sin banderas emoji (en Windows se ven como letras). La imagen `assets/img/mascota/mascot.webp` (320 px, transparente) sale de `assets/img/brand/source/svg/buho-mascota.svg`: el SVG ya trae fondo transparente, pero el blanco de los ojos es un hueco; al exportar se rellenaron de blanco solo las zonas transparentes encerradas.
 
 **Menú principal.** Con siete enlaces, el menú cabe en línea desde 1361 px; debajo se usa el menú desplegable (`@media (max-width: 1360px)` en `css/pages.css`). Si agregas otro enlace, mide de nuevo y sube ese punto de corte.
 

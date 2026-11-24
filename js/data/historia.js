@@ -179,18 +179,5 @@ window.IEEE_EPN.historia = [
       { src: 'assets/img/historia/r9sac-website-contest.webp', w: 1152, h: 835, alt: 'Certificado de tercer lugar en el IEEE R9 Student Website Contest' }
     ],
     publicar: true
-  },
-  {
-    id: 'trofeo-sin-placa', anio: 'Sin fecha', fecha: 'Por identificar', iso: '',
-    ambito: 'rama', tipo: 'reconocimiento', etiqueta: 'Trofeo',
-    titulo: 'Trofeo de la rama',
-    lugar: 'Sede de la Rama IEEE EPN',
-    desc: 'Trofeo conservado en la sede de la rama.',
-    premios: 1, primeros: 0,
-    nota: 'No tiene placa; falta confirmar evento y año.',
-    fotos: [
-      { src: 'assets/img/historia/trofeo-sin-placa.webp', w: 291, h: 1145, alt: 'Trofeo sin placa conservado en la sede de la rama' }
-    ],
-    publicar: true
   }
 ];

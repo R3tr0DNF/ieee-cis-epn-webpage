@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="css/layout.css?v=20261120-1">
   <link rel="stylesheet" href="css/components.css?v=20261120-3">
   <link rel="stylesheet" href="css/pages.css?v=20261123-1">
+  <link rel="stylesheet" href="css/mascota.css?v=20261123-1">
 
   <script type="application/ld+json">
   {
@@ -63,18 +64,19 @@
   }
   </script>
 
-  <script src="js/config.js?v=20261117-1" defer></script>
+  <script src="js/config.js?v=20261123-1" defer></script>
   <script src="js/data/chapters.js?v=20261117-1" defer></script>
   <script src="js/chapters.js?v=20261117-1" defer></script>
   <script src="js/data/becados.js?v=20261117-1" defer></script>
   <script src="js/becados.js?v=20261117-1" defer></script>
   <script src="js/data/oportunidades.js?v=20261117-1" defer></script>
   <script src="js/oportunidades.js?v=20261117-2" defer></script>
-  <script src="js/data/historia.js?v=20261123-1" defer></script>
-  <script src="js/historia.js?v=20261123-1" defer></script>
+  <script src="js/data/historia.js?v=20261123-2" defer></script>
+  <script src="js/historia.js?v=20261123-2" defer></script>
   <script src="js/router.js?v=20261117-1" defer></script>
   <script src="js/hero.js?v=20261120-3" defer></script>
   <script src="js/form.js?v=20261117-1" defer></script>
+  <script src="js/mascota.js?v=20261123-1" defer></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -301,7 +303,7 @@
           <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Historia</li></ol>
           <h1 id="h-hist" tabindex="-1">Historia y reconocimientos</h1>
           <p class="lead">Un recorrido por los momentos y reconocimientos que la rama guarda en su sede: participaciones en las reuniones de la Región 9, premios de IEEE Sección Ecuador y eventos que organizó. Selecciona una foto para verla en grande.</p>
-          <p class="head-readout mono"><span><b data-hist="momentos">14</b> momentos</span><span><b data-hist="premios">13</b> reconocimientos</span><span><b data-hist="primeros">4</b> primeros lugares</span><span>de <b data-hist="desde">2006</b> a <b data-hist="hasta">2025</b></span></p>
+          <p class="head-readout mono"><span><b data-hist="momentos">13</b> momentos</span><span><b data-hist="premios">12</b> reconocimientos</span><span><b data-hist="primeros">4</b> primeros lugares</span><span>de <b data-hist="desde">2006</b> a <b data-hist="hasta">2025</b></span></p>
         </div>
       </div>
       <div class="band">
@@ -312,7 +314,6 @@
           </div>
           <ol class="tl" id="tl" aria-label="Línea de tiempo de la rama"></ol>
           <noscript><p class="opp-empty">La línea de tiempo necesita JavaScript. Actívalo para verla.</p></noscript>
-          <p class="opp-source">Fuente: placas, certificados y fotos que se conservan en la sede de la rama. Cuando una fecha no está confirmada, se indica en el mismo momento.</p>
         </div>
       </div>
     </section>
@@ -680,6 +681,47 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============ MASCOTA ============ -->
+  <!-- Búho en el borde derecho; al pulsarlo llega en avión con destinos (js/mascota.js, css/mascota.css;
+       destinos en js/config.js → mascota.destinos). Sin JavaScript no se muestra. -->
+  <button class="mascot" id="mascot" type="button" aria-label="Mascota de la rama: ver destinos" aria-haspopup="dialog" aria-controls="trip" hidden>
+    <img class="mascot-img" src="assets/img/mascota/mascot.webp" alt="" width="320" height="267" decoding="async">
+    <span class="mascot-hi" aria-hidden="true">¡Hola! Haz clic ✈️</span>
+  </button>
+  <div class="trip" id="trip" role="dialog" aria-modal="true" aria-labelledby="trip-title" aria-hidden="true" hidden>
+    <div class="trip-backdrop" data-trip-close></div>
+    <div class="trip-fly">
+      <div class="trip-bubble">
+        <button class="trip-close" type="button" aria-label="Cerrar" data-trip-close><span aria-hidden="true">×</span></button>
+        <h2 class="trip-title" id="trip-title">¡Viaja con la Rama Estudiantil IEEE!</h2>
+        <p class="trip-sub">Elige un destino:</p>
+        <ul class="trip-dests" id="trip-dests"></ul>
+      </div>
+      <div class="trip-ride">
+        <img class="trip-owl" src="assets/img/mascota/mascot.webp" alt="" width="320" height="267" loading="lazy" decoding="async">
+        <!-- Avión dibujado a mano, de perfil y mirando a la izquierda -->
+        <svg class="trip-plane" viewBox="0 0 360 140" aria-hidden="true" focusable="false">
+          <defs><clipPath id="trip-body"><path d="M30 86C30 72 52 62 86 62H286C300 62 318 68 328 76V90C318 96 300 100 286 100H58C42 100 30 94 30 86Z"/></clipPath></defs>
+          <g class="trip-trail">
+            <path d="M332 70H360"/><path d="M336 82H360"/><path d="M332 94H360"/>
+          </g>
+          <path class="pl-wing pl-far" d="M176 62H210L190 40H176Z"/>
+          <path class="pl-tail" d="M262 62H304L332 12H296Z"/>
+          <text class="pl-tailtext" x="301" y="34" text-anchor="middle">IEEE</text>
+          <text class="pl-tailtext" x="293" y="47" text-anchor="middle">EPN</text>
+          <path class="pl-body" d="M30 86C30 72 52 62 86 62H286C300 62 318 68 328 76V90C318 96 300 100 286 100H58C42 100 30 94 30 86Z"/>
+          <path class="pl-stripe" clip-path="url(#trip-body)" d="M26 90H332"/>
+          <path class="pl-cockpit" d="M40 80C44 72 52 68 64 67V80Z"/>
+          <g class="pl-windows"><rect x="94" y="71" width="9" height="9"/><rect x="114" y="71" width="9" height="9"/><rect x="134" y="71" width="9" height="9"/><rect x="154" y="71" width="9" height="9"/><rect x="214" y="71" width="9" height="9"/><rect x="234" y="71" width="9" height="9"/><rect x="254" y="71" width="9" height="9"/></g>
+          <path class="pl-stab" d="M290 84H332L342 74H318Z"/>
+          <path class="pl-wing" d="M150 90H214L176 132H144Z"/>
+          <rect class="pl-engine" x="152" y="100" width="34" height="14"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
   <!-- Aviso de enlaces externos para lectores de pantalla -->
   <span id="nueva-pestana" hidden>Se abre en una pestaña nueva</span>
 </body>
