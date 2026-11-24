@@ -44,7 +44,7 @@
   <link rel="stylesheet" href="css/base.css?v=20261117-1">
   <link rel="stylesheet" href="css/layout.css?v=20261120-1">
   <link rel="stylesheet" href="css/components.css?v=20261120-3">
-  <link rel="stylesheet" href="css/pages.css?v=20261120-5">
+  <link rel="stylesheet" href="css/pages.css?v=20261123-1">
 
   <script type="application/ld+json">
   {
@@ -70,6 +70,8 @@
   <script src="js/becados.js?v=20261117-1" defer></script>
   <script src="js/data/oportunidades.js?v=20261117-1" defer></script>
   <script src="js/oportunidades.js?v=20261117-2" defer></script>
+  <script src="js/data/historia.js?v=20261123-1" defer></script>
+  <script src="js/historia.js?v=20261123-1" defer></script>
   <script src="js/router.js?v=20261117-1" defer></script>
   <script src="js/hero.js?v=20261120-3" defer></script>
   <script src="js/form.js?v=20261117-1" defer></script>
@@ -108,6 +110,7 @@
       <nav class="main-nav" id="menu" aria-label="Principal">
         <ul>
           <li><a href="/">Inicio</a></li>
+          <li><a href="/historia">Historia</a></li>
           <li><a href="/capitulos">Capítulos y grupos</a></li>
           <li><a href="/eventos">Eventos</a></li>
           <li><a class="nav-gold" href="/oportunidades"><svg class="nav-spark" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.5l2.3 6.6a2.4 2.4 0 0 0 1.5 1.5l6.7 2.4-6.7 2.4a2.4 2.4 0 0 0-1.5 1.5L12 22.5l-2.3-6.6a2.4 2.4 0 0 0-1.5-1.5L1.5 12l6.7-2.4a2.4 2.4 0 0 0 1.5-1.5z"/></svg><span class="nav-gold-t">Oportunidades</span></a></li>
@@ -251,6 +254,7 @@
               <p class="founding-date"><time datetime="1970-08-25">25 de agosto de 1970</time></p>
               <p class="founding-note">Fecha oficial de fundación de IEEE Student Branch EPN.</p>
             </div>
+            <a class="link-arrow story-link" href="/historia">Ver la línea de tiempo y los reconocimientos <span class="arrow" aria-hidden="true">→</span></a>
           </div>
           <ol class="steps">
             <li><span class="mono">La idea</span><h3>Estudiantes con una misma convicción</h3><p>En la EPN nació del entusiasmo de estudiantes con una misma convicción: la tecnología no solo debe aprenderse, también debe construirse para transformar el mundo.</p></li>
@@ -285,6 +289,32 @@
           </div>
         </div>
       </section>
+    </section>
+
+    <!-- ============ HISTORIA ============ -->
+    <!-- Línea de tiempo y filtros: js/historia.js (datos en js/data/historia.js) -->
+    <section class="page" id="historia" aria-labelledby="h-hist"
+      data-title="Historia y reconocimientos | IEEE Student Branch EPN"
+      data-description="Línea de tiempo de la Rama Estudiantil IEEE de la EPN: participaciones en la Región 9, reconocimientos de IEEE Sección Ecuador, primeros lugares y momentos que marcaron su historia.">
+      <div class="page-head">
+        <div class="wrap">
+          <ol class="breadcrumb mono" aria-label="Ruta"><li><a href="/">Inicio</a></li><li aria-current="page">Historia</li></ol>
+          <h1 id="h-hist" tabindex="-1">Historia y reconocimientos</h1>
+          <p class="lead">Un recorrido por los momentos y reconocimientos que la rama guarda en su sede: participaciones en las reuniones de la Región 9, premios de IEEE Sección Ecuador y eventos que organizó. Selecciona una foto para verla en grande.</p>
+          <p class="head-readout mono"><span><b data-hist="momentos">14</b> momentos</span><span><b data-hist="premios">13</b> reconocimientos</span><span><b data-hist="primeros">4</b> primeros lugares</span><span>de <b data-hist="desde">2006</b> a <b data-hist="hasta">2025</b></span></p>
+        </div>
+      </div>
+      <div class="band">
+        <div class="wrap">
+          <div class="tl-tools">
+            <div class="tl-filters" id="tl-filters" role="group" aria-label="Filtrar la línea de tiempo" hidden></div>
+            <p id="tl-count" class="mono" role="status"></p>
+          </div>
+          <ol class="tl" id="tl" aria-label="Línea de tiempo de la rama"></ol>
+          <noscript><p class="opp-empty">La línea de tiempo necesita JavaScript. Actívalo para verla.</p></noscript>
+          <p class="opp-source">Fuente: placas, certificados y fotos que se conservan en la sede de la rama. Cuando una fecha no está confirmada, se indica en el mismo momento.</p>
+        </div>
+      </div>
     </section>
 
     <!-- ============ CAPÍTULOS Y GRUPOS ============ -->

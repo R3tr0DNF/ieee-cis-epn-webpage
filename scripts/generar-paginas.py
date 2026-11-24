@@ -19,15 +19,24 @@ import re
 import sys
 
 SITE = 'https://ieee-epn.org'
-SECCIONES = ['capitulos', 'eventos', 'oportunidades', 'directiva', 'contacto', 'desarrolladores']
+SECCIONES = ['historia', 'capitulos', 'eventos', 'oportunidades', 'directiva', 'contacto', 'desarrolladores']
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AVISO = ('<!-- GENERADO por scripts/generar-paginas.py a partir de index.html. No lo edites a mano:\n'
          '     cambia index.html y vuelve a ejecutar el script. -->\n')
 
 
 def leer(nombre):
+    """Lee el archivo con los saltos de línea normalizados a \\n.
+
+    En Windows, Git suele entregar los archivos con \\r\\n (core.autocrlf); el script
+    trabaja siempre con \\n y al escribir usa el mismo salto de línea que index.html."""
     with io.open(os.path.join(RAIZ, nombre), encoding='utf-8', newline='') as f:
-        return f.read()
+        return f.read().replace('\r\n', '\n')
+
+
+def salto_de_linea(nombre):
+    with io.open(os.path.join(RAIZ, nombre), encoding='utf-8', newline='') as f:
+        return '\r\n' if '\r\n' in f.read() else '\n'
 
 
 def reemplazar(html, patron, nuevo, nombre):
@@ -70,6 +79,7 @@ def sitemap():
 def main():
     check = '--check' in sys.argv
     base = leer('index.html')
+    eol = salto_de_linea('index.html')
     salidas = {s + '.html': pagina(base, s) for s in SECCIONES}
     salidas['sitemap.xml'] = sitemap()
     desactualizados = []
@@ -81,7 +91,7 @@ def main():
         desactualizados.append(nombre)
         if not check:
             with io.open(ruta, 'w', encoding='utf-8', newline='') as f:
-                f.write(contenido)
+                f.write(contenido.replace('\n', eol))
     if check:
         if desactualizados:
             sys.exit('Desactualizados (ejecuta python scripts/generar-paginas.py): ' + ', '.join(desactualizados))

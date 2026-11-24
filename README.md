@@ -15,8 +15,8 @@ Las vistas usan rutas limpias sin `#` (`/capitulos`, `/directiva`…), así que 
 ## Estructura
 
 ```
-index.html                  todas las vistas: /, /capitulos, /eventos, /directiva, /contacto y /desarrolladores (solo desde el pie) (<base href="/">); CSP en <meta>
-capitulos.html, eventos.html, directiva.html, contacto.html, desarrolladores.html
+index.html                  todas las vistas: /, /historia, /capitulos, /eventos, /oportunidades, /directiva, /contacto y /desarrolladores (solo desde el pie) (<base href="/">); CSP en <meta>
+historia.html, capitulos.html, eventos.html, oportunidades.html, directiva.html, contacto.html, desarrolladores.html
                             copias de index.html para buscadores (GENERADAS: no se editan a mano, ver "SEO de las vistas internas")
 scripts/generar-paginas.py  genera esas copias y sitemap.xml a partir de index.html (no se publica)
 entregables/                memoria técnica en PDF (no se publica)
@@ -34,6 +34,10 @@ js/data/chapters.js         DATOS de capítulos y grupos (único archivo a edita
 js/chapters.js              plantilla única: tablero, índice de Inicio y opciones del formulario
 js/data/becados.js          DATOS de las becas IEEE: un objeto por congreso, con sus becados (fuente: LACAP 2026.docx)
 js/becados.js               vitrina "Becados" de Inicio: línea de tiempo (pestañas ARIA) + panel con foto y nombres
+js/data/historia.js         DATOS de la vista Historia: un objeto por momento (reconocimiento o hito), con sus fotos
+js/historia.js              vista /historia: línea de tiempo (1 columna en celular, 2 alternadas desde 900 px), filtros y fotos ampliadas en <dialog>
+js/data/oportunidades.js    DATOS de la vista Oportunidades (fuente: hoja IEEE Opportunities Hub Ecuador 2026)
+js/oportunidades.js         vista /oportunidades: tarjetas, búsqueda y filtros
 js/router.js                vistas por ruta (History API, sin #; acepta enlaces antiguos con #), título, descripción y canonical, encabezado (sólido / se oculta al bajar), menú móvil, botón de tema
 js/hero.js                  fotos de la portada en bucle (carga de a una, pausa fuera de pantalla) y respaldo del efecto de scroll
 js/form.js                  validación accesible y envío del formulario
@@ -48,10 +52,15 @@ assets/img/globe-ecuador.svg  globo estático del pie (Natural Earth, dominio p�
 assets/img/og-image.jpg     imagen al compartir el enlace
 assets/img/desarrolladores/ fotos de los desarrolladores del sitio (4:5, fondo transparente, WebP 480 y 720 px)
 assets/img/eventos/         imágenes de los eventos destacados (4:5, WebP 480 y 960 px)
+assets/img/historia/        fotos de placas, certificados y trofeos de la línea de tiempo (WebP, proporción original; se muestran completas)
 assets/img/portada/         fotos de la portada en bucle (16:9, WebP 640, 960, 1200 y 1600 px)
 ```
 
 ## Tareas frecuentes
+
+**Historia y reconocimientos (`/historia`).** La línea de tiempo la dibuja `js/historia.js` desde `js/data/historia.js`; el orden del arreglo es el orden en pantalla (del más antiguo al más reciente). Para agregar un momento, copia un objeto y cambia sus valores: `tipo: 'reconocimiento'` lleva punto dorado y `'hito'` (participación, evento, homenaje) cuadrado azul; `ambito` (`regional`, `nacional`, `rama`) alimenta los filtros; `premios` y `primeros` suman las cifras de la cabecera. Guarda las fotos en `assets/img/historia/` en WebP sin recortar (son documentos: se muestran completas) y anota su `w` y `h` reales. Si una fecha o un dato no está confirmado, dilo en `nota`. Inicio enlaza a esta vista desde "04 · Historia".
+
+**Menú principal.** Con siete enlaces, el menú cabe en línea desde 1361 px; debajo se usa el menú desplegable (`@media (max-width: 1360px)` en `css/pages.css`). Si agregas otro enlace, mide de nuevo y sube ese punto de corte.
 
 **Agregar o editar un capítulo.** En `js/data/chapters.js`, copia un objeto del arreglo `chapters` y cambia sus valores. El tablero, el índice de Inicio y el formulario se actualizan solos. El conteo oficial (12 capítulos técnicos, 2 councils y 2 grupos de afinidad) también sale de ahí: cada sociedad de un capítulo cuenta como capítulo técnico, salvo las que llevan «Council» en el nombre (RFID, TEC), y los recuadros de tipo `afinidad` o `sight` (WIE, SIGHT) cuentan como grupos de afinidad. No uses el término «grupos técnicos».
 
@@ -124,7 +133,7 @@ GitHub Pages no permite cabeceras HTTP propias. Por eso hay dos capas:
    - `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()`
 4. Comprobar con `curl -sI https://ieee-epn.org/` que aparecen las cabeceras.
 
-**SEO de las vistas internas.** GitHub Pages sirve `/capitulos` desde `capitulos.html` (estado 200, sin cambiar la URL), y lo mismo para `/eventos`, `/directiva`, `/contacto` y `/desarrolladores`. Esas cinco páginas son copias de `index.html` con el título, la descripción, el canonical y el Open Graph de su sección (salen de `data-title` y `data-description` de cada `<section>`) y esa sección ya activa. Así Google puede indexarlas y están en `sitemap.xml`.
+**SEO de las vistas internas.** GitHub Pages sirve `/capitulos` desde `capitulos.html` (estado 200, sin cambiar la URL), y lo mismo para `/historia`, `/eventos`, `/oportunidades`, `/directiva`, `/contacto` y `/desarrolladores`. Esas siete páginas son copias de `index.html` con el título, la descripción, el canonical y el Open Graph de su sección (salen de `data-title` y `data-description` de cada `<section>`) y esa sección ya activa. Así Google puede indexarlas y están en `sitemap.xml`.
 
 **Después de CADA cambio en `index.html`**, desde la raíz del repositorio ejecuta:
 
@@ -132,7 +141,7 @@ GitHub Pages no permite cabeceras HTTP propias. Por eso hay dos capas:
 python scripts/generar-paginas.py
 ```
 
-Eso regenera las cinco páginas y `sitemap.xml`. Haz commit de todo junto. `python scripts/generar-paginas.py --check` solo comprueba que estén al día. Si agregas una vista nueva, súmala a `SECCIONES` en el script. Las rutas de capítulo (`/capitulos/cis`…) y `/iniciativas` siguen pasando por `404.html`.
+Eso regenera las siete páginas y `sitemap.xml` (funciona igual con saltos de línea de Windows o de Linux). Haz commit de todo junto. `python scripts/generar-paginas.py --check` solo comprueba que estén al día. Si agregas una vista nueva, súmala a `SECCIONES` en el script. Las rutas de capítulo (`/capitulos/cis`…) y `/iniciativas` siguen pasando por `404.html`.
 
 **Nombre del sitio en Google.** La portada lleva datos `WebSite` (nombre "IEEE Student Branch EPN" y alternativos "IEEE EPN"…) además de `Organization`. Van solo en la portada: el script los quita de las copias. Valídalos en https://validator.schema.org.
 
